@@ -1,0 +1,43 @@
+/* Elimina el espaciado lateral del contenedor principal */
+.container-fluid {
+    padding: 0;
+    margin: 0;
+}
+
+/* Centra vertical y horizontalmente el formulario */
+.login-container {
+    width: 75%;
+    max-width: 400px;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Espaciado entre h1 y h5 */
+.col-6.text-center h1 {
+    margin-bottom: 0.5rem; /* Ajusta el espacio según sea necesario */
+}
+
+.col-6.text-center h5 {
+    margin-top: 0; /* Ajusta el espacio según sea necesario */
+}
+
+/* Icono de la contraseña */
+.mb-3 {
+    position: relative;
+}
+
+.fa-eye,
+.fa-eye-slash {
+    position: absolute;
+    top: 60%;
+    right: 10px;
+    cursor: pointer;
+}
+
+/* Tamaño del icono */
+.fa-eye,
+.fa-eye-slash {
+    font-size: 1.2rem;
+}
