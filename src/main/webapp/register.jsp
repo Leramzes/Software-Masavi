@@ -49,7 +49,7 @@
                         <a class="nav-link" href="#">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contáctanos</a>
+                        <a class="nav-link" href="contact_us.jsp">Contáctanos</a>
                     </li>
                 </ul>
 
