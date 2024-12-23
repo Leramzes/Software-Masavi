@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="development.team.software_masavi.Model.Product" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +24,9 @@
 <body>
 
 <%@ include file="header.jsp" %>
-
+<%
+    List<Product> listProducts = (List<Product>) request.getAttribute("products");
+%>
 <main class="bg-main">
     <!-- Contenido de la sección de productos destacados -->
     <div class="container py-4">
@@ -186,46 +190,21 @@
             <div class="col-md-9">
                 <div class="row row-cols-1 row-cols-md-3 gy-2">
                     <!-- Tarjeta de producto -->
+                    <%for(Product product : listProducts) {%>
                     <div class="col">
                         <div class="product-card product-item">
                             <img src="img/producto.jpg" alt="Producto 1" class="product">
-                            <h2>Waifu</h2>
-                            <h4>Precio Actual: S/99.99</h4>
+                            <h2><%=product.getName()%></h2>
+                            <h4>Precio Actual: <%=String.format("S/%d",product.getPrice()) %></h4>
                             <h5 class="tachado">Precio Anterior: S/100</h5>
-                            <p>Lleve su Waifu a buen precio</p>
+                            <p><%=product.getDescription()%></p>
                             <button type="button" class="btn btn-success w-100">
                                 Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
                             </button>
                         </div>
                     </div>
+                    <%}%>
 
-                    <!-- Tarjeta de producto -->
-                    <div class="col">
-                        <div class="product-card product-item">
-                            <img src="img/producto2.jpg" alt="Producto 2" class="product">
-                            <h2>Waifu</h2>
-                            <h4>Precio Actual: S/99.99</h4>
-                            <h5 class="tachado">Precio Anterior: S/100</h5>
-                            <p>Lleve su Waifu a buen precio</p>
-                            <button type="button" class="btn btn-success w-100">
-                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Más tarjetas -->
-                    <div class="col">
-                        <div class="product-card product-item">
-                            <img src="https://via.placeholder.com/150" alt="Producto 3" class="product">
-                            <h2>Waifu</h2>
-                            <h4>Precio Actual: S/99.99</h4>
-                            <h5 class="tachado">Precio Anterior: S/100</h5>
-                            <p>Lleve su Waifu a buen precio</p>
-                            <button type="button" class="btn btn-success w-100">
-                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
