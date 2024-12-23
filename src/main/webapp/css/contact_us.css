@@ -1,4 +1,4 @@
-/* Para asegurar que todo el formulario se vea bien */
+/* Estilo general del formulario */
 #contact-form {
     max-width: 600px;
     margin: 0 auto;
@@ -8,13 +8,55 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Espaciado entre etiquetas y campos */
+#contact-form .mb-3 label {
+    margin-bottom: 0.5rem;
+}
+
 /* Estilo de los iconos de error */
 .text-danger {
     font-size: 0.9rem;
 }
 
+/* Aumentar el tamaño de los bordes de los inputs */
+#contact-form input,
+#contact-form textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+/* Cambiar el borde de los campos cuando están enfocados */
+#contact-form input:focus,
+#contact-form textarea:focus {
+    border-color: #4caf50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
 /* Estilo para el botón */
+.btn {
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Estilo del hover en el botón */
 .btn:hover {
     background-color: #508E9C;
     color: white;
+    transform: scale(1.05);
+    /* Efecto de aumento al pasar el ratón */
+}
+
+/* Estilo de los campos de error (para que se muestren cuando sea necesario) */
+#email-error,
+#phone-error {
+    display: none;
+    font-size: 0.9rem;
+    color: #dc3545;
+}
+
+/* Para mostrar los errores cuando se activan */
+#email-error.show,
+#phone-error.show {
+    display: block;
 }

@@ -27,6 +27,29 @@ main video {
 
 /* Estilos específicos de imágenes */
 .responsive-img {
-    width: 80%;
-    height: 80%;
+    width: 60%;
+    height: auto; /* Para mantener la proporción de la imagen */
+}
+
+/* Estilos generales para dispositivos pequeños */
+@media (max-width: 767px) {
+    .responsive-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .container {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+/* Estilos para evitar desbordamiento horizontal */
+body,
+html {
+    overflow-x: hidden; /* Eliminar desbordamiento horizontal */
+}
+
+main {
+    overflow: hidden; /* Evitar desbordamiento dentro de main */
 }

@@ -28,7 +28,6 @@ main {
 
 .btn:hover {
     background-color: #508E9C;
-    transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

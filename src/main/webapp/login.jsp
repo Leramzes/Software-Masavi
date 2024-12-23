@@ -20,55 +20,18 @@
 </head>
 
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #8d8d8d;">
-        <div class="container-fluid">
-            <!-- Logo alineado a la izquierda -->
-            <a class="navbar-brand" href="index.jsp">
-                <img src="img/logo.jpg" width="50" height="50" class="rounded-circle mx-3">
-            </a>
 
-            <!-- Botón de colapso para pantallas pequeñas -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Contenido de la barra de navegación -->
-            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                <!-- Menú de navegación -->
-                <ul class="navbar-nav mb-2 mb-lg-0 align-items-end">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.jsp">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Nosotros</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact_us.jsp">Contáctanos</a>
-                    </li>
-                </ul>
-
-                <!-- Botón de iniciar sesión alineado a la derecha -->
-                <a href="login.jsp" class="btn rounded-pill border">Iniciar Sesión</a>
-            </div>
-        </div>
-    </nav>
-</header>
+<%@ include file="header.jsp" %>
 
 <main class="row w-100 container-fluid bg-main d-flex align-items-center justify-content-center">
     <!-- Texto -->
-    <div class="col-6 d-flex flex-column text-center text-light align-items-center">
+    <div class="col-12 col-md-6 d-flex flex-column text-center text-light align-items-center">
         <h1>Lorem ipsum dolor sit amet</h1>
         <h5>Lorem ipsum dolor sit amet consectetur.</h5>
     </div>
 
     <!-- Formulario de inicio de sesión -->
-    <div class="col-6 d-flex justify-content-center align-items-center">
+    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
         <div class="w-75 p-4 bg-light rounded shadow">
             <!-- Encabezado -->
             <h2 class="text-center mb-4">Iniciar Sesión</h2>
@@ -104,33 +67,7 @@
     </div>
 </main>
 
-<footer class="bg-dark text-white py-2">
-    <div class="container">
-        <!-- Fila de redes sociales -->
-        <div class="row justify-content-center">
-            <div class="col-auto">
-                <p>Redes Sociales:</p>
-            </div>
-            <div class="col-auto">
-                <a href="https://facebook.com" target="_blank" class="text-white">
-                    <i class="facebook fab fa-facebook-f"></i> <!-- Ícono de Facebook -->
-                </a>
-            </div>
-            <div class="col-auto">
-                <a href="https://instagram.com" target="_blank" class="text-white">
-                    <i class="instagram fab fa-instagram"></i> <!-- Ícono de Instagram -->
-                </a>
-            </div>
-        </div>
-
-        <!-- Fila de Copyright -->
-        <div class="row">
-            <div class="col text-center">
-                <p>&copy; 2024 MASAVI. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </div>
-</footer>
+<%@ include file="footer.jsp" %>
 
 <!--Enlace de Bootstrap JavaScript-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
