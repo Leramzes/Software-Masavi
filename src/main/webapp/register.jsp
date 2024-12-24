@@ -38,29 +38,33 @@
                 <h2 class="text-center mb-4">Crear Cuenta</h2>
 
                 <!-- Formulario -->
-                <form id="register-form">
+                <form id="register-form" action="user" method="post">
+                    <input type="hidden" name="accion" value="Agregar">
                     <!-- Campo de correo electrónica -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" required>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese su correo electrónico" required>
                         <div id="email-error" class="text-danger mt-1" style="display: none;">
                             El correo debe ser de Gmail o Hotmail y tener un formato válido.
                         </div>
                     </div>
 
-                    <!-- Campo de nombre de usuario -->
+                    <!-- Campo de teléfono -->
                     <div class="mb-3">
-                        <label for="username" class="form-label">Nombre de Usuario</label>
-                        <input type="text" class="form-control" id="username" placeholder="Ingrese su nombre de usuario" required>
-                        <div id="username-error" class="text-danger mt-1" style="display: none;">
-                            El nombre de usuario ya existe.
-                        </div>
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Ingrese su telefono" required>
+                    </div>
+
+                    <!-- Campo de Dirección -->
+                    <div class="mb-3">
+                        <label for="direccion" class="form-label">Direccion</label>
+                        <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingrese su direccion" required>
                     </div>
 
                     <!-- Campo de contraseña -->
                     <div class="mb-3">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Ingrese su contraseña" required>
                         <i id="toggle-password" class="fa fa-eye"></i>
                     </div>
 
@@ -72,7 +76,7 @@
                     </div>
 
                     <!-- Botón de registro -->
-                    <button type="submit" class="btn btn-success w-100">Registrar</button>
+                    <button type="submit" name="accion" value="Registrar" class="btn btn-success w-100">Registrar</button>
 
                     <!-- Enlace para iniciar sesión -->
                     <p class="text-center mt-3 mb-0">

@@ -1,19 +1,28 @@
 package development.team.software_masavi.Model;
 
 public class Usuario {
+    private int id;
     private String email;
     private String contrasena;
     private String telefono;
     private String direccion;
     private String tipo_usuario;
 
-    public Usuario(String email, String contrasena, String telefono, String direccion, String tipo_usuario) {
+    public Usuario() {
+    }
+
+    public Usuario(int id, String email, String contrasena, String telefono, String direccion, String tipo_usuario) {
+        this.id = id;
         this.email = email;
         this.contrasena = contrasena;
         this.telefono = telefono;
         this.direccion = direccion;
         this.tipo_usuario = tipo_usuario;
     }
+
+    public int getId() { return id;}
+
+    public void setId(int id) { this.id = id;}
 
     public String getEmail() {
         return email;

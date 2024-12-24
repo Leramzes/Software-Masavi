@@ -20,6 +20,7 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("INGRESO AL CONTROLADOR DE PRODUCTS");
         CatalogoProducts catalogo = new CatalogoProducts();
         List<Product> products = catalogo.getAllProducts();
         req.setAttribute("products", products);

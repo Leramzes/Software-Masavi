@@ -37,11 +37,11 @@
             <h2 class="text-center mb-4">Iniciar Sesión</h2>
 
             <!-- Formulario -->
-            <form id="login-form">
+            <form id="login-form" action="user" method="post">
                 <!-- Campo de correo electrónica -->
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico</label>
-                    <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico"
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese su correo electrónico"
                            required>
                     <div id="email-error" class="text-danger mt-1" style="display: none;">
                         El correo debe ser de Gmail o Hotmail y tener un formato válido.
@@ -51,12 +51,12 @@
                 <!-- Campo de contraseña -->
                 <div class="mb-3 position-relative">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Ingrese su contraseña" required>
                     <i id="toggle-password" class="fa fa-eye"></i>
                 </div>
 
                 <!-- Botón de inicio de sesión -->
-                <button type="submit" class="btn btn-success w-100">Iniciar Sesión</button>
+                <button type="submit" name="accion" value="Ingresar" class="btn btn-success w-100">Iniciar Sesión</button>
 
                 <!-- Enlace a la página de registro -->
                 <p class="text-center mt-3 mb-0">
