@@ -12,7 +12,7 @@ public class DataBaseUtil {
 
     static {
         try {
-            config.setJdbcUrl("jdbc:mysql://localhost:3306/bdmasavi?user=root&password="); // Cambia por tu URL
+            config.setJdbcUrl("jdbc:mysql://autorack.proxy.rlwy.net:47900/railway?user=root&password=YrXKYydmtViQgJustXmFmFspZPtgiUSw"); // Cambia por tu URL
             config.setDriverClassName("com.mysql.cj.jdbc.Driver");
             config.setMaximumPoolSize(10); // Número máximo de conexiones
             config.setMinimumIdle(2); // Número mínimo de conexiones inactivas

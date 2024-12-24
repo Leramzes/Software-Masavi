@@ -17,7 +17,7 @@ public class CatalogoProducts {
         //por el momento se trabajaran Strings de consulta
         DataSource dataSource = DataBaseUtil.getDataSource();
         Connection cnn = null;
-        String sql = "SELECT * FROM productos";
+        String sql = "SELECT * FROM Productos";
 
         try {
             cnn = dataSource.getConnection();
