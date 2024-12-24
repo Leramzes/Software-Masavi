@@ -23,9 +23,9 @@ public class ProductController extends HttpServlet {
         CatalogoProducts catalogo = new CatalogoProducts();
         List<Product> products = catalogo.getAllProducts();
         req.setAttribute("products", products);
-        products.forEach(product -> {
+        /*products.forEach(product -> {
             System.out.println("Producto: " + product.toString());
-        });
+        });*/
         req.getRequestDispatcher("product.jsp").forward(req, resp);
     }
 }

@@ -26,6 +26,9 @@
 <%@ include file="header.jsp" %>
 <%
     List<Product> listProducts = (List<Product>) request.getAttribute("products");
+    listProducts.forEach(product -> {
+        System.out.println("Producto: " + product.toString());
+    });
 %>
 <main class="bg-main">
     <!-- Contenido de la sección de productos destacados -->
@@ -195,7 +198,7 @@
                         <div class="product-card product-item">
                             <img src="img/producto.jpg" alt="Producto 1" class="product">
                             <h2><%=product.getName()%></h2>
-                            <h4>Precio Actual: <%=String.format("S/%d",product.getPrice()) %></h4>
+                            <h4>Precio Actual: <%=String.format("S/%s",product.getPrice().toString()) %></h4>
                             <h5 class="tachado">Precio Anterior: S/100</h5>
                             <p><%=product.getDescription()%></p>
                             <button type="button" class="btn btn-success w-100">
@@ -204,7 +207,6 @@
                         </div>
                     </div>
                     <%}%>
-
                 </div>
             </div>
         </div>

@@ -23,9 +23,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="about_us.jsp">Nosotros</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="product.jsp">Productos</a>
-                    </li>
+                    <form action="product" method="post">
+                        <li class="nav-item">
+                            <button class="nav-link" type="submit">Productos</button>
+                        </li>
+                    </form>
                     <li class="nav-item">
                         <a class="nav-link" href="contact_us.jsp">Contáctanos</a>
                     </li>
