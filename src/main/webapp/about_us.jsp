@@ -32,9 +32,12 @@
                 <div class="col-12 col-md-8">
                     <h1 class="text-black fw-bold">Historia</h1>
                     <p class="text-muted">
-                        Lorem ipsum dolor sit amet consectetur. Ornare purus amet rhoncus suspendisse ipsum ullamcorper
-                        vulputate euismod quis. In egestas risus id porta sed at leo convallis. Habitant faucibus nisl nunc
-                        arcu id nibh velit. A nunc at odio nisi volutpat augue orci.
+                        En 2011 el Centro Agronómico MASAVI inicia con la venta de productos agroquímicos como un negocio de persona natural. A
+                        partir de ese año se logró adentrarse un poco más en el mercado agropecuario y agronómico obteniendo productos de buena calidad
+                        para la satisfacción del cliente según sus necesidades. En el año 2020, el Centro Agronómico MASAVI decide no solo dedicarse a
+                        la venta de sus productos, sino también brindar soluciones a los clientes dándoles asesoría de acuerdo a sus problemas y a su vez
+                        guiándolos en la utilización del producto para mejores resultados. Tenemos la suficiente experiencia para que nuestros
+                        clientes tengan la confianza de adquirir nuestros productos y que sus necesidades puedan ser resueltas..
                     </p>
                 </div>
 
@@ -60,8 +63,9 @@
                         </div>
                         <h5 class="fw-bold text-dark">Misión</h5>
                         <p class="text-muted">
-                            Lorem ipsum dolor sit amet consectetur. Venenatis nibh non arcu in sit id tincidunt nibh.
-                            Donec diam velit quis quam sagittis viverra fermentum.
+                            Ser una empresa líder en la venta de productos agroquímicos de alta calidad, ofreciendo soluciones efectivas
+                            y personalizadas que satisfagan las necesidades de nuestros clientes, promoviendo un desarrollo agrícola eficiente
+                            y sostenible.
                         </p>
                     </div>
                 </div>
@@ -74,8 +78,8 @@
                         </div>
                         <h5 class="fw-bold text-dark">Visión</h5>
                         <p class="text-muted">
-                            Lorem ipsum dolor sit amet consectetur. Venenatis nibh non arcu in sit id tincidunt nibh.
-                            Donec diam velit quis quam sagittis viverra fermentum.
+                        Convertirnos en el principal referente de confianza y asesoría en el sector agroquímico, garantizando a nuestros clientes
+                        productos de calidad superior y servicios que impulsen el crecimiento sostenible de sus cultivos y el éxito de sus proyectos agrícolas.
                         </p>
                     </div>
                 </div>
@@ -88,9 +92,17 @@
                         </div>
                         <h5 class="fw-bold text-dark">Valores</h5>
                         <p class="text-muted">
-                            Lorem ipsum dolor sit amet consectetur. Venenatis nibh non arcu in sit id tincidunt nibh.
-                            Donec diam velit quis quam sagittis viverra fermentum.
+                            Nos regimos por principios fundamentales que reflejan nuestro compromiso con el sector agronómico:
                         </p>
+                        <ul class="text-muted ps-3">
+                            <li>Calidad</li>
+                            <li>Confianza</li>
+                            <li>Sostenibilidad</li>
+                            <li>Innovación</li>
+                            <li>Responsabilidad</li>
+                            <li>Compromiso con el cliente</li>
+                            <li>Educación y asesoramiento</li>
+                        </ul>
                     </div>
                 </div>
             </div>
