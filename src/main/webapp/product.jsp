@@ -139,41 +139,11 @@
 
                     <!-- Filtro por nombre -->
                     <div class="filter-group">
-                        <label for="proveedor-search">Nombre:</label>
+                        <label>Nombre del producto:</label>
                         <input type="text" id="nombre-search" class="form-control" placeholder="Buscar producto...">
                     </div>
 
-                    <!-- Filtro por proveedor -->
-                    <div class="filter-group">
-                        <label for="proveedor-search">Proveedor:</label>
-                        <input type="text" id="proveedor-search" class="form-control" placeholder="Buscar proveedor...">
-                        <button class="btn btn-link w-100" type="button" data-bs-toggle="collapse" data-bs-target="#proveedor-list"
-                                aria-expanded="false" aria-controls="proveedor-list">
-                            Mostrar Opciones
-                        </button>
-                        <ul id="proveedor-list" class="list-unstyled collapse">
-                            <li><input type="checkbox"> Proveedor 1</li>
-                            <li><input type="checkbox"> Proveedor 2</li>
-                            <li><input type="checkbox"> Proveedor 3</li>
-                            <li><input type="checkbox"> Proveedor 4</li>
-                        </ul>
-                    </div>
-
-                    <!-- Filtro por marca -->
-                    <div class="filter-group">
-                        <label for="marca-search">Marca:</label>
-                        <input type="text" id="marca-search" class="form-control" placeholder="Buscar marca...">
-                        <button class="btn btn-link w-100" type="button" data-bs-toggle="collapse" data-bs-target="#marca-list"
-                                aria-expanded="false" aria-controls="marca-list">
-                            Mostrar Opciones
-                        </button>
-                        <ul id="marca-list" class="list-unstyled collapse">
-                            <li><input type="checkbox"> Marca 1</li>
-                            <li><input type="checkbox"> Marca 2</li>
-                            <li><input type="checkbox"> Marca 3</li>
-                            <li><input type="checkbox"> Marca 4</li>
-                        </ul>
-                    </div>
+                    <!-- Filtro por categoria -->
 
                     <!-- Filtro por rango de precio -->
                     <div class="filter-group">
