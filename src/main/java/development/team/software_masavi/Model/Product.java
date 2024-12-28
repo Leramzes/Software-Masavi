@@ -10,14 +10,20 @@ public class Product {
     private String category;
     private Date dateEntry;
     private String state;
+    private String image;
+
+
 
     public Product() {
     }
 
-    public Product(String name, String description, Double price) {
+    //constructor para tarejtas de productos
+    public Product(String name, String description, Double price, int quantityInStock, String image) {
         this.name = name;
         this.description = description;
         this.price = price;
+        this.quantityInStock = quantityInStock;
+        this.image = image;
     }
 
     public String getName() {
@@ -74,6 +80,13 @@ public class Product {
 
     public void setState(String state) {
         this.state = state;
+    }
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

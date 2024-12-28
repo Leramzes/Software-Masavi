@@ -24,11 +24,9 @@
 <body>
 
 <%@ include file="header.jsp" %>
-<%
+<%!
+    %><%
     List<Product> listProducts = (List<Product>) request.getAttribute("products");
-    listProducts.forEach(product -> {
-        System.out.println("Producto: " + product.toString());
-    });
 %>
 <main class="bg-main">
     <!-- Contenido de la sección de productos destacados -->
@@ -193,13 +191,17 @@
             <div class="col-md-9">
                 <div class="row row-cols-1 row-cols-md-3 gy-2">
                     <!-- Tarjeta de producto -->
-                    <%for(Product product : listProducts) {%>
+                    <%for(Product product : listProducts) {
+                        boolean isMinim = product.getQuantityInStock() < 10;
+                    %>
                     <div class="col">
                         <div class="product-card product-item">
-                            <img src="img/producto.jpg" alt="Producto 1" class="product">
+                            <img src="<%=product.getImage()%>" alt="<%=product.getName()%>" class="product">
                             <h2><%=product.getName()%></h2>
                             <h4>Precio Actual: <%=String.format("S/%s",product.getPrice().toString()) %></h4>
-                            <h5 class="tachado">Precio Anterior: S/100</h5>
+                            <%if(isMinim){%>
+                            <h5 style="color: #dc3545">Quedan Pocas Unidades</h5>
+                            <%}%>
                             <p><%=product.getDescription()%></p>
                             <button type="button" class="btn btn-success w-100">
                                 Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>

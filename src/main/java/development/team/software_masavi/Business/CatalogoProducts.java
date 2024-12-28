@@ -26,8 +26,10 @@ public class CatalogoProducts {
                 String name = rst.getString("nombre_producto");
                 String description = rst.getString("descripcion");
                 Double price = rst.getDouble("precio");
+                int quantity = rst.getInt("cantidad_disponible");
+                String image = rst.getString("ruta_imagen");
 
-                Product product = new Product(name,description,price);
+                Product product = new Product(name,description,price,quantity,image);
                 products.add(product);
             }
         } catch (SQLException e) {
