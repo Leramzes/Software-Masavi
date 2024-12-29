@@ -1,9 +1,9 @@
 <header>
-    <nav class="navbar navbar-expand-lg" style="background-color: #8d8d8d;">
+    <nav class="navbar navbar-expand-lg fixed-top px-lg-5 px-md-5 px-sm-5" style="background-color: #ffffff;">
         <div class="container-fluid">
             <!-- Logo alineado a la izquierda -->
             <a class="navbar-brand" href="index.jsp">
-                <img src="img/logo.jpg" width="50" height="50" class="rounded-circle mx-3">
+                <img src="img/logo.jpg" class="rounded-circle" alt="Masavi">
             </a>
 
             <!-- Botón de colapso para pantallas pequeñas -->
@@ -38,7 +38,9 @@
                 </ul>
 
                 <!-- Botón de iniciar sesión alineado a la derecha -->
-                <a href="login.jsp" class="btn rounded-pill border">Iniciar Sesión</a>
+                <div class="d-flex justify-content-end">
+                    <a href="login.jsp" class="btn rounded-pill border">Iniciar Sesión</a>
+                </div>
             </div>
         </div>
     </nav>

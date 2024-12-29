@@ -8,6 +8,7 @@ body {
 body {
     display: flex;
     flex-direction: column;
+    padding-top: 105px;
 }
 
 main {
@@ -16,47 +17,73 @@ main {
 
 /* Logo redondeado */
 .navbar-brand img {
-    max-width: 50px;
+    max-width: 5rem;
     height: auto;
     object-fit: contain;
+    border: #75ac00 solid;
 }
 
 /* Botones */
 .btn {
     padding: 8px 20px;
+    font-size: 1rem;
+    border: solid #008000;
 }
 
 .btn:hover {
-    background-color: #508E9C;
+    background-color: #75ac00;
     transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
     color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Navegación */
 .nav-link:hover {
-    color: yellow;
-    background-color: rgba(255, 255, 255, 0.2);
+    color: #008000;
+    background-color: #04ff0033;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .nav-link.active {
-    color: yellow !important;
+    color: #008000 !important;
     border-radius: 5px;
+}
+
+/* Estilo del navbar */
+.navbar {
+    font-size: 1rem;
+    background-color: #ffffff;
+}
+
+/* Estilo de los links */
+.custom-paragraph {
+    font-size: 0.95rem; /* Ajusta el tamaño del texto */
+    color: #6c757d; /* Color gris (puedes cambiarlo según tu tema) */
+}
+
+.custom-link {
+    color: #008000;
+    font-weight: bold;
+    text-decoration: none; /* Sin subrayado inicial */
+    transition: color 0.3s ease; /* Transición suave al hacer hover */
+}
+
+.custom-link:hover {
+    color: #75ac00;
+    text-decoration: underline; /* Subrayado al pasar el cursor */
 }
 
 /* Estilo para el footer */
 footer .fab {
-    color: white;
+    color: #ffffff;
     transition: color 0.3s ease;
 }
 
 footer .facebook:hover {
-    color: blue;
+    color: #0000ff;
 }
 
 footer .instagram:hover {
-    color: orange;
+    color: #ffa500;
 }
-

@@ -1,4 +1,4 @@
-<footer class="bg-dark text-white py-2">
+<footer class="text-white py-2" style="background-color: #00563c">
     <div class="container">
         <!-- Fila de redes sociales -->
         <div class="row justify-content-center">
@@ -7,7 +7,7 @@
             </div>
             <div class="col-auto">
                 <a href="https://facebook.com" target="_blank" class="text-white">
-                    <i class="facebook fab fa-facebook-f"></i> <!-- Ícono de Facebook -->
+                    <i class="facebook fab fa-brands fa-facebook"></i> <!-- Ícono de Facebook -->
                 </a>
             </div>
             <div class="col-auto">
