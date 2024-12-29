@@ -144,6 +144,16 @@
                     </div>
 
                     <!-- Filtro por categoria -->
+                    <div class="filter-group">
+                        <label for="categoria-select" class="form-label">Categoría:</label>
+                        <select id="categoria-select" class="form-select">
+                            <option value="">Seleccionar categoría</option>
+                            <option value="Categoría 1">Categoría 1</option>
+                            <option value="Categoría 2">Categoría 2</option>
+                            <option value="Categoría 3">Categoría 3</option>
+                            <option value="Categoría 4">Categoría 4</option>
+                        </select>
+                    </div>
 
                     <!-- Filtro por rango de precio -->
                     <div class="filter-group">
