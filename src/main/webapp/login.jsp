@@ -23,21 +23,22 @@
 
 <%@ include file="header.jsp" %>
 
-<main class="row container-fluid bg-main d-flex align-items-center justify-content-center">
+<main class="row w-100 container-fluid bg-main d-flex align-items-center justify-content-center">
     <!-- Texto -->
-    <div class="col-lg-6 col-md-6 col-sm-12 d-flex flex-column text-center text-light text-primary-emphasis">
-        <h1 class="mt-3">Inicia sesión en el sistema <strong>MASAVI</strong></h1>
-        <h5 class="mt-3">Tu puerta a productos agroquímicos de calidad y asesoría especializada</h5>
+    <div class="col-12 col-md-6 d-flex flex-column text-center text-light align-items-center">
+        <h1>Lorem ipsum dolor sit amet</h1>
+        <h5>Lorem ipsum dolor sit amet consectetur.</h5>
     </div>
 
     <!-- Formulario de inicio de sesión -->
-    <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
+    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
         <div class="w-75 p-4 bg-light rounded shadow">
             <!-- Encabezado -->
             <h2 class="text-center mb-4">Iniciar Sesión</h2>
 
             <!-- Formulario -->
-            <form id="login-form" action="user" method="post">
+            <form id="login-form" action="validar" method="post">
+                <input type="hidden" name="accion" value="Ingresar">
                 <!-- Campo de correo electrónica -->
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico</label>
@@ -56,12 +57,11 @@
                 </div>
 
                 <!-- Botón de inicio de sesión -->
-                <button type="submit" name="accion" value="Ingresar" class="btn btn-success w-100">Iniciar Sesión</button>
+                <button type="submit" class="btn btn-success w-100">Iniciar Sesión</button>
 
                 <!-- Enlace a la página de registro -->
-                <p class="custom-paragraph text-center mt-3 mb-0">
-                    ¿No tiene cuenta?
-                    <a href="register.jsp" class="custom-link">Regístrese</a>
+                <p class="text-center mt-3 mb-0">
+                    ¿No tiene cuenta? <a href="register.jsp" class="text-black">Regístrese</a>
                 </p>
             </form>
         </div>

@@ -40,12 +40,16 @@ public class UsersController extends HttpServlet {
                 String direccion = req.getParameter("direccion");
                 String tipoUsuario = "cliente";
 
-                user.setEmail(email);
-                user.setContrasena(contrasena);
-                user.setTelefono(telefono);
-                user.setDireccion(direccion);
-                user.setTipo_usuario(tipoUsuario);
-                userdao.agregar(user);
+                if (userdao.existeUsuario(email)) {
+                    System.out.println("El email ya está registrado.");
+                } else {
+                    user.setEmail(email);
+                    user.setContrasena(contrasena);
+                    user.setTelefono(telefono);
+                    user.setDireccion(direccion);
+                    user.setTipo_usuario(tipoUsuario);
+                    userdao.agregar(user);
+                }
                 resp.sendRedirect("index.jsp");
                 return;
             default:

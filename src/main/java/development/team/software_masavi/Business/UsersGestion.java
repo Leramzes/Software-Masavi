@@ -26,7 +26,7 @@ public class UsersGestion {
 
     public Usuario obtenerUsuarioSesion(String userEmail) {
         Usuario user = null;
-        String sql = "SELECT * FROM USUARIOS WHERE " + COLUMN_EMAIL + " = ?";
+        String sql = "SELECT * FROM Usuarios WHERE " + COLUMN_EMAIL + " = ?";
 
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -43,6 +43,7 @@ public class UsersGestion {
                             rs.getString(COLUMN_DIRECCION),
                             rs.getString(COLUMN_TIPO_USUARIO)
                     );
+                    System.out.println("se valido el usuario: "+user.getEmail());
                 }
             }
         } catch (SQLException e) {
@@ -52,7 +53,7 @@ public class UsersGestion {
     }
 
     public int obtenerRolTipo(String userEmail) {
-        String sql = "SELECT " + COLUMN_TIPO_USUARIO + " FROM USUARIOS WHERE " + COLUMN_EMAIL + " = ?";
+        String sql = "SELECT " + COLUMN_TIPO_USUARIO + " FROM Usuarios WHERE " + COLUMN_EMAIL + " = ?";
         int tipoUsuario = 0;
 
         try (Connection con = dataSource.getConnection();
@@ -73,7 +74,7 @@ public class UsersGestion {
     }
 
     public boolean validarCredenciales(String userEmail, String contrasena) {
-        String sql = "SELECT " + COLUMN_CONTRASENA + " FROM USUARIOS WHERE " + COLUMN_EMAIL + " = ?";
+        String sql = "SELECT " + COLUMN_CONTRASENA + " FROM Usuarios WHERE " + COLUMN_EMAIL + " = ?";
 
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -93,7 +94,7 @@ public class UsersGestion {
     }
 
     public List<Usuario> getAllUsers() {
-        String sql = "SELECT * FROM USUARIOS";
+        String sql = "SELECT * FROM Usuarios";
         List<Usuario> lista = new ArrayList<>();
 
         try (Connection con = dataSource.getConnection();
@@ -117,8 +118,30 @@ public class UsersGestion {
         return lista;
     }
 
+    public boolean existeUsuario(String userEmail) {
+        String sql = "SELECT COUNT(*) FROM Usuarios WHERE " + COLUMN_EMAIL + " = ?";
+        boolean existe = false;
+
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, userEmail);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    existe = rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al verificar si existe el usuario con email: " + userEmail + " - " + e.getMessage());
+        }
+
+        return existe;
+    }
+
+
     public int agregar(Usuario user) {
-        String sql = "INSERT INTO USUARIOS (" + COLUMN_EMAIL + ", " + COLUMN_CONTRASENA + ", " + COLUMN_TELEFONO +
+        String sql = "INSERT INTO Usuarios (" + COLUMN_EMAIL + ", " + COLUMN_CONTRASENA + ", " + COLUMN_TELEFONO +
                 ", " + COLUMN_DIRECCION + ", " + COLUMN_TIPO_USUARIO + ") VALUES (?, ?, ?, ?, ?)";
         int resultado = 0;
 
@@ -132,6 +155,7 @@ public class UsersGestion {
             ps.setString(5, user.getTipo_usuario());
 
             resultado = ps.executeUpdate();
+            System.out.println("se registró el usuario: "+user.getEmail());
         } catch (SQLException e) {
             System.err.println("Error al agregar el usuario: " + e.getMessage());
         }
