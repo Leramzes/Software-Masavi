@@ -177,14 +177,12 @@
                     <div class="col">
                         <div class="product-card h-100 product-item d-flex flex-column justify-content-between align-items-center">
                             <img src="<%=product.getImage()%>" alt="<%=product.getName()%>" class="product-image">
-                            <div class="product-info">
-                                <h2><%=product.getName()%></h2>
-                                <h4>Precio Actual: <%=String.format("S/%s",product.getPrice().toString()) %></h4>
-                                <%if(isMinim){%>
-                                <h5 style="color: #dc3545">Quedan Pocas Unidades</h5>
-                                <%}%>
-                                <p><%=product.getDescription()%></p>
-                            </div>
+                            <h2><%=product.getName()%></h2>
+                            <h4>Precio Actual: <%=String.format("S/%s",product.getPrice().toString()) %></h4>
+                            <%if(isMinim){%>
+                            <h5 style="color: #dc3545">Quedan Pocas Unidades</h5>
+                            <%}%>
+                            <p><%=product.getDescription()%></p>
                             <button type="button" class="btn btn-success w-100">
                                 Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
                             </button>
