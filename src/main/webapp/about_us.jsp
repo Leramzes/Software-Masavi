@@ -31,13 +31,14 @@
                 <!-- Texto a la izquierda -->
                 <div class="col-12 col-md-8">
                     <h1 class="text-black fw-bold">Historia</h1>
-                    <p class="text-muted">
-                        En 2011 el Centro Agronómico MASAVI inicia con la venta de productos agroquímicos como un negocio de persona natural. A
-                        partir de ese año se logró adentrarse un poco más en el mercado agropecuario y agronómico obteniendo productos de buena calidad
-                        para la satisfacción del cliente según sus necesidades. En el año 2020, el Centro Agronómico MASAVI decide no solo dedicarse a
-                        la venta de sus productos, sino también brindar soluciones a los clientes dándoles asesoría de acuerdo a sus problemas y a su vez
-                        guiándolos en la utilización del producto para mejores resultados. Tenemos la suficiente experiencia para que nuestros
-                        clientes tengan la confianza de adquirir nuestros productos y que sus necesidades puedan ser resueltas..
+                    <p class="text-muted text-justify" style="text-align: justify;">
+                        En 2011 el <strong>Centro Agronómico MASAVI</strong> inicia con la venta de productos agroquímicos como un negocio de persona natural.
+                        A partir de ese año se logró adentrarse un poco más en el mercado agropecuario y agronómico obteniendo productos de
+                        <strong>buena calidad</strong> para la satisfacción del cliente según sus necesidades. En el año 2020, el
+                        <strong>Centro Agronómico MASAVI</strong> decide no solo dedicarse a la venta de sus productos, sino también brindar soluciones
+                        a los clientes dándoles <strong>asesoría</strong> de acuerdo a sus problemas y a su vez guiándolos en la utilización del producto para mejores resultados.
+                        Tenemos la suficiente experiencia para que nuestros clientes tengan la <strong>confianza</strong> de adquirir nuestros productos y que sus
+                        <strong>necesidades</strong> puedan ser resueltas.
                     </p>
                 </div>
 
@@ -62,7 +63,7 @@
                             <i class="fa-regular fa-handshake fa-3x text-primary"></i>
                         </div>
                         <h5 class="fw-bold text-dark">Misión</h5>
-                        <p class="text-muted">
+                        <p class="text-muted" style="text-align: justify;">
                             Ser una empresa líder en la venta de productos agroquímicos de alta calidad, ofreciendo soluciones efectivas
                             y personalizadas que satisfagan las necesidades de nuestros clientes, promoviendo un desarrollo agrícola eficiente
                             y sostenible.
@@ -77,7 +78,7 @@
                             <i class="fa-regular fa-eye fa-3x text-success"></i>
                         </div>
                         <h5 class="fw-bold text-dark">Visión</h5>
-                        <p class="text-muted">
+                        <p class="text-muted" style="text-align: justify;">
                         Convertirnos en el principal referente de confianza y asesoría en el sector agroquímico, garantizando a nuestros clientes
                         productos de calidad superior y servicios que impulsen el crecimiento sostenible de sus cultivos y el éxito de sus proyectos agrícolas.
                         </p>
@@ -91,10 +92,10 @@
                             <i class="fa-regular fa-star fa-3x text-warning"></i>
                         </div>
                         <h5 class="fw-bold text-dark">Valores</h5>
-                        <p class="text-muted">
+                        <p class="text-muted" style="text-align: justify;">
                             Nos regimos por principios fundamentales que reflejan nuestro compromiso con el sector agronómico:
                         </p>
-                        <ul class="text-muted ps-3">
+                        <ul class="text-muted ps-3" style="list-style-type: none;" >
                             <li>Calidad</li>
                             <li>Confianza</li>
                             <li>Sostenibilidad</li>
@@ -109,9 +110,9 @@
         </div>
 
         <!-- Sección Ubicación -->
-        <div class="card bg-light p-4 rounded text-center">
+        <div class="card bg-light p-4 rounded">
             <!-- Título de la Sección -->
-            <h1 class="text-black fw-bold">
+            <h1 class="text-black fw-bold mb-4 text-center">
                 ¿Dónde nos Ubicamos?
             </h1>
 

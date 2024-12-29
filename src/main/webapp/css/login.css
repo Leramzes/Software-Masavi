@@ -1,6 +1,5 @@
 /* Elimina el espaciado lateral del contenedor principal */
 .container-fluid {
-    padding: 0;
     margin: 0;
 }
 
@@ -42,10 +41,9 @@
     font-size: 1.2rem;
 }
 
-/* Para asegurar que todo el formulario se vea bien */
+/* Estilo para el formulario */
 #login-form {
-    max-width: 600px;
-    margin: 0 auto;
+    margin: auto;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 10px;
@@ -55,10 +53,4 @@
 /* Estilo de los iconos de error */
 .text-danger {
     font-size: 0.9rem;
-}
-
-/* Estilo para el botón */
-.btn:hover {
-    background-color: #508E9C;
-    color: white;
 }

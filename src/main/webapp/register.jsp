@@ -26,13 +26,13 @@
 <main class="container-fluid bg-main">
     <div class="row w-100 d-flex justify-content-center align-items-center">
         <!-- Texto -->
-        <div class="col-6 d-flex flex-column text-center text-light align-items-center">
-            <h1>Lorem ipsum dolor sit amet</h1>
-            <h5>Lorem ipsum dolor sit amet consectetur.</h5>
+        <div class="col-12 col-md-6 d-flex flex-column text-center text-light text-primary-emphasis">
+            <h1 class="mt-3">Únete a la comunidad</h1>
+            <h5 class="mt-3">Inicia tu camino hacia el éxito agrícola con <strong>MASAVI</strong></h5>
         </div>
 
         <!-- Formulario de registro -->
-        <div class="col-6 d-flex p-4 justify-content-center align-items-center">
+        <div class="col-12 col-md-6 d-flex p-4 justify-content-center">
             <div class="w-75 p-4 bg-light rounded shadow">
                 <!-- Encabezado -->
                 <h2 class="text-center mb-4">Crear Cuenta</h2>
@@ -79,8 +79,9 @@
                     <button type="submit" name="accion" value="Registrar" class="btn btn-success w-100">Registrar</button>
 
                     <!-- Enlace para iniciar sesión -->
-                    <p class="text-center mt-3 mb-0">
-                        ¿Ya tiene cuenta? <a href="login.jsp" class="text-black">Inicie sesión</a>
+                    <p class="custom-paragraph text-center mt-3 mb-0">
+                        ¿Ya tiene cuenta?
+                        <a href="login.jsp" class="custom-link">Inicie sesión</a>
                     </p>
                 </form>
             </div>

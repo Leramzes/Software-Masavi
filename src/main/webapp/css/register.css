@@ -31,9 +31,3 @@
 .text-danger {
     font-size: 0.9rem;
 }
-
-/* Estilo para el botón */
-.btn:hover {
-    background-color: #508E9C;
-    color: white;
-}

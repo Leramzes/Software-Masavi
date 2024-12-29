@@ -26,13 +26,13 @@
 <main class="container-fluid bg-main">
     <div class="row w-100 d-flex justify-content-center align-items-center">
         <!-- Texto -->
-        <div class="col-12 col-md-6 d-flex flex-column text-center text-light align-items-center">
-            <h1>Lorem ipsum dolor sit amet</h1>
-            <h5>Lorem ipsum dolor sit amet consectetur.</h5>
+        <div class="col-lg-6 col-md-6 col-sm-12 d-flex flex-column text-center text-primary-emphasis">
+            <h1 class="mt-3">Contáctanos y haz crecer tu cultivo</h1>
+            <h5 class="mt-3">Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto contigo lo antes posible</h5>
         </div>
 
         <!-- Formulario de Contactanos-->
-        <div class="col-12 col-md-6 d-flex p-4 justify-content-center align-items-center">
+        <div class="col-lg-6 col-md-6 col-sm-12 d-flex p-4 justify-content-center align-items-center">
             <div class="w-75 p-4 bg-light rounded shadow">
                 <!-- Encabezado -->
                 <h2 class="text-center mb-4">Contáctanos</h2>

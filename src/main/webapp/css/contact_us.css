@@ -1,6 +1,5 @@
 /* Estilo general del formulario */
 #contact-form {
-    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f9fa;
@@ -32,19 +31,6 @@
 #contact-form textarea:focus {
     border-color: #4caf50;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-}
-
-/* Estilo para el botón */
-.btn {
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-/* Estilo del hover en el botón */
-.btn:hover {
-    background-color: #508E9C;
-    color: white;
-    transform: scale(1.05);
-    /* Efecto de aumento al pasar el ratón */
 }
 
 /* Estilo de los campos de error (para que se muestren cuando sea necesario) */
