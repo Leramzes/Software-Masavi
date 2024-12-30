@@ -1,0 +1,83 @@
+h1 {
+    font-size: 4rem;
+}
+
+/* Estilos generales */
+.card {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+    border: none;
+    border-radius: 15px;
+}
+
+/* Producto */
+.product-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    /* Separador entre productos */
+}
+
+.product-item:last-child {
+    border-bottom: none;
+    /* Sin borde en el último producto */
+}
+
+.product-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-item h5 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+}
+
+.product-item p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    /* Texto más tenue */
+}
+
+/* Controles de cantidad */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.quantity-control button {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border-radius: 25%;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.quantity-control input {
+    text-align: center;
+    font-size: 1rem;
+    width: 60px;
+}
+
+/* Resumen */
+.summary {
+    background-color: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.summary p {
+    margin-bottom: 5px;
+}
+
+.summary p.text-danger {
+    color: #dc3545;
+}
+
+.summary .btn-success {
+    font-size: 1rem;
+    padding: 10px;
+}

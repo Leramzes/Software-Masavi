@@ -12,7 +12,7 @@
     <!--Enlace de CSS Global-->
     <link rel="stylesheet" href="css/global.css">
     <!--Enlace de CSS Específico-->
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="css/shopping_cart.css">
     <!--Enlace de CSS Fondo-->
     <link rel="stylesheet" href="css/background.css">
     <!-- FontAwesome CDN -->
@@ -27,71 +27,61 @@
     <div class="container-fluid my-2">
         <div class="row">
             <!-- Carrito de Compra -->
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-8 mb-4">
                 <!-- Encabezado -->
-                <h1 class="text-black fw-bold">Carrito de Compra</h1>
+                <h1 class="fw-bold text-primary-emphasis mb-4">Carrito de Compra:</h1>
 
                 <!-- Productos en el Carrito -->
-                <div class="card p-3 rounded ">
+                <div class="card p-3">
                     <!-- Producto 1 -->
-                    <div class="d-flex align-items-center mb-3">
+                    <div class="product-item d-flex align-items-center">
                         <!-- Imagen del Producto -->
-                        <div class="me-3">
-                            <div class="bg-secondary rounded" >
-                                <img src="img/producto.jpg" style="width: 80px; height: 80px;" alt="producto 1">
-                            </div>
-                        </div>
+                        <img src="img/producto.jpg" alt="Producto 1">
 
                         <!-- Detalles del Producto -->
-                        <div class="flex-grow-1">
+                        <div class="flex-grow-1 px-3">
                             <h5 class="text-black fw-bold">Producto</h5>
-                            <p class="text-muted mb-0">Lorem ipsum dolor sit amet consectetur.</p>
+                            <p>Lorem ipsum dolor sit amet consectetur.</p>
                         </div>
 
                         <!-- Precio del Producto -->
                         <div class="text-end me-3">
-                            <p class="text-black fw-bold mb-0">Precio Actual: S/69</p>
-                            <p class="text-muted text-decoration-line-through">Precio Anterior: S/70</p>
+                            <p class="text-black fw-bold mb-0">S/69</p>
+                            <p class="text-muted text-decoration-line-through">S/70</p>
                         </div>
 
                         <!-- Cantidad del Producto -->
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <button class="btn btn-outline-secondary btn-sm">-</button>
-                                <input type="text" class="form-control text-center mx-1" value="1" style="width: 50px;">
-                                <button class="btn btn-outline-secondary btn-sm">+</button>
-                            </div>
+                        <div class="quantity-control">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, -1)">-</button>
+                            <input type="text" class="form-control text-center mx-1" value="1" style="width: 50px;"
+                                   oninput="validateQuantity(this)">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, 1)">+</button>
                         </div>
                     </div>
 
                     <!-- Producto 2 -->
-                    <div class="d-flex align-items-center mb-3">
+                    <div class="product-item d-flex align-items-center">
                         <!-- Imagen del Producto -->
-                        <div class="me-3">
-                            <div class="bg-secondary rounded" >
-                                <img src="img/producto2.jpg" style="width: 80px; height: 80px;" alt="producto 2">
-                            </div>
-                        </div>
+                        <img src="img/producto2.jpg" alt="Producto 2">
 
                         <!-- Detalles del Producto -->
-                        <div class="flex-grow-1">
-                            <h5 class="text-black fw-bold">Producto</h5>
-                            <p class="text-muted mb-0">Lorem ipsum dolor sit amet consectetur.</p>
+                        <div class="flex-grow-1 px-3">
+                            <h5 class="text-black fw-bold">Producto 2</h5>
+                            <p>Lorem ipsum dolor sit amet consectetur.</p>
                         </div>
 
                         <!-- Precio del Producto -->
                         <div class="text-end me-3">
-                            <p class="text-black fw-bold mb-0">Precio Actual: S/69</p>
-                            <p class="text-muted text-decoration-line-through">Precio Anterior: S/70</p>
+                            <p class="text-black fw-bold mb-0">S/69</p>
+                            <p class="text-muted text-decoration-line-through">S/70</p>
                         </div>
 
                         <!-- Cantidad del Producto -->
-                        <div>
-                            <div class="d-flex align-items-center">
-                                <button class="btn btn-outline-secondary btn-sm">-</button>
-                                <input type="text" class="form-control text-center mx-1" value="1" style="width: 50px;">
-                                <button class="btn btn-outline-secondary btn-sm">+</button>
-                            </div>
+                        <div class="quantity-control">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, -1)">-</button>
+                            <input type="text" class="form-control text-center mx-1" value="1" style="width: 50px;"
+                                   oninput="validateQuantity(this)">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, 1)">+</button>
                         </div>
                     </div>
                 </div>
@@ -100,33 +90,31 @@
             <!-- Resumen de Compra -->
             <div class="col-12 col-md-4">
                 <!-- Encabezado -->
-                <h1 class="text-black fw-bold text-center">Resumen</h1>
+                <h1 class="fw-bold text-center text-primary-emphasis mb-4">Resumen</h1>
 
                 <!-- Resumen de Compra -->
-                <div class="card p-3 bg-light rounded">
+                <div class="summary">
                     <!-- Total de Compra -->
                     <div class="d-flex justify-content-between">
-                        <p class="mb-0">Productos (2)</p>
-                        <p class="mb-0">S/ 999</p>
+                        <p>Productos (2)</p>
+                        <p>S/ 999</p>
                     </div>
 
                     <!-- Descuentos -->
                     <div class="d-flex justify-content-between">
-                        <p class="mb-0">Descuentos (2)</p>
-                        <p class="mb-0 text-danger">- S/ 999</p>
+                        <p>Descuentos (2)</p>
+                        <p class="text-danger">- S/ 999</p>
                     </div>
                     <hr>
 
                     <!-- Total Final -->
                     <div class="d-flex justify-content-between">
-                        <p class="fw-bold mb-0">Total:</p>
-                        <p class="fw-bold mb-0">S/ 0</p>
+                        <p class="fw-bold">Total:</p>
+                        <p class="fw-bold">S/ 0</p>
                     </div>
 
                     <!-- Continuar Compra -->
-                    <div class="mt-3">
-                        <button class="btn btn-secondary w-100">Continuar Compra</button>
-                    </div>
+                    <button class="btn btn-success w-100 mt-3">Continuar Compra</button>
                 </div>
             </div>
         </div>
@@ -140,7 +128,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 <!--Enlace de JavaScript-->
-<script src=""></script>
+<script src="js/shopping_cart.js"></script>
 
 </body>
 

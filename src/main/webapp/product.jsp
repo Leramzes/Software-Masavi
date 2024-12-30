@@ -33,7 +33,7 @@
     <!-- Contenido de la sección de productos destacados -->
     <div class="container py-4">
         <!-- Encabezado -->
-        <div class="row text-center text-white">
+        <div class="row mb-3 text-center text-primary-emphasis">
             <h1>Productos Destacados</h1>
         </div>
 
@@ -57,7 +57,7 @@
                         </div>
 
                         <!-- Columna derecha -->
-                        <div class="col-auto text-center text-white mx-5 carousel">
+                        <div class="col-auto text-center mx-5 carousel">
                             <h1>Waifu</h1>
                             <h3>Precio Actual: S/99.99</h3>
                             <h5 class="tachado">Precio Anterior: S/100</h5>
@@ -78,7 +78,7 @@
                         </div>
 
                         <!-- Columna derecha -->
-                        <div class="col-auto text-center text-white mx-5">
+                        <div class="col-auto text-center mx-5 carousel">
                             <h1>Waifu</h1>
                             <h3>Precio Actual: S/99.99</h3>
                             <h5 class="tachado">Precio Anterior: S/100</h5>
@@ -99,7 +99,7 @@
                         </div>
 
                         <!-- Columna derecha -->
-                        <div class="col-auto text-center text-white mx-5">
+                        <div class="col-auto text-center mx-5 carousel">
                             <h1>Waifu</h1>
                             <h3>Precio Actual: S/99.99</h3>
                             <h5 class="tachado">Precio Anterior: S/100</h5>
@@ -115,11 +115,15 @@
 
             <!-- Controles -->
             <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span aria-hidden="true">
+                        <i class="fas fa-chevron-left" style="color: black; font-size: 1.5rem;"></i>
+                    </span>
                 <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span aria-hidden="true">
+                        <i class="fas fa-chevron-right" style="color: black; font-size: 1.5rem;"></i>
+                    </span>
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
@@ -128,13 +132,13 @@
     <!-- Contenido de la sección de productos -->
     <div class="container-fluid my-2">
         <!-- Encabezado -->
-        <div class="row text-center text-white">
+        <div class="row mb-3 text-center text-primary-emphasis">
             <h1>¿Que estas buscando hoy?</h1>
         </div>
 
         <div class="row">
             <!-- Sidebar de filtros -->
-            <div class="col-md-3">
+            <div class="col-md-3 mb-4">
                 <div class="sidebar">
                     <form id="filterForm">
                         <h5><i class="fa-solid fa-filter"></i> Filtros:</h5>
@@ -158,7 +162,7 @@
                         </div>
 
                         <!-- Botón para aplicar los filtros -->
-                        <button type="button" class="btn btn-secondary w-100" id="apply-filters">
+                        <button type="button" class="btn btn-success w-100" id="apply-filters">
                             Aplicar Filtros
                         </button>
                     </form>
@@ -166,17 +170,21 @@
             </div>
 
             <!-- Zona principal de productos -->
-            <div class="col-md-9">
+            <div class="col-md-9 mb-4">
                 <div id="productos-container" class="row row-cols-1 row-cols-md-3 gy-2">
                     <!-- Aquí se cargarán los productos filtrados -->
                     <% if (filteredProducts == null) {
                         for (Product product : listProducts) { %>
-                    <div class="col-md-4">
-                        <div class="product-card h-100">
-                            <img src="<%= product.getImage() %>" alt="<%= product.getName() %>" class="img-fluid">
-                            <h3><%= product.getName() %></h3>
-                            <p>Precio: S/<%= product.getPrice() %></p>
-                            <button class="btn btn-success">Agregar al carrito</button>
+                    <div class="col">
+                        <div class="product-card d-flex flex-column justify-content-between align-items-center">
+                            <img src="<%= product.getImage() %>" alt="<%= product.getName() %>">
+                            <div class="product-info">
+                                <h3 class="product-title"><%= product.getName() %></h3>
+                                <p class="product-price">Precio: S/<%= product.getPrice() %></p>
+                            </div>
+                            <button type="button" class="btn btn-success w-100">
+                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
+                            </button>
                         </div>
                     </div>
                     <%  }
