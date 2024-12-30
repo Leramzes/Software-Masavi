@@ -9,9 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CatalogoProducts {
-    public List<Product> getAllProducts() {
+    public static List<Product> getAllProducts() {
         List<Product> products = new ArrayList<Product>();
 
         //por el momento se trabajaran Strings de consulta
@@ -36,5 +37,38 @@ public class CatalogoProducts {
             throw new RuntimeException(e);
         }
         return products;
+    }
+
+    public List<String> getCategoryProducts() {
+        List<String> categoryProducts = new ArrayList<String>();
+
+        //por el momento se trabajaran Strings de consulta
+        DataSource dataSource = DataBaseUtil.getDataSource();
+        Connection cnn = null;
+        String sql = "SELECT DISTINCT categoria FROM Productos";
+
+        try {
+            cnn = dataSource.getConnection();
+            ResultSet rst = cnn.createStatement().executeQuery(sql);
+            while (rst.next()) {
+                String categoria = rst.getString("categoria");
+
+                categoryProducts.add(categoria);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return categoryProducts;
+    }
+
+    public static List<Product> filterProducts(String nombre, String categoria) {
+        // Simular la obtención de todos los productos desde la base de datos
+        List<Product> allProducts = getAllProducts();
+
+        // Filtrar los productos según los criterios
+        return allProducts.stream()
+                .filter(product -> (nombre == null || nombre.isEmpty() || product.getName().toLowerCase().contains(nombre.toLowerCase())))
+                .filter(product -> (categoria == null || categoria.isEmpty() || product.getCategory().equals(categoria)))
+                .collect(Collectors.toList());
     }
 }

@@ -9,11 +9,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "product", urlPatterns = {"/product"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "FiltrarProductosServlet", urlPatterns = {"/FiltrarProductosServlet"})
+public class FilterProducServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         this.doPost(req, resp);
@@ -21,12 +21,13 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CatalogoProducts catalogo = new CatalogoProducts();
-        List<Product> products = catalogo.getAllProducts();
-        List<String> categoryProducts = catalogo.getCategoryProducts();
-        req.setAttribute("products", products);
-        req.setAttribute("categoryProducts", categoryProducts);
+        // Obtener los parámetros del formulario
+        String nombre = req.getParameter("nombre");
+        String categoria = req.getParameter("categoria");
 
+        List<Product> productsFilter = CatalogoProducts.filterProducts(nombre,categoria);
+
+        req.setAttribute("filteredProducts", productsFilter);
         req.getRequestDispatcher("product.jsp").forward(req, resp);
     }
 }

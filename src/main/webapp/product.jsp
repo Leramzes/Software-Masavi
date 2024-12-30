@@ -24,9 +24,10 @@
 <body>
 
 <%@ include file="header.jsp" %>
-<%!
-    %><%
+<%
     List<Product> listProducts = (List<Product>) request.getAttribute("products");
+    List<String> listCategories = (List<String>) request.getAttribute("categoryProducts");
+    List<Product> filteredProducts = (List<Product>) request.getAttribute("filteredProducts");
 %>
 <main class="bg-main">
     <!-- Contenido de la sección de productos destacados -->
@@ -135,60 +136,53 @@
             <!-- Sidebar de filtros -->
             <div class="col-md-3">
                 <div class="sidebar">
-                    <h5><i class="fa-solid fa-filter"></i> Filtros:</h5>
+                    <form id="filterForm">
+                        <h5><i class="fa-solid fa-filter"></i> Filtros:</h5>
 
-                    <!-- Filtro por nombre -->
-                    <div class="filter-group">
-                        <label>Nombre del producto:</label>
-                        <input type="text" id="nombre-search" class="form-control" placeholder="Buscar producto...">
-                    </div>
+                        <!-- Filtro por nombre -->
+                        <div class="filter-group">
+                            <label>Nombre del producto:</label>
+                            <input type="text" id="nombre-search" class="form-control" placeholder="Buscar producto...">
+                        </div>
 
-                    <!-- Filtro por categoria -->
-                    <div class="filter-group">
-                        <label for="categoria-select" class="form-label">Categoría:</label>
-                        <select id="categoria-select" class="form-select">
-                            <option value="">Seleccionar categoría</option>
-                            <option value="Categoría 1">Categoría 1</option>
-                            <option value="Categoría 2">Categoría 2</option>
-                            <option value="Categoría 3">Categoría 3</option>
-                            <option value="Categoría 4">Categoría 4</option>
-                        </select>
-                    </div>
+                        <!-- Filtro por categoria -->
+                        <div class="filter-group">
+                            <label for="categoria-select" class="form-label">Categoría:</label>
+                            <select id="categoria-select" class="form-select">
+                                <option value="">Seleccionar categoría</option>
+                                <%for (String list : listCategories) {
+                                    int cont=1;%>
+                                    <option value="Categoría <%=cont%>"><%=list%></option>
+                                <%cont++;}%>
+                            </select>
+                        </div>
 
-                    <!-- Filtro por rango de precio -->
-                    <div class="filter-group">
-                        <label for="price-range">Rango de precio:</label>
-                        <input type="range" id="price-range" class="form-control" min="0" max="1000" step="10">
-                        <span id="price-value">0 - 1000</span>
-                    </div>
-
-                    <!-- Botón para aplicar los filtros -->
-                    <button class="btn btn-secondary w-100">Aplicar Filtros</button>
+                        <!-- Botón para aplicar los filtros -->
+                        <button type="button" class="btn btn-secondary w-100" id="apply-filters">
+                            Aplicar Filtros
+                        </button>
+                    </form>
                 </div>
             </div>
 
             <!-- Zona principal de productos -->
             <div class="col-md-9">
-                <div class="row row-cols-1 row-cols-md-3 gy-2">
-                    <!-- Tarjeta de producto -->
-                    <%for(Product product : listProducts) {
-                        boolean isMinim = product.getQuantityInStock() < 10;
-                    %>
-                    <div class="col">
-                        <div class="product-card h-100 product-item d-flex flex-column justify-content-between align-items-center">
-                            <img src="<%=product.getImage()%>" alt="<%=product.getName()%>" class="product-image">
-                            <h2><%=product.getName()%></h2>
-                            <h4>Precio Actual: <%=String.format("S/%s",product.getPrice().toString()) %></h4>
-                            <%if(isMinim){%>
-                            <h5 style="color: #dc3545">Quedan Pocas Unidades</h5>
-                            <%}%>
-                            <p><%=product.getDescription()%></p>
-                            <button type="button" class="btn btn-success w-100">
-                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
+                <div id="productos-container" class="row row-cols-1 row-cols-md-3 gy-2">
+                    <!-- Aquí se cargarán los productos filtrados -->
+                    <% if (filteredProducts == null) {
+                        for (Product product : listProducts) { %>
+                    <div class="col-md-4">
+                        <div class="product-card h-100">
+                            <img src="<%= product.getImage() %>" alt="<%= product.getName() %>" class="img-fluid">
+                            <h3><%= product.getName() %></h3>
+                            <p>Precio: S/<%= product.getPrice() %></p>
+                            <button class="btn btn-success">Agregar al carrito</button>
                         </div>
                     </div>
-                    <%}%>
+                    <%  }
+                    } else { %>
+                    <p>No se encontraron productos.</p>
+                    <% } %>
                 </div>
             </div>
         </div>
