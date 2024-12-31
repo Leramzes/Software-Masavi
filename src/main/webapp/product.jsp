@@ -175,17 +175,13 @@
                     <!-- Aquí se cargarán los productos filtrados -->
                     <% if (filteredProducts == null) {
                         for (Product product : listProducts) { %>
-                    <div class="col">
-                        <div class="product-card d-flex flex-column justify-content-between align-items-center">
-                            <img src="<%= product.getImage() %>" alt="<%= product.getName() %>">
-                            <div class="product-info">
-                                <h3 class="product-title"><%= product.getName() %></h3>
-                                <p class="product-price">Precio: S/<%= product.getPrice() %></p>
-                            </div>
-                            <button type="button" class="btn btn-success w-100">
-                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
-                        </div>
+                    <div class="col product-card d-flex flex-column justify-content-between align-items-center">
+                        <img src="<%= product.getImage() %>" alt="<%= product.getName() %>">
+                        <h3 class="product-title"><%= product.getName() %></h3>
+                        <p class="product-price">Precio: S/<%= product.getPrice() %></p>
+                        <button type="button" class="btn btn-success w-100">
+                            Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
+                        </button>
                     </div>
                     <%  }
                     } else { %>
