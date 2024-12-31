@@ -61,14 +61,12 @@ public class CatalogoProducts {
         return categoryProducts;
     }
 
-    public static List<Product> filterProducts(String nombre, String categoria) {
-        // Simular la obtención de todos los productos desde la base de datos
-        List<Product> allProducts = getAllProducts();
-
-        // Filtrar los productos según los criterios
-        return allProducts.stream()
-                .filter(product -> (nombre == null || nombre.isEmpty() || product.getName().toLowerCase().contains(nombre.toLowerCase())))
-                .filter(product -> (categoria == null || categoria.isEmpty() || product.getCategory().equals(categoria)))
+    public static List<Product> filterProducts(String nombre) {
+        if (nombre == null || nombre.isEmpty()) {
+            return getAllProducts(); // Devuelve todos los productos si no hay búsqueda.
+        }
+        return getAllProducts().stream()
+                .filter(product -> product.getName().toLowerCase().contains(nombre.toLowerCase()))
                 .collect(Collectors.toList());
     }
 }

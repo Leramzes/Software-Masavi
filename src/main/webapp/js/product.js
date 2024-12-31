@@ -35,26 +35,16 @@ document.getElementById('marca-search').addEventListener('input', function() {
 });
 
 //AJAX para actualizacion de productos de acuerdo a filtros
-document.getElementById('apply-filters').addEventListener('click', function () {
-    const nombre = document.getElementById('nombre-search').value;
-    const categoria = document.getElementById('categoria-select').value;
-
-    const params = new URLSearchParams();
-    params.append("nombre", nombre);
-    params.append("categoria", categoria);
-
-    fetch("filtrarProductos", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+function buscar(){
+    //lo que el usuario busca
+    var nameFilter = $("#nameSearch").val();
+    $.ajax({
+        url: "filterProducServlet",
+        data: {
+            filter: nameFilter
         },
-        body: params.toString(),
-    })
-        .then(response => response.text())
-        .then(html => {
-            // Reemplazar el contenido del contenedor con los nuevos productos
-            document.getElementById('productos-container').innerHTML = html;
-        })
-        .catch(error => console.error('Error:', error));
-});
-
+        success: function( result ) {
+            $( "#cardsProduct" ).html(result);
+        }
+    });
+}

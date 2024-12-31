@@ -27,7 +27,6 @@
 <%
     List<Product> listProducts = (List<Product>) request.getAttribute("products");
     List<String> listCategories = (List<String>) request.getAttribute("categoryProducts");
-    List<Product> filteredProducts = (List<Product>) request.getAttribute("filteredProducts");
 %>
 <main class="bg-main">
     <!-- Contenido de la sección de productos destacados -->
@@ -142,51 +141,36 @@
                 <div class="sidebar">
                     <form id="filterForm">
                         <h5><i class="fa-solid fa-filter"></i> Filtros:</h5>
-
-                        <!-- Filtro por nombre -->
                         <div class="filter-group">
                             <label>Nombre del producto:</label>
-                            <input type="text" id="nombre-search" class="form-control" placeholder="Buscar producto...">
+                            <input type="text" id="nameSearch" name="productName" class="form-control"
+                                   placeholder="Buscar producto...">
                         </div>
-
-                        <!-- Filtro por categoria -->
-                        <div class="filter-group">
-                            <label for="categoria-select" class="form-label">Categoría:</label>
-                            <select id="categoria-select" class="form-select">
-                                <option value="">Seleccionar categoría</option>
-                                <%for (String list : listCategories) {
-                                    int cont=1;%>
-                                    <option value="Categoría <%=cont%>"><%=list%></option>
-                                <%cont++;}%>
-                            </select>
-                        </div>
-
-                        <!-- Botón para aplicar los filtros -->
-                        <button type="button" class="btn btn-success w-100" id="apply-filters">
-                            Aplicar Filtros
-                        </button>
+                        <button type="button" onclick="buscar()" class="btn btn-success w-100">Aplicar Filtros</button>
                     </form>
                 </div>
             </div>
 
             <!-- Zona principal de productos -->
             <div class="col-md-9 mb-4">
-                <div id="productos-container" class="row row-cols-1 row-cols-md-3 gy-2">
+                <div class="row row-cols-1 row-cols-md-3 gy-2" id="productContainer">
                     <!-- Aquí se cargarán los productos filtrados -->
-                    <% if (filteredProducts == null) {
-                        for (Product product : listProducts) { %>
-                    <div class="col product-card d-flex flex-column justify-content-between align-items-center">
-                        <img src="<%= product.getImage() %>" alt="<%= product.getName() %>">
-                        <h3 class="product-title"><%= product.getName() %></h3>
-                        <p class="product-price">Precio: S/<%= product.getPrice() %></p>
-                        <button type="button" class="btn btn-success w-100">
-                            Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                        </button>
+                    <div id="cardsProduct" >
+                        <%for (Product product : listProducts) { %>
+                        <div class="col product-card d-flex flex-column justify-content-between align-items-center">
+                            <img src="<%= product.getImage() %>" alt="<%= product.getName() %>">
+                            <h3 class="product-title"><%= product.getName() %></h3>
+                            <p class="product-price">Precio: S/<%= product.getPrice() %></p>
+                            <%if(product.getQuantityInStock()<10){%>
+                            <h5 style="color: #dc3545">¡Quedan Pocas Unidades!</h5>
+                            <%}%>
+                            <button type="button" class="btn btn-success w-100">
+                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
+                            </button>
+                        </div>
+                        <%  } %>
                     </div>
-                    <%  }
-                    } else { %>
-                    <p>No se encontraron productos.</p>
-                    <% } %>
+
                 </div>
             </div>
         </div>
@@ -201,5 +185,5 @@
         crossorigin="anonymous"></script>
 <!--Enlace de JavaScript - Validación-->
 <script src="js/product.js"></script>
-
+<script src="js/jquery-3.7.1.js"></script>
 </body>
