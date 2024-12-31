@@ -25,9 +25,9 @@
 
 <main class="row w-100 container-fluid bg-main d-flex align-items-center justify-content-center">
     <!-- Texto -->
-    <div class="col-12 col-md-6 d-flex flex-column text-center text-light align-items-center">
-        <h1>Lorem ipsum dolor sit amet</h1>
-        <h5>Lorem ipsum dolor sit amet consectetur.</h5>
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex flex-column text-center text-light text-primary-emphasis">
+        <h1 class="mt-3">Inicia sesión en el sistema <strong>MASAVI</strong></h1>
+        <h5 class="mt-3">Tu puerta a productos agroquímicos de calidad y asesoría especializada</h5>
     </div>
 
     <!-- Formulario de inicio de sesión -->
