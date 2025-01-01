@@ -164,9 +164,13 @@
                             <%if(product.getQuantityInStock()<10){%>
                             <h5 style="color: #dc3545">¡Quedan Pocas Unidades!</h5>
                             <%}%>
-                            <button type="button" class="btn btn-success w-100">
-                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
+                            <form action="cart" method="post">
+                                <input type="hidden" name="productId" value="<%=product.getId()%>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="btn btn-success w-100">
+                                    Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </form>
                         </div>
                         <%  } %>
                     </div>

@@ -12,17 +12,25 @@ public class DataBaseUtil {
 
     static {
         try {
-            config.setJdbcUrl("jdbc:mysql://autorack.proxy.rlwy.net:47900/railway?user=root&password=YrXKYydmtViQgJustXmFmFspZPtgiUSw"); // Cambia por tu URL
+            config.setJdbcUrl("jdbc:mysql://autorack.proxy.rlwy.net:47900/railway?user=root&password=YrXKYydmtViQgJustXmFmFspZPtgiUSw");
             config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-            config.setMaximumPoolSize(10); // Número máximo de conexiones
-            config.setMinimumIdle(2); // Número mínimo de conexiones inactivas
-            config.setIdleTimeout(60000); // Tiempo máximo de inactividad
-            config.setConnectionTimeout(30000); // Tiempo de espera para obtener una conexión
-            config.setValidationTimeout(5000); // Tiempo para validar una conexión
+
+            // Tamaño del pool
+            config.setMaximumPoolSize(10); // Número máximo de conexiones abiertas
+            config.setMinimumIdle(2); // Conexiones inactivas mínimas
+
+            // Tiempos configurados para conexiones remotas
+            config.setIdleTimeout(120000); // 2 minutos para cerrar conexiones inactivas
+            config.setConnectionTimeout(30000); // Esperar máximo 30 segundos para obtener una conexión
+            config.setValidationTimeout(10000); // 10 segundos para validar una conexión
+            config.setMaxLifetime(1800000); // 30 minutos antes de reciclar una conexión
+
+            // Pruebas de conectividad
+            config.setConnectionTestQuery("SELECT 1"); // Para validar conexiones inactivas
+
             dataSource = new HikariDataSource(config);
         } catch (Exception e) {
-            String msj= "Error al inicializar la conexión a la base de datos";
-            throw new ConectionNotBDException(msj);
+            throw new ConectionNotBDException("Error al inicializar la conexión a la base de datos: " + e.getMessage());
         }
     }
 

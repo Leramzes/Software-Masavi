@@ -32,8 +32,9 @@
                         <a class="nav-link" href="contact_us.jsp">Contáctanos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="shopping_cart.jsp"><i class="fa-solid fa-bag-shopping"></i>
-                            Carrito</a>
+                        <form action="cart" method="get">
+                            <button class="nav-link" type="submit"><i class="fa-solid fa-bag-shopping"></i>Carrito</button>
+                        </form>
                     </li>
                 </ul>
 
