@@ -1,3 +1,4 @@
+/*
 document.addEventListener('DOMContentLoaded', () => {
     const emailInput = document.getElementById('email');
     const phoneInput = document.getElementById('phone');
@@ -41,3 +42,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+*/

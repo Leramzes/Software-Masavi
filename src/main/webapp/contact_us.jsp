@@ -17,12 +17,33 @@
     <link rel="stylesheet" href="css/background.css">
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- SwwetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
 
 <%@ include file="header.jsp" %>
-
+<script>
+    // Verifica si el atributo "correoEnviado" está presente
+    <%
+        String correoEnviado = (String) request.getAttribute("response");
+        if(correoEnviado!=null){
+        if (correoEnviado.equals("SUCCESS")) {
+    %>
+    Swal.fire({
+        icon: "success",
+        title: "¡Éxito!",
+        text: "Correo enviado correctamente."
+    });
+    <%}else {%>
+    Swal.fire({
+        icon: "error",
+        title: "¡Error!",
+        text: "Hubo un error al enviar el correo. Verifica los datos. (<%=correoEnviado.toLowerCase()%>)"
+    });
+    <%}}%>
+</script>
 <main class="container-fluid bg-main">
     <div class="row w-100 d-flex justify-content-center align-items-center">
         <!-- Texto -->
@@ -34,39 +55,38 @@
         <!-- Formulario de Contactanos-->
         <div class="col-lg-6 col-md-6 col-sm-12 d-flex p-4 justify-content-center align-items-center">
             <div class="w-75 p-4 bg-light rounded shadow">
-                <!-- Encabezado -->
                 <h2 class="text-center mb-4">Contáctanos</h2>
 
                 <!-- Formulario -->
-                <form id="contact-form">
+                <form id="contact-form" action="correo" method="post" >
                     <!-- Campo de Nombre Completo -->
                     <div class="mb-3">
                         <label for="full-name" class="form-label">Nombre Completo</label>
-                        <input type="text" class="form-control" id="full-name" placeholder="Ingrese su nombre completo" required>
+                        <input type="text" class="form-control" id="full-name" placeholder="Ingrese su nombre completo" name="name" required>
                     </div>
 
                     <!-- Campo de Correo Electrónico -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" required>
-                        <div id="email-error" class="text-danger mt-1" style="display: none;">
+                        <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" name="correo" required>
+                        <%--<div id="email-error" class="text-danger mt-1" style="display: none;">
                             El correo debe ser de Gmail o Hotmail y tener un formato válido.
-                        </div>
+                        </div>--%>
                     </div>
 
                     <!-- Campo de Celular -->
                     <div class="mb-3">
                         <label for="phone" class="form-label">Celular</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Ingrese su número de celular" required>
-                        <div id="phone-error" class="text-danger mt-1" style="display: none;">
+                        <input type="tel" class="form-control" id="phone" placeholder="Ingrese su número de celular" name="celphone" required>
+                        <%--<div id="phone-error" class="text-danger mt-1" style="display: none;">
                             El número de celular debe tener el formato válido (ejemplo: 123-456-789).
-                        </div>
+                        </div>--%>
                     </div>
 
                     <!-- Campo de Mensaje -->
                     <div class="mb-3">
                         <label for="message" class="form-label">Mensaje</label>
-                        <textarea class="form-control" id="message" rows="4" placeholder="Escriba su mensaje" required></textarea>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Escriba su mensaje" name="message" required></textarea>
                     </div>
 
                     <!-- Botón de Enviar -->
@@ -83,8 +103,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-<!--Enlace de JavaScript-->
-<script src="js/contact_us.js"></script>
 
 </body>
 
