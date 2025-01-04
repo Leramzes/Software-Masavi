@@ -29,10 +29,14 @@ public class FilterProducServlet extends HttpServlet {
                 if (product.getQuantityInStock() < 10) {
                     out.println("<h5 style=\"color: #dc3545\">¡Quedan Pocas Unidades!</h5>");
                 }
-                out.println("<button type='button' class='btn btn-success w-100'>");
-                out.println("Agregar al Carrito <i class='fa-solid fa-cart-shopping'></i>");
+                out.println("<form action=\"cart\" method=\"post\">");
+                out.println("<input type=\"hidden\" name=\"productId\" value="+product.getId()+">");
+                out.println("<input type=\"hidden\" name=\"quantity\" value=\"1\">");
+                out.println("<button type=\"submit\" class=\"btn btn-success w-100\">");
+                out.println("Agregar al Carrito <i class=\"fa-solid fa-cart-shopping\"></i>");
                 out.println("</button>");
-                out.println("</div>");
+                out.println("</form>");
+
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
