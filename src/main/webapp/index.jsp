@@ -24,7 +24,7 @@
 <main>
     <!-- Video de fondo -->
     <video autoplay loop muted playsinline>
-        <source src="img/FondoAnime.mp4" type="video/mp4">
+        <source src="media/Fondo.mp4" type="video/mp4">
         Tu navegador no soporta videos HTML5.
     </video>
 
