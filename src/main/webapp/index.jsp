@@ -24,7 +24,7 @@
 <main>
     <!-- Video de fondo -->
     <video autoplay loop muted playsinline>
-        <source src="media/Fondo.mp4" type="video/mp4">
+        <source src="media/fondo.mp4" type="video/mp4">
         Tu navegador no soporta videos HTML5.
     </video>
 
@@ -32,7 +32,7 @@
     <div class="container-fluid p-0 bg-main">
         <div class="row d-flex align-items-center">
             <!-- Columna izquierda -->
-            <div class="col-12 col-md-6 text-center text-white order-1 order-md-0">
+            <div class="col-12 col-md-6 text-center text-white order-1 order-md-0 text-primary-emphasis">
                 <h1 class="mt-3">Bienvenido a <strong>MASAVI</strong></h1>
                 <h5 class="mt-3">Juntos, mejoramos el rendimiento de tus cultivos</h5>
             </div>

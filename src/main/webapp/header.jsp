@@ -33,10 +33,22 @@
                     </li>
                     <li class="nav-item">
                         <form action="cart" method="get">
-                            <button class="nav-link" type="submit"><i class="fa-solid fa-bag-shopping"></i>Carrito</button>
+                            <button class="nav-link" type="submit"><i class="fa-solid fa-bag-shopping me-1"></i>Carrito</button>
                         </form>
                     </li>
                 </ul>
+
+                <!-- Información del usuario -->
+                <div class="dropdown-center mx-2">
+                    <button class="btn dropdown-toggle rounded-pill border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user me-1"></i>
+                        <span>Nombre del usuario</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+                        <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
 
                 <!-- Botón de iniciar sesión alineado a la derecha -->
                 <div class="d-flex justify-content-end">
