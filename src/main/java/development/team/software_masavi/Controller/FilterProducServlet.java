@@ -22,6 +22,7 @@ public class FilterProducServlet extends HttpServlet {
             String filter = req.getParameter("filter");
             List<Product> products = CatalogoProducts.filterProducts(filter);
             for (Product product : products) {
+                out.println("<div class=\"col mb-3\">");
                 out.println("<div class=\"col product-card d-flex flex-column justify-content-between align-items-center\">");
                 out.println("<img src='"+product.getImage()+"' alt='"+product.getName()+"'");
                 out.println("<h3 class='product-title'>"+product.getName()+"</h3>");
@@ -36,7 +37,8 @@ public class FilterProducServlet extends HttpServlet {
                 out.println("Agregar al Carrito <i class=\"fa-solid fa-cart-shopping\"></i>");
                 out.println("</button>");
                 out.println("</form>");
-
+                out.println("</div>");
+                out.println("</div>");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
