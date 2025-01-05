@@ -32,7 +32,7 @@
     <div class="container-fluid p-0 bg-main">
         <div class="row d-flex align-items-center">
             <!-- Columna izquierda -->
-            <div class="col-12 col-md-6 text-center text-white order-1 order-md-0 text-primary-emphasis">
+            <div class="col-12 col-md-6 text-center text-white order-1 order-md-0">
                 <h1 class="mt-3">Bienvenido a <strong>MASAVI</strong></h1>
                 <h5 class="mt-3">Juntos, mejoramos el rendimiento de tus cultivos</h5>
             </div>

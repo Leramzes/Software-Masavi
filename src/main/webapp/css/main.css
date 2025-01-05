@@ -30,7 +30,6 @@ main video {
     width: 60%;
     height: auto; /* Para mantener la proporción de la imagen */
     object-fit: contain;
-    border: #75ac00 solid;
 }
 
 /* Estilos generales para dispositivos pequeños */
