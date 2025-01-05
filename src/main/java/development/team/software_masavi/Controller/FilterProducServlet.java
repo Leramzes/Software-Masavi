@@ -23,7 +23,7 @@ public class FilterProducServlet extends HttpServlet {
             List<Product> products = CatalogoProducts.filterProducts(filter);
             for (Product product : products) {
                 out.println("<div class=\"col mb-3\">");
-                out.println("<div class=\"col product-card d-flex flex-column justify-content-between align-items-center\">");
+                out.println("<div class=\"product-card d-flex flex-column justify-content-between align-items-center\">");
                 out.println("<img src='"+product.getImage()+"' alt='"+product.getName()+"'");
                 out.println("<h3 class='product-title'>"+product.getName()+"</h3>");
                 out.println("<p class='product-price'>Precio: S/"+product.getPrice()+"</p>");
