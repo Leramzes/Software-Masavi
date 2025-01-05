@@ -12,7 +12,7 @@
     <!--Enlace de CSS Global-->
     <link rel="stylesheet" href="css/global.css">
     <!--Enlace de CSS Específico-->
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="css/about_us.css">
     <!--Enlace de CSS Fondo-->
     <link rel="stylesheet" href="css/background.css">
     <!-- FontAwesome CDN -->
@@ -26,7 +26,7 @@
 <main class="bg-main">
     <div class="container my-4">
         <!-- Sección Historia -->
-        <div class="card bg-light p-4 mb-4 rounded">
+        <div class="transparente p-4 mb-4 rounded ps-5">
             <div class="row align-items-center">
                 <!-- Texto a la izquierda -->
                 <div class="col-12 col-md-8">
@@ -54,63 +54,57 @@
         </div>
 
         <!-- Sección Misión, Visión, Valores -->
-        <div class="card bg-light p-4 mb-4 rounded">
-            <div class="row text-center gy-4">
-                <!-- Misión -->
-                <div class="col-12 col-md-4">
-                    <div class="card border-0 shadow p-4 h-100">
-                        <div class="text-center mb-3">
-                            <i class="fa-regular fa-handshake fa-3x text-primary"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark">Misión</h5>
-                        <p class="text-muted" style="text-align: justify;">
-                            Ser una empresa líder en la venta de productos agroquímicos de alta calidad, ofreciendo soluciones efectivas
-                            y personalizadas que satisfagan las necesidades de nuestros clientes, promoviendo un desarrollo agrícola eficiente
-                            y sostenible.
-                        </p>
+        <div class="row text-center gy-4 mb-4 ">
+            <!-- Misión -->
+            <div class="col-12 col-md-4">
+                <div class="transparente rounded-4 border-0 shadow p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fa-regular fa-handshake fa-3x text-primary"></i>
                     </div>
+                    <h5 class="fw-bold text-dark">Misión</h5>
+                    <p class="text-muted" style="text-align: justify;">
+                        Ser una empresa líder en la venta de productos agroquímicos de alta calidad, ofreciendo soluciones efectivas y personalizadas que satisfagan las necesidades de nuestros clientes, promoviendo un desarrollo agrícola eficiente y sostenible.
+                    </p>
                 </div>
-
-                <!-- Visión -->
-                <div class="col-12 col-md-4">
-                    <div class="card border-0 shadow p-4 h-100">
-                        <div class="text-center mb-3">
-                            <i class="fa-regular fa-eye fa-3x text-success"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark">Visión</h5>
-                        <p class="text-muted" style="text-align: justify;">
-                        Convertirnos en el principal referente de confianza y asesoría en el sector agroquímico, garantizando a nuestros clientes
-                        productos de calidad superior y servicios que impulsen el crecimiento sostenible de sus cultivos y el éxito de sus proyectos agrícolas.
-                        </p>
+            </div>
+            <!-- Visión -->
+            <div class="col-12 col-md-4">
+                <div class="transparente rounded-4 border-0 shadow p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fa-regular fa-eye fa-3x text-success"></i>
                     </div>
+                    <h5 class="fw-bold text-dark">Visión</h5>
+                    <p class="text-muted" style="text-align: justify;">
+                        Convertirnos en el principal referente de confianza y asesoría en el sector agroquímico, garantizando a nuestros clientes productos de calidad superior y servicios que impulsen el crecimiento sostenible de sus cultivos y el éxito de sus
+                        proyectos agrícolas.
+                    </p>
                 </div>
-
-                <!-- Valores -->
-                <div class="col-12 col-md-4">
-                    <div class="card border-0 shadow p-4 h-100">
-                        <div class="text-center mb-3">
-                            <i class="fa-regular fa-star fa-3x text-warning"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark">Valores</h5>
-                        <p class="text-muted" style="text-align: justify;">
-                            Nos regimos por principios fundamentales que reflejan nuestro compromiso con el sector agronómico:
-                        </p>
-                        <ul class="text-muted ps-3" style="list-style-type: none;" >
-                            <li>Calidad</li>
-                            <li>Confianza</li>
-                            <li>Sostenibilidad</li>
-                            <li>Innovación</li>
-                            <li>Responsabilidad</li>
-                            <li>Compromiso con el cliente</li>
-                            <li>Educación y asesoramiento</li>
-                        </ul>
+            </div>
+            <!-- Valores -->
+            <div class="col-12 col-md-4">
+                <div class="transparente rounded-4 border-0 shadow p-4 h-100">
+                    <div class="text-center mb-3">
+                        <i class="fa-regular fa-star fa-3x text-warning"></i>
                     </div>
+                    <h5 class="fw-bold text-dark">Valores</h5>
+                    <p class="text-muted" style="text-align: justify;">
+                        Nos regimos por principios fundamentales que reflejan nuestro compromiso con el sector agronómico:
+                    </p>
+                    <ul class="text-muted ps-3" style="list-style-type: none;">
+                        <li>Calidad</li>
+                        <li>Confianza</li>
+                        <li>Sostenibilidad</li>
+                        <li>Innovación</li>
+                        <li>Responsabilidad</li>
+                        <li>Compromiso con el cliente</li>
+                        <li>Educación y asesoramiento</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <!-- Sección Ubicación -->
-        <div class="card bg-light p-4 rounded">
+        <div class="transparente p-4 rounded">
             <!-- Título de la Sección -->
             <h1 class="text-black fw-bold mb-4 text-center">
                 ¿Dónde nos Ubicamos?

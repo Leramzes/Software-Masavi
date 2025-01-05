@@ -37,7 +37,7 @@
         <div class="row">
             <!-- Carrito de Compra -->
             <div class="col-12 col-md-8 mb-4">
-                <h1 class="fw-bold text-primary-emphasis mb-4">Carrito de Compra:</h1>
+                <h2 class="fw-bold text-primary-emphasis mb-4">Carrito de Compra:</h2>
 
                 <% if (cartItems == null || cartItems.isEmpty()) { %>
                 <div class="alert alert-warning" role="alert">
@@ -80,7 +80,7 @@
 
             <!-- Resumen de Compra -->
             <div class="col-12 col-md-4">
-                <h1 class="fw-bold text-center text-primary-emphasis mb-4">Resumen</h1>
+                <h2 class="fw-bold text-center text-primary-emphasis mb-4">Resumen</h2>
 
                 <div class="summary card p-3">
                     <!-- Total de Compra -->
