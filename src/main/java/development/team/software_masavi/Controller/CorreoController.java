@@ -2,6 +2,7 @@ package development.team.software_masavi.Controller;
 
 import development.team.software_masavi.Business.ContactUsGestion;
 import development.team.software_masavi.Functions;
+import development.team.software_masavi.Model.Contact;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -27,10 +28,12 @@ public class CorreoController extends HttpServlet {
         String celphone = req.getParameter("celphone");//cumpla con 9 digitos Perú | solo numeros | esta vacio
         String message = req.getParameter("message");//esta vacio
 
+        Contact contact = new Contact(name, correo, celphone, message);
+
         String response = functions.isProceedMail(name, correo, celphone, message);
         if (response.equals("SUCCESS")) {
             try {
-                ContactUsGestion.registerContact(name,correo,celphone,message);
+                ContactUsGestion.registerContact(contact);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
