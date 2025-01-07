@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page import="development.team.software_masavi.Model.Usuario" %><%
     HttpSession ses = request.getSession();
     Usuario user = (Usuario) ses.getAttribute("usuario");

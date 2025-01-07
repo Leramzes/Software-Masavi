@@ -1,3 +1,5 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <footer class="text-white py-2" style="background-color: #00563c">
     <div class="container">
         <!-- Fila de redes sociales -->
@@ -20,7 +22,7 @@
         <!-- Fila de Copyright -->
         <div class="row">
             <div class="col text-center">
-                <p>&copy; 2024 MASAVI. Todos los derechos reservados.</p>
+                <p>&copy; <%= java.time.Year.now().getValue() %> MASAVI. Todos los derechos reservados.</p>
             </div>
         </div>
     </div>
