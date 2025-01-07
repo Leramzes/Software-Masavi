@@ -49,24 +49,29 @@
             <!-- Carousel items -->
             <div class="carousel-inner">
                 <!-- Slide 1 -->
-                <div class="carousel-item active">
-                    <div class="row align-items-center justify-content-center">
-                        <!-- Columna izquierda -->
-                        <div class="col-auto">
-                            <img src="img/producto.jpg" class="img-fluid rounded-3" alt="Producto 1">
-                        </div>
-                        <!-- Columna derecha -->
-                        <div class="col-auto text-center mx-5 carousel">
-                            <h1>Waifu</h1>
-                            <h3>Precio Actual: S/99.99</h3>
-                            <h5 class="tachado">Precio Anterior: S/100</h5>
-                            <p>Lleve su Waifu a buen precio</p>
-                            <button type="button" class="btn btn-success w-100">
-                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
+                <%
+                    boolean isFirst = true;
+                    for(Product product : listProducts){
+                %>
+                    <div class="carousel-item <%= isFirst ? "active" : "" %>">
+                        <div class="row align-items-center justify-content-center">
+                            <!-- Columna izquierda -->
+                            <div class="col-auto">
+                                <img src="<%= product.getImage() %>" class="img-fluid rounded-3" alt="Imagen del producto">
+                            </div>
+                            <!-- Columna derecha -->
+                            <div class="col-auto text-center mx-5 carousel">
+                                <h3><%= product.getName() %></h3>
+                                <h4>Precio Actual: S/<%= product.getPrice() %></h4>
+                                <p><%= product.getDescription() %></p>
+                                <button type="button" class="btn btn-success w-100">
+                                    Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                <% isFirst = false;}%>
+
             </div>
 
             <!-- Controles -->
