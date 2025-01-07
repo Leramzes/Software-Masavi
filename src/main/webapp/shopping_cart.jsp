@@ -37,44 +37,91 @@
         <div class="row">
             <!-- Carrito de Compra -->
             <div class="col-12 col-md-8 mb-4">
+                <!-- Encabezado -->
                 <h2 class="fw-bold text-primary-emphasis mb-4">Carrito de Compra:</h2>
 
+                <!-- Mensaje si el carrito está vacío -->
                 <% if (cartItems == null || cartItems.isEmpty()) { %>
-                <div class="alert alert-warning" role="alert">
-                    Tu carrito está vacío.
-                    <form action="product" method="post">
-                        <button class="btn btn-primary mt-2" type="submit">¡Explora nuestros productos ahora!</button>
-                    </form>
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
+                    <div>
+                        <strong>¡Vaya!</strong> Tu carrito está vacío.
+                        <form action="product" method="post">
+                            <button class="btn btn-success mt-3" type="submit">
+                                <i class="fa-solid fa-arrow-right me-2"></i> ¡Explora nuestros productos ahora!
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <% } else { %>
+
                 <div class="card p-3">
-                    <% for (CartItem item : cartItems) { %>
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <!-- Imagen del Producto -->
-                        <img src="<%= item.getProduct().getImage() %>" alt="<%= item.getProduct().getName() %>"
-                             class="img-fluid rounded" style="width: 80px; height: 80px;">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered align-middle">
+                            <thead class="table-success text-center">
+                            <tr>
+                                <th scope="col">N°</th>
+                                <th scope="col">Imagen</th>
+                                <th scope="col">Nombre del Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio Total</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                        <!-- Detalles del Producto -->
-                        <div class="flex-grow-1 px-3">
-                            <h5 class="text-black fw-bold"><%= item.getProduct().getName() %></h5>
-                            <p class="text-muted mb-0"><%= item.getProduct().getDescription() %></p>
-                        </div>
+                            <!-- Cuerpo de la Tabla -->
+                            <%
+                                int contador = 1;
+                                for (CartItem item : cartItems) {
+                            %>
+                            <tr data-product-id="<%= item.getProduct().getId() %>" data-unit-price="<%= item.getProduct().getPrice() %>">
+                                <!-- N° -->
+                                <td class="text-center"><%= contador++ %></td>
 
-                        <!-- Precio del Producto -->
-                        <div class="text-end me-3">
-                            <p class="text-black fw-bold mb-0">S/ <%= item.getProduct().getPrice() %></p>
-                        </div>
+                                <!-- Imagen -->
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <img src="<%= item.getProduct().getImage() %>"
+                                             alt="<%= item.getProduct().getName() %>"
+                                             class="img-fluid rounded" style="width: 80px; height: 80px;">
+                                    </div>
+                                </td>
 
-                        <!-- Cantidad del Producto -->
-                        <div class="quantity-control">
-                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, -1)">-</button>
-                            <input type="text" class="form-control text-center mx-1" value="<%= item.getQuantity() %>" style="width: 50px;"
-                                   oninput="validateQuantity(this)">
-                            <button class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, 1)">+</button>
-                        </div>
+                                <!-- Nombre del Producto -->
+                                <td>
+                                    <strong><%= item.getProduct().getName() %></strong><br>
+                                    <small class="text-muted"><%= item.getProduct().getDescription() %></small>
+                                </td>
+
+                                <!-- Cantidad -->
+                                <td class="text-center">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, -1)">-</button>
+                                        <input type="text" class="form-control text-center mx-1 quantity-input" style="width: 60px;"
+                                               value="<%= item.getQuantity() %>"
+                                               oninput="validateQuantity(this)">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, 1)">+</button>
+                                    </div>
+                                </td>
+
+                                <!-- Precio Total -->
+                                <td class="text-center price-total">
+                                    S/ <%= item.getProduct().getPrice() * item.getQuantity() %>
+                                </td>
+
+                                <!-- Acciones -->
+                                <td class="text-center">
+                                    <button id="delete-button" type="button" class="btn btn-danger btn-sm" onclick="removeProduct(<%= item.getProduct().getId() %>)">
+                                        <i class="fa fa-trash"></i> Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
                     </div>
-                    <% } %>
                 </div>
+
                 <% } %>
             </div>
 

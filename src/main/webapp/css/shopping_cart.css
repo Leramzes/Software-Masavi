@@ -10,36 +10,19 @@ h1 {
     border-radius: 15px;
 }
 
-/* Producto */
-.product-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    /* Separador entre productos */
+/* Botón eliminar */
+#delete-button {
+    padding: 8px 20px;
+    font-size: 1rem;
+    border: solid #ff0000;
 }
 
-.product-item:last-child {
-    border-bottom: none;
-    /* Sin borde en el último producto */
+#delete-button:hover {
+    background-color: #ff0000;
+    transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
+    color: white;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
 }
-
-.product-item img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.product-item h5 {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-}
-
-.product-item p {
-    font-size: 0.9rem;
-    color: #6c757d;
-    /* Texto más tenue */
-}
-
 /* Controles de cantidad */
 .quantity-control {
     display: flex;
