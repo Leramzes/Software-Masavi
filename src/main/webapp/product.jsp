@@ -55,7 +55,6 @@
                         <div class="col-auto">
                             <img src="img/producto.jpg" class="img-fluid rounded-3" alt="Producto 1">
                         </div>
-
                         <!-- Columna derecha -->
                         <div class="col-auto text-center mx-5 carousel">
                             <h1>Waifu</h1>
@@ -68,49 +67,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Slide 2 -->
-                <div class="carousel-item">
-                    <div class="row align-items-center justify-content-center">
-                        <!-- Columna izquierda -->
-                        <div class="col-auto py-5 mx-5">
-                            <img src="img/producto2.jpg" class="img-fluid rounded-3" alt="Producto 2">
-                        </div>
-
-                        <!-- Columna derecha -->
-                        <div class="col-auto text-center mx-5 carousel">
-                            <h1>Waifu</h1>
-                            <h3>Precio Actual: S/99.99</h3>
-                            <h5 class="tachado">Precio Anterior: S/100</h5>
-                            <p>Lleve su Waifu a buen precio</p>
-                            <button type="button" class="btn btn-success w-100">
-                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 3 -->
-                <div class="carousel-item">
-                    <div class="row align-items-center justify-content-center">
-                        <!-- Columna izquierda -->
-                        <div class="col-auto py-5 mx-5">
-                            <img src="#" class="img-fluid rounded-3" alt="Producto 3">
-                        </div>
-
-                        <!-- Columna derecha -->
-                        <div class="col-auto text-center mx-5 carousel">
-                            <h1>Waifu</h1>
-                            <h3>Precio Actual: S/99.99</h3>
-                            <h5 class="tachado">Precio Anterior: S/100</h5>
-                            <p>Lleve su Waifu a buen precio</p>
-                            <button type="button" class="btn btn-success w-100">
-                                Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <!-- Controles -->
