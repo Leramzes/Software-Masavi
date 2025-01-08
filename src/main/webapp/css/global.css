@@ -3,6 +3,7 @@ html,
 body {
     height: 100%;
     margin: 0;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -54,6 +55,7 @@ main {
 .navbar {
     font-size: 1rem;
     background-color: #ffffff;
+    box-shadow: 0 4px 8px #76ac0076;
 }
 
 /* Estilo de los links */

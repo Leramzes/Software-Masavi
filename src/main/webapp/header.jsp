@@ -4,8 +4,21 @@
     HttpSession ses = request.getSession();
     Usuario user = (Usuario) ses.getAttribute("usuario");
 %>
+
+<%
+    // Obtener la URI actual
+    String currentPage = request.getRequestURI();
+    String linkToAboutUs;
+
+    // Lógica para determinar el enlace
+    if (currentPage.contains("index.jsp")) {
+        linkToAboutUs = "#about_us";  // Sí estamos en index.jsp
+    } else {
+        linkToAboutUs = "index.jsp#about_us";  // Sí estamos en cualquier otra página
+    }
+%>
 <header>
-    <nav class="navbar navbar-expand-lg fixed-top px-lg-5 px-md-5 px-sm-5" style="background-color: #ffffff;">
+    <nav class="navbar navbar-expand-lg fixed-top px-lg-5 px-md-5 px-sm-5" style="background-color: #ffffff; box-shadow: 0 4px 8px #76ac0076;">
         <div class="container-fluid">
             <!-- Logo alineado a la izquierda -->
             <a class="navbar-brand" href="index.jsp">
@@ -27,7 +40,7 @@
                         <a class="nav-link active" aria-current="page" href="index.jsp">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="about_us.jsp">Nosotros</a>
+                        <a class="nav-link" href="<%= linkToAboutUs %>">Nosotros</a>
                     </li>
                     <form action="product" method="post">
                         <li class="nav-item">
