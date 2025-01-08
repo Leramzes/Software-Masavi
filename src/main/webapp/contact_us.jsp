@@ -34,13 +34,15 @@
     Swal.fire({
         icon: "success",
         title: "¡Éxito!",
-        text: "Correo enviado correctamente."
+        text: " Tu correo fue enviado satisfactoriamente. Gracias por contactarnos.",
+        confirmButtonColor: "#76ac00"
     });
     <%}else {%>
     Swal.fire({
         icon: "error",
         title: "¡Error!",
-        text: "Hubo un error al enviar el correo. Verifica los datos. (<%=correoEnviado.toLowerCase()%>)"
+        text: "Hubo un error al enviar el correo. Verifica los datos. (<%=correoEnviado.toLowerCase()%>)",
+        confirmButtonColor: "#76ac00"
     });
     <%}}%>
 </script>
