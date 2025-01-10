@@ -27,7 +27,8 @@
 <%@ include file="header.jsp" %>
 <%
     List<Product> listProducts = (List<Product>) request.getAttribute("products");
-    List<String> listCategories = (List<String>) request.getAttribute("categoryProducts");
+    //List<String> listCategories = (List<String>) request.getAttribute("categoryProducts");
+    List<Product> listProductsFeatured = (List<Product>) request.getAttribute("productsFeatured");
 %>
 <main class="bg-main">
     <!-- Contenido de la sección de productos destacados -->
@@ -51,7 +52,7 @@
                 <!-- Slide 1 -->
                 <%
                     boolean isFirst = true;
-                    for(Product product : listProducts){
+                    for(Product product : listProductsFeatured){
                 %>
                     <div class="carousel-item <%= isFirst ? "active" : "" %>">
                         <div class="row align-items-center justify-content-center">

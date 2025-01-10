@@ -23,9 +23,11 @@ public class ProductController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CatalogoProducts catalogo = new CatalogoProducts();
         List<Product> products = catalogo.getAllProducts();
-        List<String> categoryProducts = catalogo.getCategoryProducts();
+        List<Product> productsFeatured = catalogo.getProductFeatured();
+        //List<String> categoryProducts = catalogo.getCategoryProducts();
         req.setAttribute("products", products);
-        req.setAttribute("categoryProducts", categoryProducts);
+        req.setAttribute("productsFeatured", productsFeatured);
+        //req.setAttribute("categoryProducts", categoryProducts);
 
         req.getRequestDispatcher("product.jsp").forward(req, resp);
     }

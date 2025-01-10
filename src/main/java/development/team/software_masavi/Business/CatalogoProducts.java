@@ -131,4 +131,33 @@ public class CatalogoProducts {
                 .filter(product -> product.getName().toLowerCase().contains(nombre.toLowerCase()))
                 .collect(Collectors.toList());
     }
+
+    public List<Product> getProductFeatured() {
+        List<Product> productsFeatured = new ArrayList<>();
+        String sql = "SELECT \n" +
+                "    producto_id, \n" +
+                "    SUM(cantidad) AS total_vendidos\n" +
+                "FROM \n" +
+                "    Detalle_Pedidos\n" +
+                "GROUP BY \n" +
+                "    producto_id\n" +
+                "ORDER BY \n" +
+                "    total_vendidos DESC\n" +
+                "LIMIT 3;";
+
+        try (Connection cnn = dataSource.getConnection();
+             Statement stmt = cnn.createStatement();
+             ResultSet rst = stmt.executeQuery(sql)) {
+
+            while (rst.next()) {
+                int productId = rst.getInt("producto_id");
+                Product product = getProductById(String.valueOf(productId));
+                productsFeatured.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al obtener productos destacados: " + e.getMessage(), e);
+        }
+
+        return productsFeatured;
+    }
 }
