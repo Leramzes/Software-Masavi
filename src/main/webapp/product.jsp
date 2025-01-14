@@ -124,13 +124,15 @@
                             <img src="<%= product.getImage() %>" alt="<%= product.getName() %>">
                             <h3 class="product-title"><%= product.getName() %></h3>
                             <p class="product-price">Precio: S/<%= product.getPrice() %></p>
-                            <%if(product.getQuantityInStock()<10){%>
+                            <%if(product.getQuantityInStock()<10 && product.getQuantityInStock()>0){%>
                             <h5 style="color: #dc3545">¡Quedan Pocas Unidades!</h5>
+                            <%}else if(product.getQuantityInStock()==0){%>
+                            <h5 style="color: #dc3545">¡PRODUCTO AGOTADO!</h5>
                             <%}%>
                             <form action="cart" method="post">
                                 <input type="hidden" name="productId" value="<%=product.getId()%>">
                                 <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="btn btn-success w-100">
+                                <button type="submit" class="btn btn-success w-100"<%=product.getQuantityInStock()==0?"disabled":""%> >
                                     Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
                                 </button>
                             </form>
