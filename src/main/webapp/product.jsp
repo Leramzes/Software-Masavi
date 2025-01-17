@@ -37,7 +37,9 @@
     <div class="container py-4">
         <!-- Encabezado -->
         <div class="row mb-3 text-center text-primary-emphasis">
-            <h2 class="animate__animated animate__fadeInDown">Productos Destacados</h2>
+            <h2 class="title animate-on-scroll" data-animation="animate__zoomIn">
+                Productos Destacados
+            </h2>
         </div>
 
         <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -97,7 +99,9 @@
     <div class="container-fluid my-2">
         <!-- Encabezado -->
         <div class="row mb-3 text-center text-primary-emphasis">
-            <h2>¿Que estas buscando hoy?</h2>
+            <h2 class="title animate-on-scroll" data-animation="animate__zoomIn">
+                ¿Qué estas buscando hoy?
+            </h2>
         </div>
 
         <div class="row">
