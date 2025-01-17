@@ -52,7 +52,7 @@
 <section>
     <div class="container my-4">
         <!-- Sección Historia -->
-        <div class="transparente mb-4 rounded">
+        <div class="transparente mb-4 rounded animate-on-scroll" data-animation="animate__bounceInDown">
             <div class="row align-items-center">
                 <!-- Texto a la izquierda -->
                 <div class="col-12 col-md-8">
@@ -75,7 +75,7 @@
                     </p>
                 </div>
                 <!-- Imagen a la derecha -->
-                <div class="col-12 col-md-4 text-center">
+                <div class="col-12 col-md-4 text-center animate-on-scroll" data-animation="animate__zoomIn" data-delay="1s">
                     <div class="bg-secondary rounded-circle d-flex justify-content-center align-items-center"
                          style="width: 180px; height: 180px; margin: auto; overflow: hidden;">
                         <img src="img/producto.jpg" alt="Historia" class="img-fluid"
@@ -91,7 +91,7 @@
         <div class="row text-center gy-4 mb-4">
             <!-- Misión -->
             <div class="col-12 col-md-4">
-                <div class="transparente rounded-4 border-0 shadow p-4 h-100">
+                <div class="transparente rounded-4 border-0 shadow p-4 h-100 animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="1s">
                     <div class="text-center mb-3">
                         <i class="fa-regular fa-handshake fa-3x text-primary"></i>
                     </div>
@@ -106,7 +106,7 @@
             </div>
             <!-- Visión -->
             <div class="col-12 col-md-4">
-                <div class="transparente rounded-4 border-0 shadow p-4 h-100">
+                <div class="transparente rounded-4 border-0 shadow p-4 h-100 animate-on-scroll" data-animation="animate__fadeInDown" data-delay="2s">
                     <div class="text-center mb-3">
                         <i class="fa-regular fa-eye fa-3x text-success"></i>
                     </div>
@@ -122,7 +122,7 @@
             </div>
             <!-- Valores -->
             <div class="col-12 col-md-4">
-                <div class="transparente rounded-4 border-0 shadow p-4 h-100">
+                <div class="transparente rounded-4 border-0 shadow p-4 h-100 animate-on-scroll" data-animation="animate__fadeInRight" data-delay="3s">
                     <div class="text-center mb-3">
                         <i class="fa-regular fa-star fa-3x text-warning"></i>
                     </div>
@@ -147,11 +147,12 @@
         <hr class="divider">
 
         <!-- Sección Ubicación -->
-        <div class="transparente rounded">
+        <div class="transparente rounded animate-on-scroll" data-animation="animate__fadeInUp">
             <h1 class="text-black fw-bold mb-4 text-center">
                 ¿Dónde nos Ubicamos?
             </h1>
-            <div class="map-container rounded overflow-hidden" style="height: 300px;">
+            <div class="map-container rounded overflow-hidden animate-on-scroll" style="height: 300px;" data-animation="animate__zoomIn"
+                 data-delay="1s">
                 <!-- Google Maps Embed -->
                 <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.5618605599634!2d-79.90455012538204!3d-6.701057493294512!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x904ced9729b17ded%3A0x8434a259867eade!2sAv.%20Mariscal%20Ramon%20Castilla%20487%2C%20Lambayeque%2014013!5e0!3m2!1ses-419!2spe!4v1735012991853!5m2!1ses-419!2spe"
@@ -168,6 +169,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
+<script src="js/index.js"></script>
 </body>
 
 </html>
