@@ -31,6 +31,7 @@
     List<Product> listProducts = (List<Product>) request.getAttribute("products");
     //List<String> listCategories = (List<String>) request.getAttribute("categoryProducts");
     List<Product> listProductsFeatured = (List<Product>) request.getAttribute("productsFeatured");
+
 %>
 <main class="bg-main">
     <!-- Contenido de la sección de productos destacados -->
@@ -138,6 +139,7 @@
                             <form action="cart" method="post">
                                 <input type="hidden" name="productId" value="<%=product.getId()%>">
                                 <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="action" value="add">
                                 <button type="submit" class="btn btn-success w-100"<%=product.getQuantityInStock()==0?"disabled":""%> >
                                     Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
                                 </button>

@@ -28,8 +28,6 @@
 
 <%
     List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
-    Double total = (Double) request.getAttribute("total");
-    Double descuento = (Double) request.getAttribute("descuento");
 %>
 
 <main class="bg-main align-content-center align-items-center">
@@ -97,7 +95,7 @@
                                 <td class="text-center">
                                     <div class="d-flex align-items-center justify-content-center">
                                         <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, -1)">-</button>
-                                        <input type="text" class="form-control text-center mx-1 quantity-input" style="width: 60px;"
+                                        <input type="text" id="quantity-txt" class="form-control text-center mx-1 quantity-input" style="width: 60px;"
                                                value="<%= item.getQuantity() %>"
                                                oninput="validateQuantity(this)">
                                         <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, 1)">+</button>
@@ -105,15 +103,20 @@
                                 </td>
 
                                 <!-- Precio Total -->
-                                <td class="text-center price-total">
+                                <td class="text-center price-total" id="price-txt">
                                     S/ <%= item.getProduct().getPrice() * item.getQuantity() %>
                                 </td>
 
                                 <!-- Acciones -->
                                 <td class="text-center">
-                                    <button id="delete-button" type="button" class="btn btn-danger btn-sm" onclick="removeProduct(<%= item.getProduct().getId() %>)">
-                                        <i class="fa fa-trash"></i> Eliminar
-                                    </button>
+                                    <form action="cart" method="post">
+                                        <input type="hidden" name="productId" value="<%= item.getProduct().getId() %>">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <input type="hidden" name="action" value="remove">
+                                        <button id="delete-button" type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i> Eliminar
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             <% } %>
@@ -132,21 +135,21 @@
                 <div class="summary card p-3">
                     <!-- Total de Compra -->
                     <div class="d-flex justify-content-between">
-                        <p>Productos (<%= cartItems != null ? cartItems.size() : 0 %>)</p>
-                        <p>S/ <%= total != null ? total : 0.0 %></p>
+                        <p>Productos (<%=itemCount %>)</p>
+                        <p id="total-compra">S/ 0.0</p>
                     </div>
 
                     <!-- Descuentos -->
                     <div class="d-flex justify-content-between">
                         <p>Descuentos</p>
-                        <p class="text-danger">- S/ <%= descuento != null ? descuento : 0.0 %></p>
+                        <p id="descuento" class="text-danger">- S/ 0.0</p>
                     </div>
                     <hr>
 
                     <!-- Total Final -->
                     <div class="d-flex justify-content-between">
                         <p class="fw-bold">Total:</p>
-                        <p class="fw-bold">S/ <%= total != null ? total : 0.0 %></p>
+                        <p id="total-final" class="fw-bold">S/ 0.0</p>
                     </div>
 
                     <!-- Continuar Compra -->

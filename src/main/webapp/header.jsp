@@ -3,6 +3,11 @@
 <%@ page import="development.team.software_masavi.Model.Usuario" %><%
     HttpSession ses = request.getSession();
     Usuario user = (Usuario) ses.getAttribute("usuario");
+
+    int itemCount = 0; // Valor por defecto
+    if (ses.getAttribute("itemCount") != null) {
+        itemCount = (int) ses.getAttribute("itemCount");
+    }
 %>
 
 <%
@@ -56,13 +61,15 @@
                                 <i class="fa-solid fa-bag-shopping me-1"></i>
                                 Carrito
                             </button>
-                            <!-- Cantidad de Productos -->
-                            <span id="cart-count" class="badge rounded-circle position-absolute top-0 start-100"
-                                  style="background-color: red; color: white; font-size: 0.75rem;
-                                         width: 1.5rem; height: 1.5rem; display: flex;
-                                         justify-content: center; align-items: center;
-                                         border: 2px solid white;
-                                         transform: translate(-50%, -25%); visibility: hidden;">0</span>
+                            <% if (itemCount > 0) { %>
+                                <!-- Cantidad de Productos -->
+                                <span class="badge rounded-circle position-absolute top-0 start-100"
+                                      style="background-color: red; color: white; font-size: 0.75rem;
+                                        width: 1.5rem; height: 1.5rem; display: flex; justify-content: center;
+                                        align-items: center; border: 2px solid white; transform: translate(-50%, -25%);">
+                                    <%= itemCount %>
+                                </span>
+                            <% } %>
                         </form>
                     </li>
                 </ul>
@@ -91,25 +98,3 @@
         </div>
     </nav>
 </header>
-
-<script>
-    // Simulación de agregar productos al carrito
-    let cartCount = 0;
-
-    // Función para actualizar el contador
-    function updateCartCount(count) {
-        const cartCountElement = document.getElementById('cart-count');
-        cartCountElement.textContent = count;
-        cartCountElement.style.visibility = count > 0 ? 'visible' : 'hidden';
-    }
-
-    // Ejemplo: Cada vez que se agrega un producto, incrementamos el contador
-    function addToCart() {
-        cartCount++;
-        updateCartCount(cartCount);
-    }
-
-    // Llama a esta función cuando un producto sea agregado
-    addToCart();
-    addToCart(); // Simulación: se agregaron dos productos
-</script>

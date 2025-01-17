@@ -99,10 +99,14 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
+        return "Producto{" +
+                "ID=" + id +
+                ", Nombre='" + name + '\'' +
+                ", Descripción='" + description + '\'' +
+                ", Precio=S/ " + price +
+                ", Stock=" + quantityInStock +
+                ", Categoría='" + category + '\'' +
+                ", Estado='" + state + '\'' +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package development.team.software_masavi.Controller;
 
 import development.team.software_masavi.Business.CatalogoProducts;
+import development.team.software_masavi.Model.Cart;
 import development.team.software_masavi.Model.CartItem;
 
 import development.team.software_masavi.Model.Product;
@@ -24,23 +25,25 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        double total = 0;
-        double descuento = 0;
-
         HttpSession session = request.getSession();
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+        Cart cart = (Cart) session.getAttribute("cart");
 
-        if (cartItems == null) {
+        // Verificar si el carrito es nulo y inicializarlo si es necesario
+        if (cart == null) {
             System.out.println("El carrito no existe en la sesión. Creando uno nuevo...");
-            cartItems = new ArrayList<>();
+            cart = new Cart();
+            session.setAttribute("cart", cart); // Almacenar el carrito en la sesión
         } else {
-            System.out.println("Carrito recuperado de la sesión. Tamaño: " + cartItems.size());
+            System.out.println("Carrito recuperado de la sesión. Tamaño: " + cart.getCartItems().size());
+
         }
 
+        // Obtener la cantidad de ítems en el carrito
+        int itemCount = cart.getCartItems().size();
+
         // Pasar los datos al JSP
-        request.setAttribute("cartItems", cartItems);
-        request.setAttribute("total", total);
-        request.setAttribute("descuento", descuento);
+        request.setAttribute("cartItems", cart.getCartItems());
+        session.setAttribute("itemCount", itemCount);
 
         // Redireccionar al JSP
         request.getRequestDispatcher("shopping_cart.jsp").forward(request, response);
@@ -51,22 +54,22 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+        Cart cart = (Cart) session.getAttribute("cart");
 
         // Verificar si el carrito es nulo y inicializarlo si es necesario
-        if (cartItems == null) {
-            cartItems = new ArrayList<>();
-            session.setAttribute("cartItems", cartItems); // Actualizar el carrito en la sesión
+        if (cart == null) {
+            cart = new Cart(); // Inicializa una nueva instancia de Cart si no existe en la sesión
+            session.setAttribute("cart", cart); // Almacena el carrito en la sesión
         }
 
         String productId = request.getParameter("productId");
         String quantityString = request.getParameter("quantity");
-
-        System.out.println("SE SOLICITÓ productId: "+productId+" quantity: "+quantityString);
+        //ACCION QUE DESEA EJECUTAR: AÑADIR, EDITAR CANTIDAD O ELIMINAR
+        String action = request.getParameter("action");
 
         // Validación de entradas
-        if (productId == null || productId.isEmpty() || quantityString == null || quantityString.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID del producto o cantidad no proporcionados.");
+        if (productId == null || productId.isEmpty() || quantityString == null || quantityString.isEmpty() || action == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Faltan parámetros: producto, cantidad o acción.");
             return;
         }
 
@@ -89,53 +92,50 @@ public class CartServlet extends HttpServlet {
             return;
         }
 
-        // Añadir producto al carrito
+        // Realizar acción según el parámetro "action"
         try {
-            addToCart(cartItems, product, quantity);
-            session.setAttribute("cartItems", cartItems); // Actualizar el carrito en la sesión
+            switch (action) {
+                case "add":
+                    cart.addToCart(product, quantity);
+
+                    // Obtener la cantidad de ítems en el carrito
+                    int itemCount = cart.getCartItems().size();
+
+                    // Actualizar el carrito en la sesión
+                    session.setAttribute("cart", cart);
+
+                    // Redireccionar al JSP para mostrar el carrito actualizado
+                    request.setAttribute("cartItems", cart.getCartItems());
+                    session.setAttribute("itemCount", itemCount);
+                    response.sendRedirect("product");
+                    return;
+                case "update":
+                    cart.updateItemQuantity(product, quantity);
+                    break;
+                case "remove":
+                    cart.removeItem(product);
+                    break;
+                default:
+                    response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Acción desconocida.");
+                    return;
+            }
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al añadir el producto al carrito.");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error al procesar la acción.");
             return;
         }
 
-        // Imprimir los elementos del carrito para depuración
-        System.out.println("Elementos actuales en el carrito:");
-        for (CartItem cartItem : cartItems) {
-            System.out.println("Producto: " + cartItem.getProduct().getName() +
-                    ", Cantidad: " + cartItem.getQuantity() +
-                    ", ID: " + cartItem.getProduct().getId());
-        }
+        // Obtener la cantidad de ítems en el carrito
+        int itemCount = cart.getCartItems().size();
 
-        // Redireccionar al JSP
-        request.setAttribute("cartItems", cartItems);
+        // Imprimir en consola (o pasar al JSP si lo necesitas)
+        System.out.println("Cantidad de ítems en el carrito: " + itemCount);
+
+        // Actualizar el carrito en la sesión
+        session.setAttribute("cart", cart);
+
+        // Redireccionar al JSP para mostrar el carrito actualizado
+        request.setAttribute("cartItems", cart.getCartItems());
+        session.setAttribute("itemCount", itemCount);
         request.getRequestDispatcher("shopping_cart.jsp").forward(request, response);
     }
-
-    /**
-     * Método para añadir un producto al carrito.
-     *
-     * @param cartItems Lista de items en el carrito.
-     * @param product   Producto a añadir.
-     * @param quantity  Cantidad del producto a añadir.
-     */
-    private void addToCart(List<CartItem> cartItems, Product product, int quantity) {
-        // Validación básica
-        if (product == null || quantity <= 0) {
-            throw new IllegalArgumentException("El producto no puede ser nulo y la cantidad debe ser mayor a cero.");
-        }
-
-        // Buscar el producto en el carrito
-        for (CartItem cartItem : cartItems) {
-            if (cartItem.getProduct() != null && cartItem.getProduct().getId() == product.getId()) {
-                cartItem.setQuantity(cartItem.getQuantity() + quantity);
-                System.out.println("Producto existente, cantidad actualizada.");
-                return; // Termina después de actualizar la cantidad
-            }
-        }
-
-        // Si el producto no está en el carrito, añadirlo como un nuevo item
-        cartItems.add(new CartItem(product, quantity));
-        System.out.println("Producto añadido como nuevo al carrito.");
-    }
-
 }
