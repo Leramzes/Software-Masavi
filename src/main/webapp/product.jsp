@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="css/background.css">
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
 <body>
@@ -35,7 +37,7 @@
     <div class="container py-4">
         <!-- Encabezado -->
         <div class="row mb-3 text-center text-primary-emphasis">
-            <h2>Productos Destacados</h2>
+            <h2 class="animate__animated animate__fadeInDown">Productos Destacados</h2>
         </div>
 
         <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">

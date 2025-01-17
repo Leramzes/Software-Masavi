@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="css/main.css">
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
 <body>
@@ -32,13 +34,13 @@
     <div class="container-fluid bg-main m-5 p-5">
         <div class="row d-flex align-items-center">
             <!-- Columna izquierda -->
-            <div class="col-12 col-md-6 text-center text-white order-1 order-md-0">
+            <div class="col-12 col-md-6 text-center text-white order-1 order-md-0 animate__animated animate__jackInTheBox animate__delay-1s">
                 <h1 class="mt-3">Bienvenido a <strong>MASAVI</strong></h1>
                 <h5 class="mt-3">Juntos, mejoramos el rendimiento de tus cultivos</h5>
             </div>
 
             <!-- Columna derecha -->
-            <div class="col-12 col-md-6 text-center p-5 order-2 order-md-1">
+            <div class="col-12 col-md-6 text-center p-5 order-2 order-md-1 animate__animated animate__fadeInRight animate__delay-1s">
                 <img src="img/logo.jpg" class="img-fluid rounded-circle responsive-img" alt="Masavi">
             </div>
         </div>
