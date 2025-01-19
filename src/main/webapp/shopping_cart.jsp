@@ -53,7 +53,7 @@
                 <% } else { %>
 
                 <div class="card p-3">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
                         <table class="table table-striped table-bordered align-middle">
                             <thead class="table-success text-center">
                             <tr>
@@ -113,7 +113,7 @@
                                         <input type="hidden" name="productId" value="<%= item.getProduct().getId() %>">
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="action" value="remove">
-                                        <button id="delete-button" type="submit" class="btn btn-danger btn-sm">
+                                        <button id="delete-button" type="submit" class="btn btn-danger btn-sm delete-product">
                                             <i class="fa fa-trash"></i> Eliminar
                                         </button>
                                     </form>
@@ -168,6 +168,59 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="js/shopping_cart.js"></script>
+<!--Enlace de JavaScript - SweetAlert2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Evento para el botón "Eliminar producto"
+    document.querySelectorAll('.delete-product').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Previene el envío del formulario o cualquier acción por defecto
+
+            // Mostrar la alerta de confirmación
+            Swal.fire({
+                icon: 'warning',  // Icono de advertencia
+                title: '¿Estás seguro?',
+                text: '¡Esta acción no se puede deshacer!',
+                showCancelButton: true,  // Muestra un botón de cancelar
+                confirmButtonText: 'Eliminar',  // Texto del botón de confirmación
+                cancelButtonText: 'Cancelar',  // Texto del botón de cancelación
+                confirmButtonColor: '#d33',  // Color del botón de confirmar (rojo)
+                cancelButtonColor: '#3085d6',  // Color del botón de cancelar (azul)
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Acción cuando el usuario confirma la eliminación
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Eliminado!',
+                        text: 'El producto ha sido eliminado.',
+                        timer: 3000,  // Espera de 3 segundos (3000 milisegundos)
+                        timerProgressBar: true,  // Muestra la barra de progreso
+                        didClose: () => {
+                            // Aquí puedes agregar la lógica para eliminar el producto
+                            // Por ejemplo, hacer una llamada a un servidor o eliminar el producto de la UI
+
+                            // Obtener el formulario más cercano al botón de eliminación
+                            const form = event.target.closest('form');
+
+                            // Enviar el formulario de eliminación
+                            form.submit();  // Enviar el formulario para eliminar el producto
+                        }
+                    });
+
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    // Acción cuando el usuario cancela
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Cancelado',
+                        text: 'El producto no ha sido eliminado.',
+                        timer: 3000,  // Espera de 3 segundos (3000 milisegundos)
+                        timerProgressBar: true  // Muestra la barra de progreso
+                    });
+                }
+            });
+        });
+    });
+</script>
 
 </body>
 

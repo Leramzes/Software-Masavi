@@ -70,7 +70,7 @@
                                 <h3><%= product.getName() %></h3>
                                 <h4>Precio Actual: S/<%= product.getPrice() %></h4>
                                 <p><%= product.getDescription() %></p>
-                                <button type="button" class="btn btn-success w-100 add-to-cart">
+                                <button id="add-to-cart-carousel" type="button" class="btn btn-success w-100">
                                     Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
                                 </button>
                             </div>
@@ -165,7 +165,22 @@
 <!--Enlace de JavaScript - SweetAlert2-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Tarjeta - Carousel - Agregar al carrito
+    // Carousel - Agregar al carrito
+    document.querySelector('#add-to-cart-carousel').addEventListener('click', function () {
+
+        event.preventDefault();
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Producto Agregado',
+            text: 'El producto ha sido agregado al carrito.',
+            confirmButtonText: 'Aceptar',
+            showConfirmButton: false,  // Desactiva el botón de confirmación
+            timer: 3000,  // Tiempo en mili segundos
+            timerProgressBar: true,  // Muestra una barra de progreso mientras se cuenta el tiempo
+        });
+    });
+    // Tarjeta - Agregar al carrito
     document.querySelectorAll('.add-to-cart').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault(); // Previene el envío del formulario
