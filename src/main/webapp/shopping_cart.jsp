@@ -152,7 +152,7 @@
                     </div>
 
                     <!-- Continuar Compra -->
-                    <form action="product" method="post">
+                    <form action="/" method="post">
                         <button class="btn btn-success w-100 mt-3">Continuar Compra</button>
                     </form>
                 </div>
@@ -192,7 +192,7 @@
                         icon: 'success',
                         title: '¡Eliminado!',
                         text: 'El producto ha sido eliminado.',
-                        timer: 3000,  // Espera de 3 segundos (3000 milisegundos)
+                        timer: 1500,  // Espera de 3 segundos (3000 milisegundos)
                         timerProgressBar: true,  // Muestra la barra de progreso
                         didClose: () => {
                             // Aquí puedes agregar la lógica para eliminar el producto
@@ -211,8 +211,8 @@
                     Swal.fire({
                         icon: 'info',
                         title: 'Cancelado',
-                        text: 'El producto no ha sido eliminado.',
-                        timer: 3000,  // Espera de 3 segundos (3000 milisegundos)
+                        text: 'Acciòn cancelada.',
+                        timer: 1500,  // Espera de 3 segundos (3000 milisegundos)
                         timerProgressBar: true  // Muestra la barra de progreso
                     });
                 }

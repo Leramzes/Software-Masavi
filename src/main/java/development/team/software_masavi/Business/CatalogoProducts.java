@@ -66,7 +66,7 @@ public class CatalogoProducts {
 
         // Buscar en caché
         if (productCache.containsKey(productId)) {
-            System.out.println("Producto obtenido desde caché.");
+            //System.out.println("Producto obtenido desde caché.");
             return productCache.get(productId);
         }
 
@@ -91,7 +91,7 @@ public class CatalogoProducts {
 
                     // Agregar producto al caché
                     productCache.put(productId, product);
-                    System.out.println("Producto encontrado y agregado al caché.");
+                    //System.out.println("Producto encontrado y agregado al caché.");
                 } else {
                     System.err.println("No se encontró el producto con ID: " + productId);
                 }

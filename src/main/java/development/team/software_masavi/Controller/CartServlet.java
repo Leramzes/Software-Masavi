@@ -2,7 +2,6 @@ package development.team.software_masavi.Controller;
 
 import development.team.software_masavi.Business.CatalogoProducts;
 import development.team.software_masavi.Model.Cart;
-import development.team.software_masavi.Model.CartItem;
 
 import development.team.software_masavi.Model.Product;
 import jakarta.servlet.ServletException;
@@ -12,8 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "cart", urlPatterns = {"/cart"})
 public class CartServlet extends HttpServlet {
@@ -26,24 +23,10 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
+        Cart cart = getOrCreateCart(session);
 
-        // Verificar si el carrito es nulo y inicializarlo si es necesario
-        if (cart == null) {
-            System.out.println("El carrito no existe en la sesión. Creando uno nuevo...");
-            cart = new Cart();
-            session.setAttribute("cart", cart); // Almacenar el carrito en la sesión
-        } else {
-            System.out.println("Carrito recuperado de la sesión. Tamaño: " + cart.getCartItems().size());
-
-        }
-
-        // Obtener la cantidad de ítems en el carrito
-        int itemCount = cart.getCartItems().size();
-
-        // Pasar los datos al JSP
-        request.setAttribute("cartItems", cart.getCartItems());
-        session.setAttribute("itemCount", itemCount);
+        // Actualizar atributos
+        updateCartAttributes(cart, session, request);
 
         // Redireccionar al JSP
         request.getRequestDispatcher("shopping_cart.jsp").forward(request, response);
@@ -54,13 +37,7 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        Cart cart = (Cart) session.getAttribute("cart");
-
-        // Verificar si el carrito es nulo y inicializarlo si es necesario
-        if (cart == null) {
-            cart = new Cart(); // Inicializa una nueva instancia de Cart si no existe en la sesión
-            session.setAttribute("cart", cart); // Almacena el carrito en la sesión
-        }
+        Cart cart = getOrCreateCart(session);
 
         String productId = request.getParameter("productId");
         String quantityString = request.getParameter("quantity");
@@ -97,21 +74,18 @@ public class CartServlet extends HttpServlet {
             switch (action) {
                 case "add":
                     cart.addToCart(product, quantity);
+                    // Actualizar atributos
+                    updateCartAttributes(cart, session, request);
 
-                    // Obtener la cantidad de ítems en el carrito
-                    int itemCount = cart.getCartItems().size();
-
-                    // Actualizar el carrito en la sesión
-                    session.setAttribute("cart", cart);
-
-                    // Redireccionar al JSP para mostrar el carrito actualizado
-                    request.setAttribute("cartItems", cart.getCartItems());
-                    session.setAttribute("itemCount", itemCount);
                     response.sendRedirect("product");
                     return;
                 case "update":
                     cart.updateItemQuantity(product, quantity);
-                    break;
+                    // Actualizar atributos
+                    updateCartAttributes(cart, session, request);
+
+                    response.sendRedirect("cart");
+                    return;
                 case "remove":
                     cart.removeItem(product);
                     break;
@@ -124,18 +98,33 @@ public class CartServlet extends HttpServlet {
             return;
         }
 
-        // Obtener la cantidad de ítems en el carrito
-        int itemCount = cart.getCartItems().size();
+        // Actualizar atributos
+        updateCartAttributes(cart, session, request);
+        // Redireccionar al JSP para mostrar el carrito actualizado
+        request.getRequestDispatcher("shopping_cart.jsp").forward(request, response);
+    }
 
-        // Imprimir en consola (o pasar al JSP si lo necesitas)
+    /**
+     * Obtiene el carrito de la sesión o crea uno nuevo si no existe.
+     */
+    private Cart getOrCreateCart(HttpSession session) {
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+            session.setAttribute("cart", cart);
+        }
+        return cart;
+    }
+
+    /**
+     * Actualiza los atributos relacionados con el carrito en la sesión y en la solicitud.
+     */
+    private void updateCartAttributes(Cart cart, HttpSession session, HttpServletRequest request) {
+        int itemCount = cart.getCartItems().size();
         System.out.println("Cantidad de ítems en el carrito: " + itemCount);
 
-        // Actualizar el carrito en la sesión
         session.setAttribute("cart", cart);
-
-        // Redireccionar al JSP para mostrar el carrito actualizado
         request.setAttribute("cartItems", cart.getCartItems());
         session.setAttribute("itemCount", itemCount);
-        request.getRequestDispatcher("shopping_cart.jsp").forward(request, response);
     }
 }

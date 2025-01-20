@@ -70,9 +70,15 @@
                                 <h3><%= product.getName() %></h3>
                                 <h4>Precio Actual: S/<%= product.getPrice() %></h4>
                                 <p><%= product.getDescription() %></p>
-                                <button type="button" class="btn btn-success w-100 add-to-cart">
-                                    Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
-                                </button>
+
+                                <form action="cart" method="post">
+                                    <input type="hidden" name="productId" value="<%=product.getId()%>">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <input type="hidden" name="action" value="add">
+                                    <button type="submit" class="btn btn-success w-100 add-to-cart"<%=product.getQuantityInStock()==0?"disabled":""%> >
+                                        Agregar al Carrito <i class="fa-solid fa-cart-shopping"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -179,7 +185,7 @@
                 text: 'El producto ha sido agregado al carrito.',
                 confirmButtonText: 'Aceptar',
                 showConfirmButton: false,  // Desactiva el botón de confirmación
-                timer: 3000,  // Tiempo en milisegundos
+                timer: 1500,  // Tiempo en milisegundos
                 timerProgressBar: true,  // Muestra barra de progreso
             }).then(() => {
                 // Enviar el formulario manualmente después de que la alerta desaparezca

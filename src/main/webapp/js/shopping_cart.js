@@ -18,13 +18,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Opcional: Enviar la actualización al servidor
             $.ajax({
-                url: "shoppingCartServlet",
+                url: "cart",
+                type: "POST", // Cambiamos a POST
                 data: {
                     productId: productId,
-                    quantity: newQuantity
+                    quantity: newQuantity,
+                    action: "update"
                 },
                 success: function (result) {
                     console.log("Actualización enviada al servidor");
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error al actualizar el carrito:", error);
                 }
             });
         });
