@@ -140,7 +140,7 @@
                         <p></p>
                         <div class="d-flex flex-column align-items-end">
                             <% for (CartItem item : cartItems) { %>
-                            <p id="descuento" class="text"><%= item %> </p>
+                            <p id="subtotalXproduct-<%= item.getProduct().getId()%>" class="text"><%= item.getSubtotal() %> </p>
                             <% } %>
                         </div>
 
