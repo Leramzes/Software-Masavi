@@ -163,10 +163,187 @@
                         <p id="total-final" class="fw-bold">S/ <%=ses.getAttribute("TotalPago")%></p>
                     </div>
 
-                    <!-- Continuar Compra -->
-                    <form action="#" method="post">
-                        <button class="btn btn-success w-100 mt-3">Continuar Compra</button>
+                    <!-- Botón "Continuar Compra" -->
+                    <form id="paymentForm">
+                        <button type="button" class="btn btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                            Continuar Compra
+                        </button>
                     </form>
+
+                    <!-- Modal de Selección de Método de Pago -->
+                    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="paymentModalLabel">Selecciona un Método de Pago</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Opciones de métodos de pago -->
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="creditCard" value="Tarjeta" required>
+                                        <label class="form-check-label" for="creditCard">Tarjeta de Crédito/Débito</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="yape" value="Yape" required>
+                                        <label class="form-check-label" for="yape">Yape</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentMethod" id="plin" value="Plin" required>
+                                        <label class="form-check-label" for="plin">Plin</label>
+                                    </div>
+                                    <div id="alertMessage" class="text-danger d-none">Por favor, selecciona un método de pago.</div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-success" id="confirmPaymentMethod">Continuar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modales adicionales para cada método de pago -->
+                    <div class="modal fade" id="creditCardModal" tabindex="-1" aria-labelledby="creditCardModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="creditCardModalLabel">Tarjeta de Crédito/Débito</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Formulario para tarjeta -->
+                                    <form action="procesarPagoTarjeta.jsp" method="post">
+                                        <div class="mb-3">
+                                            <label for="cardNumber" class="form-label">Número de Tarjeta</label>
+                                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" maxlength="19" placeholder="1234-5678-9012-3456" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="cardHolder" class="form-label">Titular de la Tarjeta</label>
+                                            <input type="text" class="form-control" id="cardHolder" name="cardHolder" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="expirationDate" class="form-label">Fecha de Expiración</label>
+                                            <input type="text" class="form-control" id="expirationDate" name="expirationDate" placeholder="MM/AA" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="cvv" class="form-label">CVV</label>
+                                            <input type="text" class="form-control" id="cvv" name="cvv" maxlength="3" placeholder="123" required>
+                                        </div>
+                                        <button type="button" class="btn btn-secondary h-100" data-bs-dismiss="modal" id="backToPaymentMethods">Atrás</button>
+                                        <button type="submit" class="btn btn-success">Pagar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="yapeModal" tabindex="-1" aria-labelledby="yapeModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="yapeModalLabel">Pagar con Yape</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Información de pago con Yape -->
+                                    <p>Escanea el código QR con Yape para completar tu pago.</p>
+                                    <img src="img/yape.png" alt="QR de Yape" class="img-fluid">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsYape">Atrás</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="plinModal" tabindex="-1" aria-labelledby="plinModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="plinModalLabel">Pagar con Plin</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Información de pago con Plin -->
+                                    <p>Escanea el código QR con Plin para completar tu pago.</p>
+                                    <img src="img/yape.png" alt="QR de Plin" class="img-fluid">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsPlin">Atrás</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Script para manejar la lógica -->
+                    <script>
+                        document.getElementById('confirmPaymentMethod').addEventListener('click', function () {
+                            const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
+                            const alertMessage = document.getElementById('alertMessage');
+                            if (selectedMethod) {
+                                alertMessage.classList.add('d-none');
+                                const method = selectedMethod.value;
+                                const modalId = method === 'Tarjeta' ? 'creditCardModal' :
+                                    method === 'Yape' ? 'yapeModal' :
+                                        method === 'Plin' ? 'plinModal' : null;
+                                if (modalId) {
+                                    const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+                                    paymentModal.hide();
+                                    const nextModal = new bootstrap.Modal(document.getElementById(modalId));
+                                    nextModal.show();
+                                }
+                            } else {
+                                alertMessage.classList.remove('d-none');
+                            }
+                        });
+
+                        // Botones de "Atrás"
+                        document.getElementById('backToPaymentMethods').addEventListener('click', function () {
+                            const cardModal = bootstrap.Modal.getInstance(document.getElementById('creditCardModal'));
+                            cardModal.hide();
+                            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                            paymentModal.show();
+                        });
+                        document.getElementById('backToPaymentMethodsYape').addEventListener('click', function () {
+                            const yapeModal = bootstrap.Modal.getInstance(document.getElementById('yapeModal'));
+                            yapeModal.hide();
+                            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                            paymentModal.show();
+                        });
+                        document.getElementById('backToPaymentMethodsPlin').addEventListener('click', function () {
+                            const plinModal = bootstrap.Modal.getInstance(document.getElementById('plinModal'));
+                            plinModal.hide();
+                            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+                            paymentModal.show();
+                        });
+
+                        // Validación de formato para el número de tarjeta
+                        const cardNumberInput = document.getElementById('cardNumber');
+                        cardNumberInput.addEventListener('input', function (e) {
+                            let value = e.target.value.replace(/[^0-9]/g, '').substring(0, 16);
+                            value = value.match(/.{1,4}/g)?.join('-') || value;
+                            e.target.value = value;
+                        });
+
+                        // Validación y formato para la fecha de expiración
+                        const expirationDateInput = document.getElementById('expirationDate');
+                        expirationDateInput.addEventListener('input', function (e) {
+                            let value = e.target.value.replace(/[^0-9]/g, '').substring(0, 4);
+                            if (value.length >= 3) {
+                                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                            }
+                            e.target.value = value;
+                        });
+                        // Agregar calendario para la fecha de expiración
+                        new Datepicker(expirationDateInput, {
+                            format: 'mm/yy',
+                            minViewMode: 1,
+                            autoclose: true,
+                            startDate: new Date()
+                        });
+
+                        // Validación de CVV
+                        const cvvInput = document.getElementById('cvv');
+                        cvvInput.addEventListener('input', function (e) {
+                            e.target.value = e.target.value.replace(/[^0-9]/g, '').substring(0, 3);
+                        });
+                    </script>
                 </div>
             </div>
         </div>
