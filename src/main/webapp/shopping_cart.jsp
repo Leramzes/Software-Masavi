@@ -30,6 +30,7 @@
 
 <%
     List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
+
 %>
 
 <main class="bg-main align-content-center align-items-center">
@@ -132,18 +133,19 @@
                 <h2 class="fw-bold text-center text-primary-emphasis mb-4">Resumen</h2>
 
                 <div class="summary card p-3">
-                    <!-- Total de Compra -->
-                    <div class="d-flex justify-content-between">
-                        <p>Productos (<%=itemCount %>)</p>
-                        <p id="total-compra">S/ 0.0</p>
-                    </div>
+                        <!-- Total de Compra -->
+                        <div class="d-flex justify-content-between">
+                            <p>Productos (<%=ses.getAttribute("quantityTotal") %>)</p>
+                            <p id="total-compra">S/ <%=ses.getAttribute("TotalPago") %></p>
+                        </div>
 
                     <!-- Descuentos -->
                     <div class="d-flex justify-content-between">
-                        <p>Descuentos</p>
-                        <p id="descuento" class="text-danger">- S/ 0.0</p>
+                        <p>Detalle</p>
+                        <%for(CartItem item : cartItems){%>
+                            <p id="descuento" class="text-danger"> <%item.getProduct().getName();%> - <%item.getProduct().getPrice();%> </p><b></b>
+                        <%}%>
                     </div>
-                    <hr>
 
                     <!-- Total Final -->
                     <div class="d-flex justify-content-between">

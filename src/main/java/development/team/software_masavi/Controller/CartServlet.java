@@ -3,6 +3,7 @@ package development.team.software_masavi.Controller;
 import development.team.software_masavi.Business.CatalogoProducts;
 import development.team.software_masavi.Model.Cart;
 
+import development.team.software_masavi.Model.CartItem;
 import development.team.software_masavi.Model.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -122,7 +123,14 @@ public class CartServlet extends HttpServlet {
     private void updateCartAttributes(Cart cart, HttpSession session, HttpServletRequest request) {
         int itemCount = cart.getCartItems().size();
         System.out.println("Cantidad de ítems en el carrito: " + itemCount);
-
+        double sumTotal = 0;
+        int quantityTotal = 0;
+        for(CartItem item : cart.getCartItems()){
+            sumTotal += item.getProduct().getPrice()*item.getQuantity();
+            quantityTotal += item.getQuantity();
+        }
+        session.setAttribute("quantityTotal", quantityTotal);
+        session.setAttribute("TotalPago", sumTotal);
         session.setAttribute("cart", cart);
         request.setAttribute("cartItems", cart.getCartItems());
         session.setAttribute("itemCount", itemCount);

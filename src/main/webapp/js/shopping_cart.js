@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Seleccionar todos los inputs de cantidad
     const quantityInputs = document.querySelectorAll("#cantidad-producto");
+    /*const total_compra = document.getElementById("#total-compra");*/
+
+    let sumaTotalPrice = 0;
 
     quantityInputs.forEach(input => {
         input.addEventListener("input", function () {
@@ -11,10 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Calcular el nuevo precio total
             const newTotalPrice = unitPrice * newQuantity;
+            sumaTotalPrice = sumaTotalPrice + newTotalPrice;
 
             // Actualizar la celda del precio total
             const priceCell = document.getElementById(`priceTotal-${productId}`);
             priceCell.innerHTML = `S/ ${newTotalPrice.toFixed(2)}`;
+            /*total_compra.innerHTML = `S/ ${sumaTotalPrice.toFixed(2)}`;*/
 
             // Opcional: Enviar la actualización al servidor
             $.ajax({
