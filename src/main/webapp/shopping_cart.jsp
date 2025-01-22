@@ -133,28 +133,27 @@
                 <h2 class="fw-bold text-center text-primary-emphasis mb-4">Resumen</h2>
 
                 <div class="summary card p-3">
-                        <!-- Total de Compra -->
-                        <div class="d-flex justify-content-between">
-                            <p>Productos (<%=ses.getAttribute("quantityTotal") %>)</p>
-                            <p id="total-compra">S/ <%=ses.getAttribute("TotalPago") %></p>
+
+                    <!-- Detalle -->
+                    <div class="d-flex justify-content-between">
+                        <p class="fw-bold">Detalle</p>
+                        <p></p>
+                        <div class="d-flex flex-column align-items-end">
+                            <% for (CartItem item : cartItems) { %>
+                            <p id="descuento" class="text"><%= item %> </p>
+                            <% } %>
                         </div>
 
-                    <!-- Descuentos -->
-                    <div class="d-flex justify-content-between">
-                        <p>Detalle</p>
-                        <%for(CartItem item : cartItems){%>
-                            <p id="descuento" class="text-danger"> <%item.getProduct().getName();%> - <%item.getProduct().getPrice();%> </p><b></b>
-                        <%}%>
                     </div>
 
                     <!-- Total Final -->
                     <div class="d-flex justify-content-between">
-                        <p class="fw-bold">Total:</p>
-                        <p id="total-final" class="fw-bold">S/ 0.0</p>
+                        <p class="fw-bold">Total: <%=ses.getAttribute("quantityTotal") %></p>
+                        <p id="total-final" class="fw-bold">S/ <%=ses.getAttribute("TotalPago")%></p>
                     </div>
 
                     <!-- Continuar Compra -->
-                    <form action="/" method="post">
+                    <form action="#" method="post">
                         <button class="btn btn-success w-100 mt-3">Continuar Compra</button>
                     </form>
                 </div>

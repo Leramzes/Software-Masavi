@@ -43,6 +43,6 @@ public class CartItem {
     // Representación del objeto como texto
     @Override
     public String toString() {
-        return quantity + "x " + product.getName() + " (S/ " + product.getPrice() + " c/u) - Subtotal: S/ " + getSubtotal();
+        return quantity + "x " + product.getName() + " (S/ " + product.getPrice() + " c/u) --> S/ " + getSubtotal();
     }
 }
