@@ -36,7 +36,7 @@ public class FilterProducServlet extends HttpServlet {
                 out.println("<input type=\"hidden\" name=\"productId\" value="+product.getId()+">");
                 out.println("<input type=\"hidden\" name=\"quantity\" value=\"1\">");
                 out.println("<input type=\"hidden\" name=\"action\" value=\"add\">");
-                out.println("<button type=\"submit\" class=\"btn btn-success w-100\""+(product.getQuantityInStock()==0?"disabled":"")+ ">");
+                out.println("<button type=\"submit\" class=\"btn btn-success w-100 add-to-cart\""+(product.getQuantityInStock()==0?"disabled":"")+ ">");
                 out.println("Agregar al Carrito <i class=\"fa-solid fa-cart-shopping\"></i>");
                 out.println("</button>");
                 out.println("</form>");
