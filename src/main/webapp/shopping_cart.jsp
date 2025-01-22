@@ -140,7 +140,18 @@
                         <p></p>
                         <div class="d-flex flex-column align-items-end">
                             <% for (CartItem item : cartItems) { %>
-                            <p id="subtotalXproduct-<%= item.getProduct().getId()%>" class="text"><%= item.getSubtotal() %> </p>
+                            <div class="d-flex justify-content-between">
+                                <p id="quantityXproduct-<%= item.getProduct().getId()%>" class="text">
+                                    (x<%= item.getQuantity() %>)
+                                </p>
+                                <p id="nameXproduct" class="text">
+                                   <%= item.getProduct().getName() %> (S/<%= item.getProduct().getPrice() %>c/u)
+                                </p>
+                                <p id="subtotalXproduct-<%= item.getProduct().getId()%>" class="text">
+                                    &nbsp;--> S/ <%= item.getSubtotal() %>
+                                </p>
+
+                            </div>
                             <% } %>
                         </div>
 

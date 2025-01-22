@@ -27,8 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 const cantidad = parseInt(input.value);
                 sumaTotalPrice += precioUnitario * cantidad;
 
+                let quantityXproduct = document.querySelector(`#quantityXproduct-${productId}`);
+                quantityXproduct.innerHTML = `(x${newQuantity})`;
+
                 let subtotalXproduct = document.querySelector(`#subtotalXproduct-${productId}`);
-                subtotalXproduct.innerHTML = `S/ ${newTotalPrice.toFixed(2)}`;
+                subtotalXproduct.innerHTML = `&nbsp;--> S/ ${newTotalPrice.toFixed(2)}`;
             });
 
 
