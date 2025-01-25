@@ -31,6 +31,7 @@
 <%
     List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
 
+
 %>
 
 <main class="bg-main align-content-center align-items-center">
@@ -163,12 +164,19 @@
                         <p id="total-final" class="fw-bold">S/ <%=ses.getAttribute("TotalPago")%></p>
                     </div>
 
-                    <!-- Botón "Continuar Compra" -->
-                    <form id="paymentForm">
-                        <button type="button" class="btn btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#paymentModal">
-                            Continuar Compra
-                        </button>
-                    </form>
+                    <%if(ses.getAttribute("usuario")!=null){%>
+                        <form id="paymentForm">
+                            <button type="button" class="btn btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                Continuar Compra
+                            </button>
+                        </form>
+                    <%}else{%>
+
+                            <a href="login.jsp" type="button" class="btn btn-success w-100 mt-3" id="btnRegsitrar">
+                                Continuar Compra
+                            </a>
+                    <%}%>
+
 
                     <!-- Modal de Selección de Método de Pago -->
                     <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true" data-bs-backdrop="static">
@@ -212,7 +220,8 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Formulario para tarjeta -->
-                                    <form action="procesarPagoTarjeta.jsp" method="post">
+                                    <form action="salesController" method="post">
+                                        <input type="hidden" name="optionPago" value="1">
                                         <div class="mb-3">
                                             <label for="cardNumber" class="form-label">Número de Tarjeta</label>
                                             <input type="text" class="form-control" id="cardNumber" name="cardNumber" maxlength="19" placeholder="1234-5678-9012-3456" required>
@@ -246,9 +255,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Información de pago con Yape -->
-                                    <p>Escanea el código QR con Yape para completar tu pago.</p>
-                                    <img src="img/yape.png" alt="QR de Yape" class="img-fluid">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsYape">Atrás</button>
+                                    <form action="salesController" method="post">
+                                        <input type="hidden" name="optionPago" value="2">
+                                        <p>Escanea el código QR con Yape para completar tu pago.</p>
+                                        <img src="img/yape.png" alt="QR de Yape" class="img-fluid">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsYape">Atrás</button>
+                                        <button type="submit" class="btn btn-success">Confirmar Pago</button>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
@@ -263,9 +277,13 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Información de pago con Plin -->
-                                    <p>Escanea el código QR con Plin para completar tu pago.</p>
-                                    <img src="img/yape.png" alt="QR de Plin" class="img-fluid">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsPlin">Atrás</button>
+                                    <form action="salesController" method="post">
+                                        <input type="hidden" name="optionPago" value="3">
+                                        <p>Escanea el código QR con Plin para completar tu pago.</p>
+                                        <img src="img/yape.png" alt="QR de Plin" class="img-fluid">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsPlin">Atrás</button>
+                                        <button type="submit" class="btn btn-success">Confirmar Pago</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -408,6 +426,25 @@
             });
         });
     });
+    document.querySelectorAll('#btnRegsitrar').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Redirigiendo',
+                text: "Para continuar con la compra debe registrarse.",
+                timer: 3000, // Tiempo en milisegundos antes de redirigir
+                showConfirmButton: false,
+                willOpen: () => {
+                    Swal.showLoading(); // Spinner de carga integrado
+                },
+                willClose: () => {
+                    // Redirige después de que la alerta se cierre
+                    window.location.href = 'login.jsp';
+                }
+            });
+        });
+    });
+
 </script>
 
 </body>

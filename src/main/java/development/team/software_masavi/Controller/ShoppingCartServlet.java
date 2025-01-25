@@ -19,10 +19,6 @@ public class ShoppingCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        //ESTE ES UN SERVLET TEMPORAL DE PRUEBA!
-        //para implementar la session del carrito (que persista la cantidad seleccionada)
-        HttpSession session = req.getSession();
-
         String productId = req.getParameter("productId");
         String quantity = req.getParameter("quantity");
 
