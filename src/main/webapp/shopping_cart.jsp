@@ -90,15 +90,15 @@
                                 </td>
 
                                 <!-- Nombre del Producto -->
-                                <td>
+                                <td class="text-center">
                                     <strong><%= item.getProduct().getName() %></strong><br>
                                     <small class="text-muted"><%= item.getProduct().getDescription() %></small>
                                 </td>
 
                                 <!-- Cantidad -->
-                                <td class="text-center">
-                                    <input type="hidden" class="objetoProducto" value="<%=item.getProduct().getId()%>">
-                                    <input type="number" class="form-control text-center mx-1" id="cantidad-producto" style="width: 60px;"
+                                <td class="text-center" style="vertical-align: middle;">
+                                    <input type="hidden" class="objetoProducto" value="<%= item.getProduct().getId() %>">
+                                    <input type="number" class="form-control text-center mx-auto" id="cantidad-producto" style="width: 60px;"
                                            value="<%= item.getQuantity() %>" min="1">
                                 </td>
 
@@ -136,32 +136,77 @@
                 <div class="summary card p-3">
 
                     <!-- Detalle -->
-                    <div class="d-flex justify-content-between">
-                        <p class="fw-bold">Detalle</p>
-                        <p></p>
-                        <div class="d-flex flex-column align-items-end">
-                            <% for (CartItem item : cartItems) { %>
-                            <div class="d-flex justify-content-between">
-                                <p id="quantityXproduct-<%= item.getProduct().getId()%>" class="text">
-                                    (x<%= item.getQuantity() %>)
-                                </p>
-                                <p id="nameXproduct" class="text">
-                                   <%= item.getProduct().getName() %> (S/<%= item.getProduct().getPrice() %>c/u)
-                                </p>
-                                <p id="subtotalXproduct-<%= item.getProduct().getId()%>" class="text">
-                                    &nbsp;--> S/ <%= item.getSubtotal() %>
-                                </p>
+                    <div>
+                        <p class="fw-bold text-decoration-underline">Detalle</p>
 
-                            </div>
-                            <% } %>
+                        <!-- Encabezados -->
+                        <div class="d-flex justify-content-between fw-bold border-bottom pb-2">
+                            <p class="mb-0">N°</p>
+                            <p class="mb-0">Producto</p>
+                            <p class="mb-0">P. Unit.</p>
+                            <p class="mb-0">Cant.</p>
+                            <p class="mb-0">Total</p>
                         </div>
 
+                        <!-- Lista de productos -->
+                        <% int counter = 1; %>
+                        <% for (CartItem item : cartItems) { %>
+                        <div class="d-flex justify-content-between align-items-center my-2">
+                            <p class="mb-0"><%= counter++ %></p>
+                            <p id="nameXproduct" class="mb-0">
+                                <%= item.getProduct().getName() %>
+                            </p>
+                            <p id="priceXproduct" class="mb-0">
+                                S/ <%= item.getProduct().getPrice() %>
+                            </p>
+                            <p id="quantityXproduct-<%= item.getProduct().getId() %>" class="mb-0">
+                                x<%= item.getQuantity() %>
+                            </p>
+                            <p id="subtotalXproduct-<%= item.getProduct().getId() %>" class="mb-0">
+                                S/ <%= item.getSubtotal() %>
+                            </p>
+                        </div>
+                        <% } %>
+
+                        <!-- Línea separadora -->
+                        <hr class="my-3">
                     </div>
 
                     <!-- Total Final -->
-                    <div class="d-flex justify-content-between">
-                        <p class="fw-bold">Total: <%=ses.getAttribute("quantityTotal") %></p>
-                        <p id="total-final" class="fw-bold">S/ <%=ses.getAttribute("TotalPago")%></p>
+                    <div>
+                        <p class="fw-bold text-decoration-underline">Total</p>
+
+                        <!-- Cantidad Total -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="fw-bold mb-0">Cantidad:</p>
+                            <p id="total-quantity" class="mb-0">
+                                <%= ses.getAttribute("quantityTotal") %>
+                            </p>
+                        </div>
+
+                        <!-- Subtotal -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="fw-bold mb-0">Sub Total:</p>
+                            <p id="sub-total" class="mb-0">
+                                S/ <%= ses.getAttribute("TotalPago") %>
+                            </p>
+                        </div>
+
+                        <!-- IGV -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="fw-bold mb-0">IGV (18%):</p>
+                            <p id="igv" class="mb-0">
+                                S/ <%= String.format("%.2f", ((double) ses.getAttribute("TotalPago")) * 0.18) %>
+                            </p>
+                        </div>
+
+                        <!-- Precio Total -->
+                        <div class="d-flex justify-content-between align-items-center">
+                            <p class="fw-bold mb-0">Precio Total:</p>
+                            <p id="total-final" class="mb-0">
+                                S/ <%= String.format("%.2f", ((double) ses.getAttribute("TotalPago")) * 1.18) %>
+                            </p>
+                        </div>
                     </div>
 
                     <%if(ses.getAttribute("usuario")!=null){%>
@@ -171,7 +216,7 @@
                             </button>
                         </form>
                     <%}else{%>
-                        <a href="login.jsp" type="button" class="btn btn-success w-100 mt-3" id="btnRegsitrar">
+                        <a href="login.jsp" type="button" class="btn btn-success w-100 mt-3" id="btnRegistrar">
                             Continuar Compra
                         </a>
                     <%}%>
@@ -558,7 +603,7 @@
             });
         });
     });
-    document.querySelectorAll('#btnRegsitrar').forEach(button => {
+    document.querySelectorAll('#btnRegistrar').forEach(button => {
         button.addEventListener('click', function(event) {
             event.preventDefault();
             Swal.fire({
@@ -567,7 +612,7 @@
                 timer: 3000, // Tiempo en milisegundos antes de redirigir
                 showConfirmButton: false,
                 willOpen: () => {
-                    Swal.showLoading(); // Spinner de carga integrado
+                    Swal.showLoading(); // Spinner de carga integrada
                 },
                 willClose: () => {
                     // Redirige después de que la alerta se cierre

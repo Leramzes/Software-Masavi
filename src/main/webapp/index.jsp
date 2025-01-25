@@ -57,7 +57,7 @@
                 <!-- Texto a la izquierda -->
                 <div class="col-12 col-md-8">
                     <h1 class="text-black fw-bold">Historia</h1>
-                    <p class="text-muted text-justify">
+                    <p class="text-muted" style="text-align: justify;">
                         En 2011 el <strong>Centro Agronómico MASAVI</strong> inicia con la venta de productos
                         agroquímicos como un negocio
                         de persona natural. A partir de ese año se logró adentrarse un poco más en el mercado
