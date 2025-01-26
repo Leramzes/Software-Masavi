@@ -12,7 +12,7 @@ public class DataBaseUtil {
 
     static {
         try {
-            config.setJdbcUrl("jdbc:mysql://autorack.proxy.rlwy.net:47900/railway?user=root&password=YrXKYydmtViQgJustXmFmFspZPtgiUSw");
+            config.setJdbcUrl("jdbc:mysql://roundhouse.proxy.rlwy.net:44470/railway?user=root&password=zjEFIhtxerBUPdWdhiclkRnZKnnaxZad");
             config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
             // Tamaño del pool
