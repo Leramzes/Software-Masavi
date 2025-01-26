@@ -129,8 +129,11 @@ public class CartServlet extends HttpServlet {
             sumTotal += item.getProduct().getPrice()*item.getQuantity();
             quantityTotal += item.getQuantity();
         }
+        String total = String.format("%.2f", sumTotal+(sumTotal*0.18f));
+        double totalPago = Double.parseDouble(total);
         session.setAttribute("quantityTotal", quantityTotal);
-        session.setAttribute("TotalPago", sumTotal);
+        session.setAttribute("subTotal", sumTotal);
+        session.setAttribute("totalPago",totalPago);
         session.setAttribute("cart", cart);
         request.setAttribute("cartItems", cart.getCartItems());
         session.setAttribute("itemCount", itemCount);

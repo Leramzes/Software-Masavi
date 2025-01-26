@@ -160,7 +160,7 @@
                                 S/ <%= item.getProduct().getPrice() %>
                             </p>
                             <p id="quantityXproduct-<%= item.getProduct().getId() %>" class="mb-0">
-                                x<%= item.getQuantity() %>
+                                <%= item.getQuantity() %>
                             </p>
                             <p id="subtotalXproduct-<%= item.getProduct().getId() %>" class="mb-0">
                                 S/ <%= item.getSubtotal() %>
@@ -176,7 +176,7 @@
                     <div>
                         <p class="fw-bold text-decoration-underline">Total</p>
 
-                        <!-- Cantidad Total -->
+                        <!-- Cantidad Total de productos -->
                         <div class="d-flex justify-content-between align-items-center">
                             <p class="fw-bold mb-0">Cantidad:</p>
                             <p id="total-quantity" class="mb-0">
@@ -188,7 +188,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <p class="fw-bold mb-0">Sub Total:</p>
                             <p id="sub-total" class="mb-0">
-                                S/ <%= ses.getAttribute("TotalPago") %>
+                                S/ <%= ses.getAttribute("subTotal") %>
                             </p>
                         </div>
 
@@ -196,7 +196,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <p class="fw-bold mb-0">IGV (18%):</p>
                             <p id="igv" class="mb-0">
-                                S/ <%= String.format("%.2f", ((double) ses.getAttribute("TotalPago")) * 0.18) %>
+                                S/ <%= String.format("%.2f", ((double) ses.getAttribute("subTotal")) * 0.18) %>
                             </p>
                         </div>
 
@@ -204,7 +204,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <p class="fw-bold mb-0">Precio Total:</p>
                             <p id="total-final" class="mb-0">
-                                S/ <%= String.format("%.2f", ((double) ses.getAttribute("TotalPago")) * 1.18) %>
+                                S/ <%= ses.getAttribute("totalPago")%>
                             </p>
                         </div>
                     </div>
