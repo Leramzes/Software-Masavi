@@ -264,7 +264,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Formulario para tarjeta -->
-                                    <form action="salesController" method="post">
+                                    <form class="payment-form">
                                         <input type="hidden" name="optionPago" value="1">
                                         <div class="mb-3">
                                             <label for="cardNumber" class="form-label">Número de Tarjeta</label>
@@ -284,7 +284,7 @@
                                         </div>
                                         <button type="button" class="btn btn-secondary h-100" data-bs-dismiss="modal" id="backToPaymentMethods">Atrás</button>
                                         <!-- Botón de Confirmar Pago -->
-                                        <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmModal">Confirmar Pago</button>
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Pago</button>
                                     </form>
                                 </div>
                             </div>
@@ -300,13 +300,13 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Información de pago con Yape -->
-                                    <form action="salesController" method="post">
+                                    <form class="payment-form">
                                         <input type="hidden" name="optionPago" value="2">
                                         <p>Escanea el código QR con Yape para completar tu pago.</p>
                                         <img src="img/yape.png" alt="QR de Yape" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsYape">Atrás</button>
                                         <!-- Botón de Confirmar Pago -->
-                                        <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmModal">Confirmar Pago</button>
+                                        <button type="button" class="btn btn-success confirm-payment-btn" data-bs-toggle="modal" data-bs-target="#confirmModal">Confirmar Pago</button>
                                     </form>
 
                                 </div>
@@ -323,13 +323,13 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Información de pago con Plin -->
-                                    <form action="salesController" method="post">
+                                    <form class="payment-form">
                                         <input type="hidden" name="optionPago" value="3">
                                         <p>Escanea el código QR con Plin para completar tu pago.</p>
                                         <img src="img/yape.png" alt="QR de Plin" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsPlin">Atrás</button>
                                         <!-- Botón de Confirmar Pago -->
-                                        <button type="submit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmModal">Confirmar Pago</button>
+                                        <button type="button" class="btn btn-success confirm-payment-btn" data-bs-toggle="modal" data-bs-target="#confirmModal">Confirmar Pago</button>
                                     </form>
                                 </div>
                             </div>
@@ -419,46 +419,87 @@
                     </div>
 
                     <script>
-                        // Activar el modal al hacer clic en el botón de "Confirmar Pago"
-                        document.querySelector('.btn.btn-success[data-bs-toggle="modal"]').addEventListener('click', function () {
+                        document.querySelector('.confirm-payment-btn').addEventListener('click', function () {
+                            const form = document.querySelector('.payment-form');
                             const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
-                            if (selectedMethod) {
-                                const receiptNumber = '001-000001';
-                                const paymentType = selectedMethod.value; // Método de pago
-                                const products = [
-                                    { id: 1, name: "Producto A", unitPrice: 10.0, quantity: 2, subtotal: 20.0 },
-                                    { id: 2, name: "Producto B", unitPrice: 15.0, quantity: 1, subtotal: 15.0 }
-                                ];
-                                const subtotal = products.reduce((sum, p) => sum + p.subtotal, 0);
-                                const igv = subtotal * 0.18;
-                                const total = subtotal + igv;
-                                const date = new Date();
 
-                                // Actualizar los datos en el modal
-                                document.getElementById('receiptNumber').textContent = receiptNumber;
-                                document.getElementById('paymentMethod').textContent = paymentType;
-                                document.getElementById('receiptProducts').innerHTML = products
-                                    .map(
-                                        (p, index) =>
-                                            `<tr>
-                                                <td>${index + 1}</td>
-                                                <td>${p.name}</td>
-                                                <td>S/ ${p.unitPrice.toFixed(2)}</td>
-                                                <td>${p.quantity}</td>
-                                                <td>S/ ${p.subtotal.toFixed(2)}</td>
-                                            </tr>`
-                                    )
-                                    .join('');
-                                document.getElementById('receiptSubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
-                                document.getElementById('receiptIGV').textContent = `S/ ${igv.toFixed(2)}`;
-                                document.getElementById('receiptTotal').textContent = `S/ ${total.toFixed(2)}`;
-                                document.getElementById('receiptDate').textContent = date.toLocaleDateString();
-                                document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' }); // Hora en formato 24 horas sin AM/PM
-
-                                // Mostrar el modal del comprobante
-                                const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-                                receiptModal.show();
+                            if (!selectedMethod) {
+                                alert('Por favor, selecciona un método de pago.');
+                                return;
                             }
+
+                            const paymentType = selectedMethod.value; // Valor del método de pago seleccionado
+
+                            if (paymentType === 'Tarjeta') {
+                                // Validaciones para tarjeta
+                                const cardNumber = form.querySelector('#cardNumber').value.trim();
+                                const cardHolder = form.querySelector('#cardHolder').value.trim();
+                                const expirationDate = form.querySelector('#expirationDate').value.trim();
+                                const cvv = form.querySelector('#cvv').value.trim();
+
+                                const cardNumberRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+                                const expirationDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+                                const cvvRegex = /^\d{3}$/;
+
+                                if (!cardNumberRegex.test(cardNumber)) {
+                                    alert('Por favor, ingrese un número de tarjeta válido (1234-5678-9012-3456).');
+                                    return;
+                                }
+
+                                if (cardHolder === '') {
+                                    alert('Por favor, ingrese el titular de la tarjeta.');
+                                    return;
+                                }
+
+                                if (!expirationDateRegex.test(expirationDate)) {
+                                    alert('Por favor, ingrese una fecha de expiración válida (MM/AA).');
+                                    return;
+                                }
+
+                                if (!cvvRegex.test(cvv)) {
+                                    alert('Por favor, ingrese un CVV válido (3 dígitos).');
+                                    return;
+                                }
+                            } else if (paymentType === 'Yape' || paymentType === 'Plin') {
+                                // Mensaje opcional si es Yape o Plin
+                                alert(`Usando ${paymentType}: Asegúrate de completar el pago con el código QR.`);
+                            }
+
+                            // Generar datos dinámicos del comprobante
+                            const receiptNumber = '001-000001';
+                            const products = [
+                                { id: 1, name: "Producto A", unitPrice: 10.0, quantity: 2, subtotal: 20.0 },
+                                { id: 2, name: "Producto B", unitPrice: 15.0, quantity: 1, subtotal: 15.0 }
+                            ];
+                            const subtotal = products.reduce((sum, p) => sum + p.subtotal, 0);
+                            const igv = subtotal * 0.18;
+                            const total = subtotal + igv;
+                            const date = new Date();
+
+                            // Actualizar datos en el modal del comprobante
+                            document.getElementById('receiptNumber').textContent = receiptNumber;
+                            document.getElementById('paymentMethod').textContent = paymentType;
+                            document.getElementById('receiptProducts').innerHTML = products
+                                .map(
+                                    (p, index) =>
+                                        `<tr>
+                                            <td>${index + 1}</td>
+                                            <td>${p.name}</td>
+                                            <td>S/ ${p.unitPrice.toFixed(2)}</td>
+                                            <td>${p.quantity}</td>
+                                            <td>S/ ${p.subtotal.toFixed(2)}</td>
+                                        </tr>`
+                                )
+                                .join('');
+                            document.getElementById('receiptSubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+                            document.getElementById('receiptIGV').textContent = `S/ ${igv.toFixed(2)}`;
+                            document.getElementById('receiptTotal').textContent = `S/ ${total.toFixed(2)}`;
+                            document.getElementById('receiptDate').textContent = date.toLocaleDateString();
+                            document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+                            // Mostrar el modal del comprobante
+                            const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                            receiptModal.show();
                         });
                     </script>
 
