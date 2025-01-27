@@ -1,13 +1,12 @@
 package development.team.software_masavi.Business;
 
+import development.team.software_masavi.Model.Business;
+import development.team.software_masavi.Model.Customer;
 import development.team.software_masavi.Model.Usuario;
 import development.team.software_masavi.Services.DataBaseUtil;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
@@ -161,5 +160,31 @@ public class UsersGestion {
         }
 
         return resultado;
+    }
+
+    public Customer getCustomer(int usuarioId){
+
+        String sql = "SELECT * FROM Clientes WHERE usuario_id = ?";
+        Customer customer = null;
+        try (Connection cnn = dataSource.getConnection();
+             PreparedStatement pst = cnn.prepareStatement(sql)) {
+
+            pst.setInt(1, usuarioId);
+
+            try (ResultSet rst = pst.executeQuery()) {
+                if (rst.next()) {
+                    int id = rst.getInt(1);
+                    String name = rst.getString(2);
+                    String lastname = rst.getString(3);
+
+                    // Crear y devolver un objeto Customer
+                    customer = new Customer(id, name, lastname);
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return customer;
     }
 }

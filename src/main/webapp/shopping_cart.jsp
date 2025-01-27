@@ -1,6 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="development.team.software_masavi.Model.CartItem" %>
+<%@ page import="development.team.software_masavi.Model.Business" %>
+<%@ page import="development.team.software_masavi.Business.BusinessGestion" %>
+<%@ page import="com.mysql.cj.xdevapi.Client" %>
+<%@ page import="development.team.software_masavi.Model.Customer" %>
+<%@ page import="development.team.software_masavi.Business.UsersGestion" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +35,10 @@
 
 <%
     List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
-
+    Business business = BusinessGestion.getBusinessInfo();
+    Usuario usuarioSession = (Usuario) session.getAttribute("usuario");
+    UsersGestion usersGestion = new UsersGestion();
+    Customer customer = usersGestion.getCustomer(usuarioSession.getId());
 
 %>
 
@@ -352,8 +360,8 @@
                                                 <img src="img/logo.jpg" class="rounded-circle border img-fluid" alt="Masavi" style="max-width: 100px;">
                                             </div>
                                             <div class="col-md-6 text-end">
-                                                <h4 class="fw-bold">Centro Agronómico MASAVI</h4>
-                                                <p>RUC: 12345678901</p>
+                                                <h4 class="fw-bold"><%=business.getName()%></h4>
+                                                <p>RUC: <%=business.getRuc()%></p>
                                                 <p>Fecha: <span id="receiptDate"></span></p>
                                                 <p>Hora: <span id="receiptTime"></span></p>
                                             </div>
@@ -363,10 +371,9 @@
                                         <div class="row mb-3">
                                             <div class="col-12">
                                                 <h5 class="fw-bold">Datos del Cliente:</h5>
-                                                <p>Nombre: <span id="customerName">Cliente</span></p>
-                                                <p>DNI: <span id="customerDNI">12345678</span></p>
-                                                <p>Dirección: <span id="customerAddress">Av. Principal 666</span></p>
-                                                <p>Celular: <span id="customerPhone">987654321</span></p>
+                                                <p>Nombre: <span id="customerName"><%=customer.getName()+" "+customer.getLastname()%></span></p>
+                                                <p>Dirección: <span id="customerAddress"><%=usuarioSession.getDireccion()%></span></p>
+                                                <p>Celular: <span id="customerPhone"><%=usuarioSession.getTelefono()%></span></p>
                                             </div>
                                         </div>
 
@@ -375,6 +382,7 @@
                                             <div class="col-12">
                                                 <h5 class="fw-bold">Método de Pago:</h5>
                                                 <p><span id="paymentMethod">Tarjeta de Crédito/Débito</span></p>
+                                                <p><span>123****5698</span></p>
                                             </div>
                                         </div>
 
