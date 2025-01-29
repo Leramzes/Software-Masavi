@@ -226,24 +226,23 @@
                         </div>
                     </div>
 
-                    <%if(usuarioSession!=null){%>
+
+                    <%if(cartItems.isEmpty()){%>
+                        <button type="button" class="btn btn-success w-100 mt-3 btnRegistrarDisabled">
+                            Continuar Compra
+                        </button>
+                    <%}else if(usuarioSession!=null){%>
                         <form id="paymentForm">
                             <button type="button" class="btn btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#paymentModal">
                                 Continuar Compra
                             </button>
                         </form>
-                    <%}else{
-                        if (cartItems.isEmpty()){%>
-                            <%--/*aqui mostrtar una alerta para ver que debe eleir un producto por lo menos*/--%>
-                            <button type="button" class="btn btn-success w-100 mt-3 btnRegistrarDisabled">
-                                    Continuar Compra
-                            </button>
-                        <%}else{%>
-                            <a href="login.jsp" type="button" class="btn btn-success w-100 mt-3" id="btnRegistrar">
-                                Continuar Compra
-                            </a>
-                        <%}%>
+                    <%}else{%>
+                        <a href="login.jsp" type="button" class="btn btn-success w-100 mt-3" id="btnRegistrar">
+                            Continuar Compra
+                        </a>
                     <%}%>
+
 
 
                     <!-- Modal de Selección de Método de Pago -->
@@ -386,12 +385,9 @@
                                         <!-- Detalle del Cliente -->
                                         <div class="row mb-3">
                                             <div class="col-12">
-                                                <%
-                                                    /**/
-                                                %>
                                                 <h5 class="fw-bold">Datos del Cliente:</h5>
-                                                <p>Nombre: <span ><%=nameCustomer!=null ? nameCustomer : "--"%></span></p>
-                                                <p>Dirección: <span ><%=addressCustomer!=null ? addressCustomer : "--"%></span></p>
+                                                <p>Nombre: <span ><%=nameCustomer!=null ? nameCustomer.toUpperCase() : "--"%></span></p>
+                                                <p>Dirección: <span ><%=addressCustomer!=null ? addressCustomer.toUpperCase() : "--"%></span></p>
                                                 <p>Celular: <span ><%=phoneCustomer!=null ? phoneCustomer : "--"%></span></p>
                                             </div>
                                         </div>
