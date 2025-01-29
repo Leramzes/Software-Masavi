@@ -21,6 +21,13 @@
     } else {
         linkToAboutUs = "index.jsp#about_us";  // Sí estamos en cualquier otra página
     }
+
+    // Definir clases dinámicas para cada enlace
+    String homeActive = currentPage.endsWith("index.jsp") ? "active" : "";
+    String aboutActive = currentPage.contains("about_us") ? "active" : "";
+    String productsActive = currentPage.contains("product") ? "active" : "";
+    String contactActive = currentPage.endsWith("contact_us.jsp") ? "active" : "";
+    String cartActive = currentPage.contains("cart") ? "active" : "";
 %>
 <header>
     <nav class="navbar navbar-expand-lg fixed-top px-lg-5 px-md-5 px-sm-5" style="background-color: #ffffff; box-shadow: 0 4px 8px #76ac0076;">
@@ -42,22 +49,22 @@
                 <!-- Menú de navegación -->
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-end">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.jsp">Inicio</a>
+                        <a class="nav-link <%= homeActive %>" id="navInicio" aria-current="page" href="index.jsp">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<%= linkToAboutUs %>">Nosotros</a>
+                        <a class="nav-link <%= aboutActive %>" id="navNosotros" href="<%= linkToAboutUs %>">Nosotros</a>
                     </li>
                     <form action="product" method="post">
                         <li class="nav-item">
-                            <button class="nav-link" type="submit">Productos</button>
+                            <button class="nav-link <%= productsActive %>" type="submit">Productos</button>
                         </li>
                     </form>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact_us.jsp">Contáctanos</a>
+                        <a class="nav-link <%= contactActive %>" href="contact_us.jsp">Contáctanos</a>
                     </li>
                     <li class="nav-item">
                         <form action="cart" method="get" class="position-relative">
-                            <button class="nav-link" type="submit">
+                            <button class="nav-link <%= cartActive %>" type="submit">
                                 <i class="fa-solid fa-bag-shopping me-1"></i>
                                 Carrito
                             </button>
@@ -98,3 +105,31 @@
         </div>
     </nav>
 </header>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Seleccionar elementos del navbar
+        let navInicio = document.getElementById("navInicio");
+        let navNosotros = document.getElementById("navNosotros");
+
+        // Seleccionar la sección de "Nosotros"
+        let aboutUsSection = document.getElementById("about_us");
+
+        // Crear Intersection Observer para detectar cuando "Nosotros" es visible
+        let observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Si "Nosotros" es visible, activar su enlace (Invertí)
+                    navNosotros.classList.remove("active");
+                    navInicio.classList.add("active");
+                } else {
+                    // Si no es visible, volver a activar "Inicio" (Invertí)
+                    navNosotros.classList.add("active");
+                    navInicio.classList.remove("active");
+                }
+            });
+        }, { threshold: 0.5 }); // 50% visible para activar
+
+        observer.observe(aboutUsSection);
+    });
+</script>
