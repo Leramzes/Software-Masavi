@@ -73,3 +73,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+//logica para mensaje de alerta si en caso el carrito de items esta vacio y quiera pagar
+document.querySelectorAll('.btnRegistrarDisabled').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault(); // Previene el envío del formulario o cualquier acción por defecto
+
+        // Mostrar la alerta de confirmación
+        Swal.fire({
+            icon: 'warning',  // Icono de advertencia
+            title: 'CARRITO VACIO',
+            text: 'Para poder continuar con la compra debe elegir al menos 1 producto',
+            showConfirmButton: true,  // Muestra un botón de aceptar
+            confirmButtonColor: '#d33',  // Color del botón de confirmar (rojo)
+        });
+    });
+});
