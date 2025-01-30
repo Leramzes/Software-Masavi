@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-//logica para mensaje de alerta si en caso el carrito de items esta vacio y quiera pagar
+// Lógica para mensaje de alerta si en caso el carrito de items esta vació y quiera pagar
 document.querySelectorAll('.btnRegistrarDisabled').forEach(button => {
     button.addEventListener('click', function(event) {
         event.preventDefault(); // Previene el envío del formulario o cualquier acción por defecto
@@ -82,10 +82,153 @@ document.querySelectorAll('.btnRegistrarDisabled').forEach(button => {
         // Mostrar la alerta de confirmación
         Swal.fire({
             icon: 'warning',  // Icono de advertencia
-            title: 'CARRITO VACIO',
+            title: 'CARRITO VACIÓ',
             text: 'Para poder continuar con la compra debe elegir al menos 1 producto',
             showConfirmButton: true,  // Muestra un botón de aceptar
             confirmButtonColor: '#d33',  // Color del botón de confirmar (rojo)
         });
     });
+});
+
+// Evento para el botón "Eliminar producto"
+document.querySelectorAll('.delete-product').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault(); // Previene el envío del formulario o cualquier acción por defecto
+
+        // Mostrar la alerta de confirmación
+        Swal.fire({
+            icon: 'warning',  // Icono de advertencia
+            title: '¿Estás seguro?',
+            text: '¡Esta acción no se puede deshacer!',
+            showCancelButton: true,  // Muestra un botón de cancelar
+            confirmButtonText: 'Eliminar',  // Texto del botón de confirmación
+            cancelButtonText: 'Cancelar',  // Texto del botón de cancelación
+            confirmButtonColor: '#d33',  // Color del botón de confirmar (rojo)
+            cancelButtonColor: '#3085d6',  // Color del botón de cancelar (azul)
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Acción cuando el usuario confirma la eliminación
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Eliminado!',
+                    text: 'El producto ha sido eliminado.',
+                    timer: 1500,  // Espera de 3 segundos (3000 milisegundos)
+                    timerProgressBar: true,  // Muestra la barra de progreso
+                    didClose: () => {
+                        // Aquí puedes agregar la lógica para eliminar el producto
+                        // Por ejemplo, hacer una llamada a un servidor o eliminar el producto de la UI
+
+                        // Obtener el formulario más cercano al botón de eliminación
+                        const form = event.target.closest('form');
+
+                        // Enviar el formulario de eliminación
+                        form.submit();  // Enviar el formulario para eliminar el producto
+                    }
+                });
+
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Acción cuando el usuario cancela
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Cancelado',
+                    text: 'Acciòn cancelada.',
+                    timer: 1500,  // Espera de 3 segundos (3000 milisegundos)
+                    timerProgressBar: true  // Muestra la barra de progreso
+                });
+            }
+        });
+    });
+});
+
+// Evento para el botón "Registrar"
+document.querySelectorAll('#btnRegistrar').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Redirigiendo',
+            text: "Para continuar con la compra debe registrarse.",
+            timer: 3000, // Tiempo en milisegundos antes de redirigir
+            showConfirmButton: false,
+            willOpen: () => {
+                Swal.showLoading(); // Spinner de carga integrada
+            },
+            willClose: () => {
+                // Redirige después de que la alerta se cierre
+                window.location.href = 'login.jsp';
+            }
+        });
+    });
+});
+
+// Evento para el botón "Confirmar Método de Pago"
+document.getElementById('confirmPaymentMethod').addEventListener('click', function () {
+    const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
+    const alertMessage = document.getElementById('alertMessage');
+    if (selectedMethod) {
+        alertMessage.classList.add('d-none');
+        const method = selectedMethod.value;
+        const modalId = method === 'Tarjeta' ? 'creditCardModal' :
+            method === 'Yape' ? 'yapeModal' :
+                method === 'Plin' ? 'plinModal' : null;
+        if (modalId) {
+            const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+            paymentModal.hide();
+            const nextModal = new bootstrap.Modal(document.getElementById(modalId));
+            nextModal.show();
+        }
+    } else {
+        alertMessage.classList.remove('d-none');
+    }
+});
+
+// Botones de "Atrás"
+document.getElementById('backToPaymentMethods').addEventListener('click', function () {
+    const cardModal = bootstrap.Modal.getInstance(document.getElementById('creditCardModal'));
+    cardModal.hide();
+    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    paymentModal.show();
+});
+document.getElementById('backToPaymentMethodsYape').addEventListener('click', function () {
+    const yapeModal = bootstrap.Modal.getInstance(document.getElementById('yapeModal'));
+    yapeModal.hide();
+    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    paymentModal.show();
+});
+document.getElementById('backToPaymentMethodsPlin').addEventListener('click', function () {
+    const plinModal = bootstrap.Modal.getInstance(document.getElementById('plinModal'));
+    plinModal.hide();
+    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+    paymentModal.show();
+});
+
+// Validación de formato para el número de tarjeta
+const cardNumberInput = document.getElementById('cardNumber');
+cardNumberInput.addEventListener('input', function (e) {
+    let value = e.target.value.replace(/[^0-9]/g, '').substring(0, 16);
+    value = value.match(/.{1,4}/g)?.join('-') || value;
+    e.target.value = value;
+});
+
+// Validación y formato para la fecha de expiración
+const expirationDateInput = document.getElementById('expirationDate');
+expirationDateInput.addEventListener('input', function (e) {
+    let value = e.target.value.replace(/[^0-9]/g, '').substring(0, 4);
+    if (value.length >= 3) {
+        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+    }
+    e.target.value = value;
+});
+
+// Agregar calendario para la fecha de expiración
+new Datepicker(expirationDateInput, {
+    format: 'mm/yy',
+    minViewMode: 1,
+    autoclose: true,
+    startDate: new Date()
+});
+
+// Validación de CVV
+const cvvInput = document.getElementById('cvv');
+cvvInput.addEventListener('input', function (e) {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '').substring(0, 3);
 });

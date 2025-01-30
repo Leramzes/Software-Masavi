@@ -441,180 +441,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <script>
-                        document.querySelector('.confirm-payment-btn').addEventListener('click', function () {
-
-                            const form = document.querySelector('.payment-form');
-                            const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
-
-                            var carritoFinal = JSON.parse('<%= new Gson().toJson(cartItems) %>');
-                            console.log(carritoFinal);
-
-                            if (!selectedMethod) {
-                                alert('Por favor, selecciona un método de pago.');
-                                return;
-                            }
-
-                            const paymentType = selectedMethod.value; // Valor del método de pago seleccionado
-
-                            if (paymentType === 'Tarjeta') {
-                                // Validaciones para tarjeta
-                                const cardNumber = form.querySelector('#cardNumber').value.trim();
-                                const cardHolder = form.querySelector('#cardHolder').value.trim();
-                                const expirationDate = form.querySelector('#expirationDate').value.trim();
-                                const cvv = form.querySelector('#cvv').value.trim();
-
-                                const cardNumberRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
-                                const expirationDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
-                                const cvvRegex = /^\d{3}$/;
-
-                                if (!cardNumberRegex.test(cardNumber)) {
-                                    alert('Por favor, ingrese un número de tarjeta válido (1234-5678-9012-3456).');
-                                    return;
-                                }
-
-                                if (cardHolder === '') {
-                                    alert('Por favor, ingrese el titular de la tarjeta.');
-                                    return;
-                                }
-
-                                if (!expirationDateRegex.test(expirationDate)) {
-                                    alert('Por favor, ingrese una fecha de expiración válida (MM/AA).');
-                                    return;
-                                }
-
-                                if (!cvvRegex.test(cvv)) {
-                                    alert('Por favor, ingrese un CVV válido (3 dígitos).');
-                                    return;
-                                }
-                            } else if (paymentType === 'Yape' || paymentType === 'Plin') {
-                                // Mensaje opcional si es Yape o Plin
-                                alert(`Usando ${paymentType}: Asegúrate de completar el pago con el código QR.`);
-                            }
-
-                            // Limpiar la tabla antes de actualizar
-                            const tableBody = document.getElementById('receiptProducts');
-                            tableBody.innerHTML = "";
-
-                            // Generar datos dinámicos del comprobante
-                            const receiptNumber = '001-000001';
-                            let subtotal = 0;
-
-                            // Llenar la tabla con los productos del carrito
-                            carritoFinal.forEach((p, index) => {
-                                let unitPrice = parseFloat(p.product.price);
-                                let totalProduct = unitPrice * p.quantity;
-                                subtotal += totalProduct;
-
-                                let row = `
-                                    <tr>
-                                        <td>`+index + 1+`</td>
-                                        <td>`+p.product.name+`</td>
-                                        <td>S/ `+p.product.price+`</td>
-                                        <td>`+p.quantity+`</td>
-                                        <td>S/ ${totalProduct.toFixed(2)}</td>
-                                    </tr>
-                                `;
-                                tableBody.insertAdjacentHTML('beforeend', row);
-                            });
-
-                            // Calcular IGV y total
-                            const igv = subtotal * 0.18;
-                            const total = subtotal + igv;
-
-                            // Actualizar datos en el modal del comprobante
-                            document.getElementById('receiptNumber').textContent = receiptNumber;
-                            document.getElementById('paymentMethod').textContent = paymentType;
-                            document.getElementById('receiptSubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
-                            document.getElementById('receiptIGV').textContent = `S/ ${igv.toFixed(2)}`;
-                            document.getElementById('receiptTotal').textContent = `S/ ${total.toFixed(2)}`;
-
-                            const date = new Date();
-                            document.getElementById('receiptDate').textContent = date.toLocaleDateString();
-                            document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
-
-                            // Mostrar el modal del comprobante
-                            const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-                            receiptModal.show();
-
-                        });
-                    </script>
-
-
-                    <!-- Script para manejar la lógica -->
-                    <script>
-                        document.getElementById('confirmPaymentMethod').addEventListener('click', function () {
-                            const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
-                            const alertMessage = document.getElementById('alertMessage');
-                            if (selectedMethod) {
-                                alertMessage.classList.add('d-none');
-                                const method = selectedMethod.value;
-                                const modalId = method === 'Tarjeta' ? 'creditCardModal' :
-                                    method === 'Yape' ? 'yapeModal' :
-                                        method === 'Plin' ? 'plinModal' : null;
-                                if (modalId) {
-                                    const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
-                                    paymentModal.hide();
-                                    const nextModal = new bootstrap.Modal(document.getElementById(modalId));
-                                    nextModal.show();
-                                }
-                            } else {
-                                alertMessage.classList.remove('d-none');
-                            }
-                        });
-
-                        // Botones de "Atrás"
-                        document.getElementById('backToPaymentMethods').addEventListener('click', function () {
-                            const cardModal = bootstrap.Modal.getInstance(document.getElementById('creditCardModal'));
-                            cardModal.hide();
-                            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-                            paymentModal.show();
-                        });
-                        document.getElementById('backToPaymentMethodsYape').addEventListener('click', function () {
-                            const yapeModal = bootstrap.Modal.getInstance(document.getElementById('yapeModal'));
-                            yapeModal.hide();
-                            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-                            paymentModal.show();
-                        });
-                        document.getElementById('backToPaymentMethodsPlin').addEventListener('click', function () {
-                            const plinModal = bootstrap.Modal.getInstance(document.getElementById('plinModal'));
-                            plinModal.hide();
-                            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
-                            paymentModal.show();
-                        });
-
-                        // Validación de formato para el número de tarjeta
-                        const cardNumberInput = document.getElementById('cardNumber');
-                        cardNumberInput.addEventListener('input', function (e) {
-                            let value = e.target.value.replace(/[^0-9]/g, '').substring(0, 16);
-                            value = value.match(/.{1,4}/g)?.join('-') || value;
-                            e.target.value = value;
-                        });
-
-                        // Validación y formato para la fecha de expiración
-                        const expirationDateInput = document.getElementById('expirationDate');
-                        expirationDateInput.addEventListener('input', function (e) {
-                            let value = e.target.value.replace(/[^0-9]/g, '').substring(0, 4);
-                            if (value.length >= 3) {
-                                value = value.substring(0, 2) + '/' + value.substring(2, 4);
-                            }
-                            e.target.value = value;
-                        });
-                        // Agregar calendario para la fecha de expiración
-                        new Datepicker(expirationDateInput, {
-                            format: 'mm/yy',
-                            minViewMode: 1,
-                            autoclose: true,
-                            startDate: new Date()
-                        });
-
-                        // Validación de CVV
-                        const cvvInput = document.getElementById('cvv');
-                        cvvInput.addEventListener('input', function (e) {
-                            e.target.value = e.target.value.replace(/[^0-9]/g, '').substring(0, 3);
-                        });
-                    </script>
                 </div>
             </div>
         </div>
@@ -627,81 +453,107 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-<!-- Enlace de JavaScript - JSPDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
-
 <!--Enlace de JavaScript - SweetAlert2-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!--Funcionalidad de las alertas - SweetAlert2-->
+
 <script>
-    // Evento para el botón "Eliminar producto"
-    document.querySelectorAll('.delete-product').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault(); // Previene el envío del formulario o cualquier acción por defecto
+    // Función para confirmar el pago
+    document.querySelector('.confirm-payment-btn').addEventListener('click', function () {
 
-            // Mostrar la alerta de confirmación
-            Swal.fire({
-                icon: 'warning',  // Icono de advertencia
-                title: '¿Estás seguro?',
-                text: '¡Esta acción no se puede deshacer!',
-                showCancelButton: true,  // Muestra un botón de cancelar
-                confirmButtonText: 'Eliminar',  // Texto del botón de confirmación
-                cancelButtonText: 'Cancelar',  // Texto del botón de cancelación
-                confirmButtonColor: '#d33',  // Color del botón de confirmar (rojo)
-                cancelButtonColor: '#3085d6',  // Color del botón de cancelar (azul)
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Acción cuando el usuario confirma la eliminación
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Eliminado!',
-                        text: 'El producto ha sido eliminado.',
-                        timer: 1500,  // Espera de 3 segundos (3000 milisegundos)
-                        timerProgressBar: true,  // Muestra la barra de progreso
-                        didClose: () => {
-                            // Aquí puedes agregar la lógica para eliminar el producto
-                            // Por ejemplo, hacer una llamada a un servidor o eliminar el producto de la UI
+        const form = document.querySelector('.payment-form');
+        const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
 
-                            // Obtener el formulario más cercano al botón de eliminación
-                            const form = event.target.closest('form');
+        const carritoFinal = JSON.parse('<%= new Gson().toJson(cartItems) %>');
+        console.log(carritoFinal);
 
-                            // Enviar el formulario de eliminación
-                            form.submit();  // Enviar el formulario para eliminar el producto
-                        }
-                    });
+        if (!selectedMethod) {
+            alert('Por favor, selecciona un método de pago.');
+            return;
+        }
 
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    // Acción cuando el usuario cancela
-                    Swal.fire({
-                        icon: 'info',
-                        title: 'Cancelado',
-                        text: 'Acciòn cancelada.',
-                        timer: 1500,  // Espera de 3 segundos (3000 milisegundos)
-                        timerProgressBar: true  // Muestra la barra de progreso
-                    });
-                }
-            });
+        const paymentType = selectedMethod.value; // Valor del método de pago seleccionado
+
+        if (paymentType === 'Tarjeta') {
+            // Validaciones para tarjeta
+            const cardNumber = form.querySelector('#cardNumber').value.trim();
+            const cardHolder = form.querySelector('#cardHolder').value.trim();
+            const expirationDate = form.querySelector('#expirationDate').value.trim();
+            const cvv = form.querySelector('#cvv').value.trim();
+
+            const cardNumberRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+            const expirationDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            const cvvRegex = /^\d{3}$/;
+
+            if (!cardNumberRegex.test(cardNumber)) {
+                alert('Por favor, ingrese un número de tarjeta válido (1234-5678-9012-3456).');
+                return;
+            }
+
+            if (cardHolder === '') {
+                alert('Por favor, ingrese el titular de la tarjeta.');
+                return;
+            }
+
+            if (!expirationDateRegex.test(expirationDate)) {
+                alert('Por favor, ingrese una fecha de expiración válida (MM/AA).');
+                return;
+            }
+
+            if (!cvvRegex.test(cvv)) {
+                alert('Por favor, ingrese un CVV válido (3 dígitos).');
+                return;
+            }
+        } else if (paymentType === 'Yape' || paymentType === 'Plin') {
+            // Mensaje opcional si es Yape o Plin
+            alert(`Usando ${paymentType}: Asegúrate de completar el pago con el código QR.`);
+        }
+
+        // Limpiar la tabla antes de actualizar
+        const tableBody = document.getElementById('receiptProducts');
+        tableBody.innerHTML = "";
+
+        // Generar datos dinámicos del comprobante
+        const receiptNumber = '001-000001';
+        let subtotal = 0;
+
+        // Llenar la tabla con los productos del carrito
+        carritoFinal.forEach((p, index) => {
+            let unitPrice = parseFloat(p.product.price);
+            let totalProduct = unitPrice * p.quantity;
+            subtotal += totalProduct;
+
+            let row = `
+                                    <tr>
+                                        <td>`+index + 1+`</td>
+                                        <td>`+p.product.name+`</td>
+                                        <td>S/ `+p.product.price+`</td>
+                                        <td>`+p.quantity+`</td>
+                                        <td>S/ ${totalProduct.toFixed(2)}</td>
+                                    </tr>
+                                `;
+            tableBody.insertAdjacentHTML('beforeend', row);
         });
-    });
-    document.querySelectorAll('#btnRegistrar').forEach(button => {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            Swal.fire({
-                title: 'Redirigiendo',
-                text: "Para continuar con la compra debe registrarse.",
-                timer: 3000, // Tiempo en milisegundos antes de redirigir
-                showConfirmButton: false,
-                willOpen: () => {
-                    Swal.showLoading(); // Spinner de carga integrada
-                },
-                willClose: () => {
-                    // Redirige después de que la alerta se cierre
-                    window.location.href = 'login.jsp';
-                }
-            });
-        });
-    });
 
+        // Calcular IGV y total
+        const igv = subtotal * 0.18;
+        const total = subtotal + igv;
+
+        // Actualizar datos en el modal del comprobante
+        document.getElementById('receiptNumber').textContent = receiptNumber;
+        document.getElementById('paymentMethod').textContent = paymentType;
+        document.getElementById('receiptSubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
+        document.getElementById('receiptIGV').textContent = `S/ ${igv.toFixed(2)}`;
+        document.getElementById('receiptTotal').textContent = `S/ ${total.toFixed(2)}`;
+
+        const date = new Date();
+        document.getElementById('receiptDate').textContent = date.toLocaleDateString();
+        document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+        // Mostrar el modal del comprobante
+        const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        receiptModal.show();
+
+    });
 </script>
 
 </body>
