@@ -6,6 +6,8 @@
 <%@ page import="com.mysql.cj.xdevapi.Client" %>
 <%@ page import="development.team.software_masavi.Model.Customer" %>
 <%@ page import="development.team.software_masavi.Business.UsersGestion" %>
+<%@ page import="com.google.gson.internal.bind.util.ISO8601Utils" %>
+<%@ page import="com.google.gson.Gson" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -417,7 +419,6 @@
                                                         </tr>
                                                         </thead>
                                                         <tbody id="receiptProducts">
-                                                        <!-- Productos dinámicos -->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -443,8 +444,12 @@
 
                     <script>
                         document.querySelector('.confirm-payment-btn').addEventListener('click', function () {
+
                             const form = document.querySelector('.payment-form');
                             const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
+
+                            var carritoFinal = JSON.parse('<%= new Gson().toJson(cartItems) %>');
+                            console.log(carritoFinal);
 
                             if (!selectedMethod) {
                                 alert('Por favor, selecciona un método de pago.');
@@ -488,43 +493,54 @@
                                 alert(`Usando ${paymentType}: Asegúrate de completar el pago con el código QR.`);
                             }
 
+                            // Limpiar la tabla antes de actualizar
+                            const tableBody = document.getElementById('receiptProducts');
+                            tableBody.innerHTML = "";
+
                             // Generar datos dinámicos del comprobante
                             const receiptNumber = '001-000001';
-                            const products = [
-                                { id: 1, name: "Producto A", unitPrice: 10.0, quantity: 2, subtotal: 20.0 },
-                                { id: 2, name: "Producto B", unitPrice: 15.0, quantity: 1, subtotal: 15.0 }
-                            ];
-                            const subtotal = products.reduce((sum, p) => sum + p.subtotal, 0);
+                            let subtotal = 0;
+
+                            // Llenar la tabla con los productos del carrito
+                            carritoFinal.forEach((p, index) => {
+                                let unitPrice = parseFloat(p.product.price);
+                                let totalProduct = unitPrice * p.quantity;
+                                subtotal += totalProduct;
+
+                                let row = `
+                                    <tr>
+                                        <td>`+index + 1+`</td>
+                                        <td>`+p.product.name+`</td>
+                                        <td>S/ `+p.product.price+`</td>
+                                        <td>`+p.quantity+`</td>
+                                        <td>S/ ${totalProduct.toFixed(2)}</td>
+                                    </tr>
+                                `;
+                                tableBody.insertAdjacentHTML('beforeend', row);
+                            });
+
+                            // Calcular IGV y total
                             const igv = subtotal * 0.18;
                             const total = subtotal + igv;
-                            const date = new Date();
 
                             // Actualizar datos en el modal del comprobante
                             document.getElementById('receiptNumber').textContent = receiptNumber;
                             document.getElementById('paymentMethod').textContent = paymentType;
-                            document.getElementById('receiptProducts').innerHTML = products
-                                .map(
-                                    (p, index) =>
-                                        `<tr>
-                                            <td>${index + 1}</td>
-                                            <td>${p.name}</td>
-                                            <td>S/ ${p.unitPrice.toFixed(2)}</td>
-                                            <td>${p.quantity}</td>
-                                            <td>S/ ${p.subtotal.toFixed(2)}</td>
-                                        </tr>`
-                                )
-                                .join('');
                             document.getElementById('receiptSubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
                             document.getElementById('receiptIGV').textContent = `S/ ${igv.toFixed(2)}`;
                             document.getElementById('receiptTotal').textContent = `S/ ${total.toFixed(2)}`;
+
+                            const date = new Date();
                             document.getElementById('receiptDate').textContent = date.toLocaleDateString();
                             document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
                             // Mostrar el modal del comprobante
                             const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
                             receiptModal.show();
+
                         });
                     </script>
+
 
                     <!-- Script para manejar la lógica -->
                     <script>
