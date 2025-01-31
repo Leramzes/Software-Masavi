@@ -142,10 +142,10 @@ public class UsersGestion {
     public int agregar(Usuario user) {
         String sql = "INSERT INTO Usuarios (" + COLUMN_EMAIL + ", " + COLUMN_CONTRASENA + ", " + COLUMN_TELEFONO +
                 ", " + COLUMN_DIRECCION + ", " + COLUMN_TIPO_USUARIO + ") VALUES (?, ?, ?, ?, ?)";
-        int resultado = 0;
+        int usuarioId = -1;
 
         try (Connection con = dataSource.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, user.getEmail());
             ps.setString(2, BCrypt.hashpw(user.getContrasena(), BCrypt.gensalt()));
@@ -153,14 +153,24 @@ public class UsersGestion {
             ps.setString(4, user.getDireccion());
             ps.setString(5, user.getTipo_usuario());
 
-            resultado = ps.executeUpdate();
-            System.out.println("se registró el usuario: "+user.getEmail());
+            int filasAfectadas = ps.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        usuarioId = rs.getInt(1); // Obtener el ID generado
+                    }
+                }
+            }
+
+            System.out.println("Se registró el usuario: " + user.getEmail() + " con ID: " + usuarioId);
         } catch (SQLException e) {
             System.err.println("Error al agregar el usuario: " + e.getMessage());
         }
 
-        return resultado;
+        return usuarioId;
     }
+
 
     public Customer getCustomer(int usuarioId){
 

@@ -1,6 +1,8 @@
 package development.team.software_masavi.Controller;
 
+import development.team.software_masavi.Business.ClientGestion;
 import development.team.software_masavi.Business.UsersGestion;
+import development.team.software_masavi.Model.Client;
 import development.team.software_masavi.Model.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +19,12 @@ public class UsersController extends HttpServlet {
 
     UsersGestion userdao = new UsersGestion();
     Usuario user = new Usuario();
+
+    ClientGestion clientdao = new ClientGestion();
+    Client client = new Client();
+
     String mensaje = "";
+    int IdUsuario = 0;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -34,21 +41,35 @@ public class UsersController extends HttpServlet {
                 req.setAttribute("usuarios", lista);
                 break;
             case "Registrar":
+                //Para validar datos de inicio de sesión
                 String email = req.getParameter("email");
                 String contrasena = req.getParameter("password");
                 String telefono = req.getParameter("telefono");
                 String direccion = req.getParameter("direccion");
                 String tipoUsuario = "cliente";
 
+                //Para validar datos del cliente
+                String nombre = req.getParameter("nombre");
+                String apellido = req.getParameter("apellido");
+
                 if (userdao.existeUsuario(email)) {
                     System.out.println("El email ya está registrado.");
                 } else {
+                    //AGREGAR A USUARIOS
                     user.setEmail(email);
                     user.setContrasena(contrasena);
                     user.setTelefono(telefono);
                     user.setDireccion(direccion);
                     user.setTipo_usuario(tipoUsuario);
-                    userdao.agregar(user);
+                    IdUsuario = userdao.agregar(user); //Aquí retorna el ID del usuario que acaba de agregar
+
+                    System.out.println(IdUsuario);
+
+                    //AGREGAR A CLIENTES
+                    client.setNombre(nombre);
+                    client.setApellido(apellido);
+                    client.setUsuarioId(IdUsuario);
+                    clientdao.registerClient(client);
                 }
                 resp.sendRedirect("index.jsp");
                 return;

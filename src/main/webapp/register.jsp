@@ -40,13 +40,15 @@
                 <!-- Formulario -->
                 <form id="register-form" action="user" method="post">
                     <input type="hidden" name="accion" value="Registrar">
-                    <!-- Campo de correo electrónica -->
+                    <!-- Nombre cliente-->
                     <div class="mb-3">
-                        <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese su correo electrónico" required>
-                        <div id="email-error" class="text-danger mt-1" style="display: none;">
-                            El correo debe ser de Gmail o Hotmail y tener un formato válido.
-                        </div>
+                        <label for="nombre" class="form-label">Nombre del Cliente</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Ingrese su Nombre" required>
+                    </div>
+                    <!-- Apellido cliente-->
+                    <div class="mb-3">
+                        <label for="apellido" class="form-label">Apellidos del Cliente</label>
+                        <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Ingrese sus Apellidos" required>
                     </div>
 
                     <!-- Campo de teléfono -->
@@ -59,6 +61,15 @@
                     <div class="mb-3">
                         <label for="direccion" class="form-label">Direccion</label>
                         <input type="text" class="form-control" name="direccion" id="direccion" placeholder="Ingrese su direccion" required>
+                    </div>
+
+                    <!-- Campo de correo electrónica -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese su correo electrónico" required>
+                        <div id="email-error" class="text-danger mt-1" style="display: none;">
+                            El correo debe ser de Gmail o Hotmail y tener un formato válido.
+                        </div>
                     </div>
 
                     <!-- Campo de contraseña -->
