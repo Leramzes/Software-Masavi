@@ -234,8 +234,13 @@
                             Continuar Compra
                         </button>
                     <%}else if(usuarioSession!=null){%>
-                        <form id="paymentForm">
+                        <%--<form id="paymentForm">
                             <button type="button" class="btn btn-success w-100 mt-3" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                Continuar Compra
+                            </button>
+                        </form>--%>
+                        <form id="paymentForm">
+                            <button type="button" class="btn btn-success w-100 mt-3" id="continueButton">
                                 Continuar Compra
                             </button>
                         </form>
@@ -291,6 +296,7 @@
                                     <!-- Formulario para tarjeta -->
                                     <form class="payment-form">
                                         <input type="hidden" name="optionPago" value="1">
+                                        <input type="hidden" name="paymentMethod" value="Tarjeta">
                                         <div class="mb-3">
                                             <label for="cardNumber" class="form-label">Número de Tarjeta</label>
                                             <input type="text" class="form-control" id="cardNumber" name="cardNumber" maxlength="19" placeholder="1234-5678-9012-3456" required>
@@ -327,6 +333,7 @@
                                     <!-- Información de pago con Yape -->
                                     <form class="payment-form">
                                         <input type="hidden" name="optionPago" value="2">
+                                        <input type="hidden" name="paymentMethod" value="Yape">
                                         <p>Escanea el código QR con Yape para completar tu pago.</p>
                                         <img src="img/yape.png" alt="QR de Yape" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsYape">Atrás</button>
@@ -350,6 +357,7 @@
                                     <!-- Información de pago con Plin -->
                                     <form class="payment-form">
                                         <input type="hidden" name="optionPago" value="3">
+                                        <input type="hidden" name="paymentMethod" value="Plin">
                                         <p>Escanea el código QR con Plin para completar tu pago.</p>
                                         <img src="img/yape.png" alt="QR de Plin" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsPlin">Atrás</button>
@@ -398,8 +406,8 @@
                                         <div class="row mb-3">
                                             <div class="col-12">
                                                 <h5 class="fw-bold">Método de Pago:</h5>
-                                                <p><span id="paymentMethod">Tarjeta de Crédito/Débito</span></p>
-                                                <p><span>123****5698</span></p>
+                                                <p><span id="paymentMethod"></span></p>
+                                                <p><span id="tar">123****5698</span></p>
                                             </div>
                                         </div>
 
@@ -457,11 +465,31 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    document.getElementById("continueButton").addEventListener("click", function() {
+        // Guardar indicador en sessionStorage
+        sessionStorage.setItem("openModal", "true");
+
+        // Recargar la página
+        location.reload();
+    });
+
+    // Verificar si se debe abrir el modal al cargar la página
+    window.addEventListener("load", function() {
+        if (sessionStorage.getItem("openModal") === "true") {
+            sessionStorage.removeItem("openModal"); // Evitar reabrirlo en cada recarga
+
+            // Esperar un pequeño tiempo para asegurar que Bootstrap está listo
+            setTimeout(() => {
+                var myModal = new bootstrap.Modal(document.getElementById("paymentModal"));
+                myModal.show();
+            }, 400); // Pequeño delay para asegurar que el modal se renderiza bien
+        }
+    });
     // Función para confirmar el pago
     document.querySelector('.confirm-payment-btn').addEventListener('click', function () {
 
         const form = document.querySelector('.payment-form');
-        const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
+        const selectedMethod = document.querySelector('input[name="paymentMethod"]');
 
         const carritoFinal = JSON.parse('<%= new Gson().toJson(cartItems) %>');
         console.log(carritoFinal);
@@ -472,8 +500,10 @@
         }
 
         const paymentType = selectedMethod.value; // Valor del método de pago seleccionado
+        // Actualizar el método de pago en el comprobante
+        document.getElementById("paymentMethod").textContent = paymentType;
 
-        if (paymentType === 'Tarjeta') {
+        if (paymentType === 'Yape') {
             // Validaciones para tarjeta
             const cardNumber = form.querySelector('#cardNumber').value.trim();
             const cardHolder = form.querySelector('#cardHolder').value.trim();
@@ -505,6 +535,7 @@
             }
         } else if (paymentType === 'Yape' || paymentType === 'Plin') {
             // Mensaje opcional si es Yape o Plin
+            document.getElementById("tar").textContent = "---";
             alert(`Usando ${paymentType}: Asegúrate de completar el pago con el código QR.`);
         }
 
@@ -528,10 +559,11 @@
                                         <td>`+p.product.name+`</td>
                                         <td>S/ `+p.product.price+`</td>
                                         <td>`+p.quantity+`</td>
-                                        <td>S/ ${totalProduct.toFixed(2)}</td>
+                                        <td>S/` +(p.quantity * p.product.price)+`</td>
                                     </tr>
                                 `;
             tableBody.insertAdjacentHTML('beforeend', row);
+
         });
 
         // Calcular IGV y total
@@ -541,9 +573,9 @@
         // Actualizar datos en el modal del comprobante
         document.getElementById('receiptNumber').textContent = receiptNumber;
         document.getElementById('paymentMethod').textContent = paymentType;
-        document.getElementById('receiptSubtotal').textContent = `S/ ${subtotal.toFixed(2)}`;
-        document.getElementById('receiptIGV').textContent = `S/ ${igv.toFixed(2)}`;
-        document.getElementById('receiptTotal').textContent = `S/ ${total.toFixed(2)}`;
+        document.getElementById('receiptSubtotal').textContent = `S/ `+subtotal.toFixed(2);
+        document.getElementById('receiptIGV').textContent = `S/ `+igv.toFixed(2);
+        document.getElementById('receiptTotal').textContent = `S/ `+total.toFixed(2);
 
         const date = new Date();
         document.getElementById('receiptDate').textContent = date.toLocaleDateString();
