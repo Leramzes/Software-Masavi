@@ -338,9 +338,8 @@
                                         <img src="img/yape.png" alt="QR de Yape" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsYape">Atrás</button>
                                         <!-- Botón de Confirmar Pago -->
-                                        <button type="button" class="btn btn-success confirm-payment-btn" data-bs-toggle="modal" data-bs-target="#confirmModal">Confirmar Pago</button>
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Pago</button>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
@@ -362,7 +361,7 @@
                                         <img src="img/yape.png" alt="QR de Plin" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsPlin">Atrás</button>
                                         <!-- Botón de Confirmar Pago -->
-                                        <button type="button" class="btn btn-success confirm-payment-btn" data-bs-toggle="modal" data-bs-target="#confirmModal">Confirmar Pago</button>
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Pago</button>
                                     </form>
                                 </div>
                             </div>
@@ -480,64 +479,16 @@
 
             // Esperar un pequeño tiempo para asegurar que Bootstrap está listo
             setTimeout(() => {
-                var myModal = new bootstrap.Modal(document.getElementById("paymentModal"));
+                const myModal = new bootstrap.Modal(document.getElementById("paymentModal"));
                 myModal.show();
             }, 400); // Pequeño delay para asegurar que el modal se renderiza bien
         }
     });
-    // Función para confirmar el pago
-    document.querySelector('.confirm-payment-btn').addEventListener('click', function () {
 
-        const form = document.querySelector('.payment-form');
-        const selectedMethod = document.querySelector('input[name="paymentMethod"]');
-
+    // Función para confirmar el pago (común para todos los métodos de pago)
+    function confirmPayment(paymentType) {
         const carritoFinal = JSON.parse('<%= new Gson().toJson(cartItems) %>');
         console.log(carritoFinal);
-
-        if (!selectedMethod) {
-            alert('Por favor, selecciona un método de pago.');
-            return;
-        }
-
-        const paymentType = selectedMethod.value; // Valor del método de pago seleccionado
-        // Actualizar el método de pago en el comprobante
-        document.getElementById("paymentMethod").textContent = paymentType;
-
-        if (paymentType === 'Yape') {
-            // Validaciones para tarjeta
-            const cardNumber = form.querySelector('#cardNumber').value.trim();
-            const cardHolder = form.querySelector('#cardHolder').value.trim();
-            const expirationDate = form.querySelector('#expirationDate').value.trim();
-            const cvv = form.querySelector('#cvv').value.trim();
-
-            const cardNumberRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
-            const expirationDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
-            const cvvRegex = /^\d{3}$/;
-
-            if (!cardNumberRegex.test(cardNumber)) {
-                alert('Por favor, ingrese un número de tarjeta válido (1234-5678-9012-3456).');
-                return;
-            }
-
-            if (cardHolder === '') {
-                alert('Por favor, ingrese el titular de la tarjeta.');
-                return;
-            }
-
-            if (!expirationDateRegex.test(expirationDate)) {
-                alert('Por favor, ingrese una fecha de expiración válida (MM/AA).');
-                return;
-            }
-
-            if (!cvvRegex.test(cvv)) {
-                alert('Por favor, ingrese un CVV válido (3 dígitos).');
-                return;
-            }
-        } else if (paymentType === 'Yape' || paymentType === 'Plin') {
-            // Mensaje opcional si es Yape o Plin
-            document.getElementById("tar").textContent = "---";
-            alert(`Usando ${paymentType}: Asegúrate de completar el pago con el código QR.`);
-        }
 
         // Limpiar la tabla antes de actualizar
         const tableBody = document.getElementById('receiptProducts');
@@ -554,16 +505,15 @@
             subtotal += totalProduct;
 
             let row = `
-                                    <tr>
-                                        <td>`+index + 1+`</td>
-                                        <td>`+p.product.name+`</td>
-                                        <td>S/ `+p.product.price+`</td>
-                                        <td>`+p.quantity+`</td>
-                                        <td>S/` +(p.quantity * p.product.price)+`</td>
-                                    </tr>
-                                `;
+                <tr>
+                    <td>`+index + 1+`</td>
+                    <td>`+p.product.name+`</td>
+                    <td>S/ `+p.product.price+`</td>
+                    <td>`+p.quantity+`</td>
+                    <td>S/` +(p.quantity * p.product.price)+`</td>
+                </tr>
+            `;
             tableBody.insertAdjacentHTML('beforeend', row);
-
         });
 
         // Calcular IGV y total
@@ -577,6 +527,7 @@
         document.getElementById('receiptIGV').textContent = `S/ `+igv.toFixed(2);
         document.getElementById('receiptTotal').textContent = `S/ `+total.toFixed(2);
 
+        // Actualizar fecha y hora
         const date = new Date();
         document.getElementById('receiptDate').textContent = date.toLocaleDateString();
         document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
@@ -584,7 +535,50 @@
         // Mostrar el modal del comprobante
         const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
         receiptModal.show();
+    }
 
+    // Asignar la función a todos los botones de "Confirmar Pago"
+    document.querySelectorAll('.confirm-payment-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            // Obtener el método de pago desde el modal actual
+            const paymentType = this.closest('.modal').querySelector('input[name="paymentMethod"]').value;
+
+            // Si el método de pago es "Tarjeta", validar el formulario
+            if (paymentType === 'Tarjeta') {
+                const form = this.closest('.modal').querySelector('.payment-form');
+                const cardNumber = form.querySelector('#cardNumber').value.trim();
+                const cardHolder = form.querySelector('#cardHolder').value.trim();
+                const expirationDate = form.querySelector('#expirationDate').value.trim();
+                const cvv = form.querySelector('#cvv').value.trim();
+
+                const cardNumberRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
+                const expirationDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+                const cvvRegex = /^\d{3}$/;
+
+                if (!cardNumberRegex.test(cardNumber)) {
+                    alert('Por favor, ingrese un número de tarjeta válido (1234-5678-9012-3456).');
+                    return;
+                }
+
+                if (cardHolder === '') {
+                    alert('Por favor, ingrese el titular de la tarjeta.');
+                    return;
+                }
+
+                if (!expirationDateRegex.test(expirationDate)) {
+                    alert('Por favor, ingrese una fecha de expiración válida (MM/AA).');
+                    return;
+                }
+
+                if (!cvvRegex.test(cvv)) {
+                    alert('Por favor, ingrese un CVV válido (3 dígitos).');
+                    return;
+                }
+            }
+
+            // Mostrar el comprobante de pago
+            confirmPayment(paymentType);
+        });
     });
 </script>
 

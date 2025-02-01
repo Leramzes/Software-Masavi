@@ -164,21 +164,36 @@ document.querySelectorAll('#btnRegistrar').forEach(button => {
 document.getElementById('confirmPaymentMethod').addEventListener('click', function () {
     const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
     const alertMessage = document.getElementById('alertMessage');
-    if (selectedMethod) {
-        alertMessage.classList.add('d-none');
-        const method = selectedMethod.value;
-        const modalId = method === 'Tarjeta' ? 'creditCardModal' :
-            method === 'Yape' ? 'yapeModal' :
-                method === 'Plin' ? 'plinModal' : null;
-        if (modalId) {
-            const paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
-            paymentModal.hide();
-            const nextModal = new bootstrap.Modal(document.getElementById(modalId));
-            nextModal.show();
-        }
-    } else {
+
+    if (!selectedMethod) {
         alertMessage.classList.remove('d-none');
+        return;
     }
+
+    alertMessage.classList.add('d-none');
+    const method = selectedMethod.value;
+
+    const modals = {
+        'Tarjeta': 'creditCardModal',
+        'Yape': 'yapeModal',
+        'Plin': 'plinModal'
+    };
+
+    const modalId = modals[method];
+
+    if (!modalId) {
+        console.error("Método no válido:", method);
+        alertMessage.classList.remove('d-none');
+        return;
+    }
+
+    // Ocultar modal actual de forma segura
+    const paymentModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('paymentModal'));
+    paymentModal.hide();
+
+    // Mostrar siguiente modal
+    const nextModal = bootstrap.Modal.getOrCreateInstance(document.getElementById(modalId));
+    nextModal.show();
 });
 
 // Botones de "Atrás"
