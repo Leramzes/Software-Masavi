@@ -1,6 +1,6 @@
 package development.team.software_masavi.Controller;
 
-import development.team.software_masavi.Business.ClientGestion;
+import development.team.software_masavi.Business.CustomerGestion;
 import development.team.software_masavi.Business.UsersGestion;
 import development.team.software_masavi.Model.Client;
 import development.team.software_masavi.Model.Usuario;
@@ -9,7 +9,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +19,7 @@ public class UsersController extends HttpServlet {
     UsersGestion userdao = new UsersGestion();
     Usuario user = new Usuario();
 
-    ClientGestion clientdao = new ClientGestion();
+    CustomerGestion clientdao = new CustomerGestion();
     Client client = new Client();
 
     String mensaje = "";

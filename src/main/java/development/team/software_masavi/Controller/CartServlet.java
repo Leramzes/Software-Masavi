@@ -135,6 +135,7 @@ public class CartServlet extends HttpServlet {
         session.setAttribute("subTotal", sumTotal);
         session.setAttribute("totalPago",totalPago);
         session.setAttribute("cart", cart);
+        session.setAttribute("cartItemsInSession", cart.getCartItems());
         request.setAttribute("cartItems", cart.getCartItems());
         session.setAttribute("itemCount", itemCount);
     }

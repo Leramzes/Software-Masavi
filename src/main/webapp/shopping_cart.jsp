@@ -118,7 +118,7 @@
                                 <td class="text-center" style="vertical-align: middle;">
                                     <input type="hidden" class="objetoProducto" value="<%= item.getProduct().getId() %>">
                                     <input type="number" class="form-control text-center mx-auto" id="cantidad-producto" style="width: 60px;"
-                                           value="<%= item.getQuantity() %>" min="1">
+                                           value="<%= item.getQuantity() %>" min="1" max="4">
                                 </td>
 
 
@@ -314,8 +314,8 @@
                                             <input type="text" class="form-control" id="cvv" name="cvv" maxlength="3" placeholder="123" required>
                                         </div>
                                         <button type="button" class="btn btn-secondary h-100" data-bs-dismiss="modal" id="backToPaymentMethods">Atrás</button>
-                                        <!-- Botón de Confirmar Pago -->
-                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Pago</button>
+                                        <!-- Botón de Continuar con la compra -->
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Continuar con la compra</button>
                                     </form>
                                 </div>
                             </div>
@@ -337,8 +337,8 @@
                                         <p>Escanea el código QR con Yape para completar tu pago.</p>
                                         <img src="img/yape.png" alt="QR de Yape" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsYape">Atrás</button>
-                                        <!-- Botón de Confirmar Pago -->
-                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Pago</button>
+                                        <!-- Botón de Continuar con la compra -->
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Continuar con la compra</button>
                                     </form>
                                 </div>
                             </div>
@@ -360,8 +360,8 @@
                                         <p>Escanea el código QR con Plin para completar tu pago.</p>
                                         <img src="img/yape.png" alt="QR de Plin" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsPlin">Atrás</button>
-                                        <!-- Botón de Confirmar Pago -->
-                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Pago</button>
+                                        <!-- Botón de Continuar con la compra -->
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Continuar con la compra</button>
                                     </form>
                                 </div>
                             </div>
@@ -376,75 +376,76 @@
                                     <h5 class="modal-title fw-bold" id="confirmModalLabel">Comprobante N° <span id="receiptNumber">001-000001</span></h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
-                                    <div class="container">
-                                        <!-- Logo y Título -->
-                                        <div class="row mb-4 align-items-center">
-                                            <div class="col-md-6">
-                                                <img src="img/logo.jpg" class="rounded-circle border img-fluid" alt="Masavi" style="max-width: 100px;">
+                                <form action="salesController" method="post">
+                                    <%--<%session.setAttribute("cartItmesInSession",cartItems);%>--%>
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <!-- Logo y Título -->
+                                            <div class="row mb-4 align-items-center">
+                                                <div class="col-md-6">
+                                                    <img src="img/logo.jpg" class="rounded-circle border img-fluid" alt="Masavi" style="max-width: 100px;">
+                                                </div>
+                                                <div class="col-md-6 text-end">
+                                                    <h4 class="fw-bold"><%=business.getName()%></h4>
+                                                    <p>RUC: <%=business.getRuc()%></p>
+                                                    <input type="hidden" name="fechaCompra" id="fechaComprainput">
+                                                    <p>Fecha: <span id="receiptDate"></span></p>
+                                                    <p>Hora: <span id="receiptTime"></span></p>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6 text-end">
-                                                <h4 class="fw-bold"><%=business.getName()%></h4>
-                                                <p>RUC: <%=business.getRuc()%></p>
-                                                <p>Fecha: <span id="receiptDate"></span></p>
-                                                <p>Hora: <span id="receiptTime"></span></p>
+                                            <!-- Detalle del Cliente -->
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    <h5 class="fw-bold">Datos del Cliente:</h5>
+                                                    <p>Nombre: <span ><%=nameCustomer!=null ? nameCustomer.toUpperCase() : "--"%></span></p>
+                                                    <p>Dirección: <span ><%=addressCustomer!=null ? addressCustomer.toUpperCase() : "--"%></span></p>
+                                                    <p>Celular: <span ><%=phoneCustomer!=null ? phoneCustomer : "--"%></span></p>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <!-- Detalle del Cliente -->
-                                        <div class="row mb-3">
-                                            <div class="col-12">
-                                                <h5 class="fw-bold">Datos del Cliente:</h5>
-                                                <p>Nombre: <span ><%=nameCustomer!=null ? nameCustomer.toUpperCase() : "--"%></span></p>
-                                                <p>Dirección: <span ><%=addressCustomer!=null ? addressCustomer.toUpperCase() : "--"%></span></p>
-                                                <p>Celular: <span ><%=phoneCustomer!=null ? phoneCustomer : "--"%></span></p>
+                                            <!-- Detalle del Pago -->
+                                            <div class="row mb-3">
+                                                <div class="col-12">
+                                                    <h5 class="fw-bold">Método de Pago:</h5>
+                                                    <input type="hidden" name="metodoPago" id="paymentMethodInput">
+                                                    <p><span id="paymentMethod"></span></p>
+                                                    <p><span id="tar">123****5698</span></p>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <!-- Detalle del Pago -->
-                                        <div class="row mb-3">
-                                            <div class="col-12">
-                                                <h5 class="fw-bold">Método de Pago:</h5>
-                                                <p><span id="paymentMethod"></span></p>
-                                                <p><span id="tar">123****5698</span></p>
+                                            <!-- Tabla de Productos -->
+                                            <div class="row mb-4">
+                                                <div class="col-12">
+                                                    <h5 class="fw-bold">Detalle de la Compra:</h5>
+                                                    <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+                                                        <table class="table table-bordered text-center">
+                                                            <thead class="table-success">
+                                                            <tr>
+                                                                <th scope="col">N°</th>
+                                                                <th scope="col">Producto</th>
+                                                                <th scope="col">Precio Unitario</th>
+                                                                <th scope="col">Cantidad</th>
+                                                                <th scope="col">Total</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody id="receiptProducts">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <!-- Tabla de Productos -->
-                                        <div class="row mb-4">
-                                            <div class="col-12">
-                                                <h5 class="fw-bold">Detalle de la Compra:</h5>
-                                                <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
-                                                    <table class="table table-bordered text-center">
-                                                        <thead class="table-success">
-                                                        <tr>
-                                                            <th scope="col">N°</th>
-                                                            <th scope="col">Producto</th>
-                                                            <th scope="col">Precio Unitario</th>
-                                                            <th scope="col">Cantidad</th>
-                                                            <th scope="col">Total</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody id="receiptProducts">
-                                                        </tbody>
-                                                    </table>
+                                            <!-- Resumen de Pago -->
+                                            <div class="row">
+                                                <div class="col-12 text-end">
+                                                    <p class="fw-bold">Sub-Total: <span id="receiptSubtotal">S/ 0.00</span></p>
+                                                    <p class="fw-bold">IGV (18%): <span id="receiptIGV">S/ 0.00</span></p>
+                                                    <h5 class="fw-bold">Total: <span id="receiptTotal">S/ 0.00</span></h5>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <!-- Resumen de Pago -->
-                                        <div class="row">
-                                            <div class="col-12 text-end">
-                                                <p class="fw-bold">Sub-Total: <span id="receiptSubtotal">S/ 0.00</span></p>
-                                                <p class="fw-bold">IGV (18%): <span id="receiptIGV">S/ 0.00</span></p>
-                                                <h5 class="fw-bold">Total: <span id="receiptTotal">S/ 0.00</span></h5>
-                                            </div>
-                                        </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" id="printReceipt">Imprimir</button>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success" id="printReceipt">Confirmar Compra</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -481,7 +482,7 @@
             setTimeout(() => {
                 const myModal = new bootstrap.Modal(document.getElementById("paymentModal"));
                 myModal.show();
-            }, 400); // Pequeño delay para asegurar que el modal se renderiza bien
+            }, 300); // Pequeño delay para asegurar que el modal se renderiza bien
         }
     });
 
@@ -523,6 +524,7 @@
         // Actualizar datos en el modal del comprobante
         document.getElementById('receiptNumber').textContent = receiptNumber;
         document.getElementById('paymentMethod').textContent = paymentType;
+        document.getElementById("paymentMethodInput").value = paymentType; //asigno el metodo de pago al input oculto
         document.getElementById('receiptSubtotal').textContent = `S/ `+subtotal.toFixed(2);
         document.getElementById('receiptIGV').textContent = `S/ `+igv.toFixed(2);
         document.getElementById('receiptTotal').textContent = `S/ `+total.toFixed(2);
@@ -531,13 +533,14 @@
         const date = new Date();
         document.getElementById('receiptDate').textContent = date.toLocaleDateString();
         document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
+        document.getElementById("fechaComprainput").value = date.toLocaleDateString();
 
         // Mostrar el modal del comprobante
         const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
         receiptModal.show();
     }
 
-    // Asignar la función a todos los botones de "Confirmar Pago"
+    // Asignar la función a todos los botones de "Continuar con la compra"
     document.querySelectorAll('.confirm-payment-btn').forEach(button => {
         button.addEventListener('click', function () {
             // Obtener el método de pago desde el modal actual

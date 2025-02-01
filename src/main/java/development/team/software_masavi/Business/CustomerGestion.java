@@ -1,12 +1,14 @@
 package development.team.software_masavi.Business;
 
 import development.team.software_masavi.Model.Client;
+import development.team.software_masavi.Model.Customer;
+import development.team.software_masavi.Model.Usuario;
 import development.team.software_masavi.Services.DataBaseUtil;
 
 import javax.sql.DataSource;
 import java.sql.*;
 
-public class ClientGestion {
+public class CustomerGestion {
     private static final DataSource dataSource = DataBaseUtil.getDataSource();
 
     public static void registerClient(Client client) {
@@ -26,6 +28,28 @@ public class ClientGestion {
         } catch (SQLException e) {
             System.err.println("Error al registrar el cliente: " + e.getMessage());
         }
+    }
+    public static Customer getClient(Usuario usuario) {
+        String sql = "SELECT * FROM Clientes WHERE usuario_id = ?";
+        Customer customer = null;
+
+        try (Connection cnn = dataSource.getConnection();
+             PreparedStatement ps = cnn.prepareStatement(sql)) {
+
+            ps.setInt(1, usuario.getId());
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                customer = new Customer();
+                customer.setId(rs.getInt("cliente_id"));
+                customer.setName(rs.getString("nombre"));
+                customer.setLastname(rs.getString("apellido"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener el cliente: " + e.getMessage());
+        }
+        return customer;
     }
 }
 
