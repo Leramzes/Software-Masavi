@@ -314,8 +314,8 @@
                                             <input type="text" class="form-control" id="cvv" name="cvv" maxlength="3" placeholder="123" required>
                                         </div>
                                         <button type="button" class="btn btn-secondary h-100" data-bs-dismiss="modal" id="backToPaymentMethods">Atrás</button>
-                                        <!-- Botón de Continuar con la compra -->
-                                        <button type="button" class="btn btn-success confirm-payment-btn">Continuar con la compra</button>
+                                        <!-- Botón de Confirmar Compra -->
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Compra</button>
                                     </form>
                                 </div>
                             </div>
@@ -337,8 +337,8 @@
                                         <p>Escanea el código QR con Yape para completar tu pago.</p>
                                         <img src="img/yape.png" alt="QR de Yape" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsYape">Atrás</button>
-                                        <!-- Botón de Continuar con la compra -->
-                                        <button type="button" class="btn btn-success confirm-payment-btn">Continuar con la compra</button>
+                                        <!-- Botón de Confirmar Compra -->
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Compra</button>
                                     </form>
                                 </div>
                             </div>
@@ -360,8 +360,8 @@
                                         <p>Escanea el código QR con Plin para completar tu pago.</p>
                                         <img src="img/yape.png" alt="QR de Plin" class="img-fluid">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="backToPaymentMethodsPlin">Atrás</button>
-                                        <!-- Botón de Continuar con la compra -->
-                                        <button type="button" class="btn btn-success confirm-payment-btn">Continuar con la compra</button>
+                                        <!-- Botón de Confirmar Compra -->
+                                        <button type="button" class="btn btn-success confirm-payment-btn">Confirmar Compra</button>
                                     </form>
                                 </div>
                             </div>
@@ -374,10 +374,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title fw-bold" id="confirmModalLabel">Comprobante N° <span id="receiptNumber">001-000001</span></h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <form action="salesController" method="post">
-                                    <%--<%session.setAttribute("cartItmesInSession",cartItems);%>--%>
                                     <div class="modal-body">
                                         <div class="container">
                                             <!-- Logo y Título -->
@@ -443,7 +441,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success" id="printReceipt">Confirmar Compra</button>
+                                        <button type="submit" class="btn btn-success" id="printReceipt">Finalizar Compra</button>
                                     </div>
                                 </form>
                             </div>
@@ -465,6 +463,20 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    // Configurar SweetAlert2 con un z-index más alto
+    const customSwal = Swal.mixin({
+        customClass: {
+            container: 'swal2-container'
+        },
+        didOpen: () => {
+            // Asegurarse de que el z-index sea mayor que el del modal de Bootstrap
+            const swalContainer = document.querySelector('.swal2-container');
+            if (swalContainer) {
+                swalContainer.style.zIndex = '999999'; // Forzar un z-index alto
+            }
+        }
+    });
+
     document.getElementById("continueButton").addEventListener("click", function() {
         // Guardar indicador en sessionStorage
         sessionStorage.setItem("openModal", "true");
@@ -535,9 +547,41 @@
         document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
         document.getElementById("fechaComprainput").value = date.toLocaleDateString();
 
-        // Mostrar el modal del comprobante
-        const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-        receiptModal.show();
+        // Mostrar la alerta de confirmación
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¿Deseas continuar con la compra?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, continuar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, mostrar la alerta de carga
+                Swal.fire({
+                    title: 'Validando...',
+                    text: 'Por favor, espere un momento.',
+                    didOpen: () => {
+                        Swal.showLoading(); // Muestra el spinner de carga
+                    },
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    allowEnterKey: false
+                });
+
+                // Simular un tiempo de espera para la validación (1.5 segundos)
+                setTimeout(() => {
+                    // Cerrar la alerta de carga
+                    Swal.close();
+
+                    // Mostrar el modal del comprobante
+                    const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                    receiptModal.show();
+                }, 1500); // Espera de 1.5 segundos
+            }
+        });
     }
 
     // Asignar la función a todos los botones de "Continuar con la compra"
@@ -559,22 +603,38 @@
                 const cvvRegex = /^\d{3}$/;
 
                 if (!cardNumberRegex.test(cardNumber)) {
-                    alert('Por favor, ingrese un número de tarjeta válido (1234-5678-9012-3456).');
+                    customSwal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Por favor, ingrese un número de tarjeta válido (1234-5678-9012-3456).'
+                    });
                     return;
                 }
 
                 if (cardHolder === '') {
-                    alert('Por favor, ingrese el titular de la tarjeta.');
+                    customSwal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Por favor, ingrese el titular de la tarjeta.'
+                    });
                     return;
                 }
 
                 if (!expirationDateRegex.test(expirationDate)) {
-                    alert('Por favor, ingrese una fecha de expiración válida (MM/AA).');
+                    customSwal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Por favor, ingrese una fecha de expiración válida (MM/AA).'
+                    });
                     return;
                 }
 
                 if (!cvvRegex.test(cvv)) {
-                    alert('Por favor, ingrese un CVV válido (3 dígitos).');
+                    customSwal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Por favor, ingrese un CVV válido (3 dígitos).'
+                    });
                     return;
                 }
             }

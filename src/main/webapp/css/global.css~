@@ -89,8 +89,3 @@ footer .facebook:hover {
 footer .instagram:hover {
     color: #ffa500;
 }
-
-/* Asegurar que SweetAlert2 tenga un z-index más alto que Bootstrap */
-.swal2-container {
-    z-index: 999999 !important; /* Un valor muy alto */
-}
