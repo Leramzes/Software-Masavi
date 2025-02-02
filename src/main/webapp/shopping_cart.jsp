@@ -547,41 +547,86 @@
         document.getElementById('receiptTime').textContent = date.toLocaleTimeString('en-GB', { hour12: false, hour: '2-digit', minute: '2-digit' });
         document.getElementById("fechaComprainput").value = date.toLocaleDateString();
 
-        // Mostrar la alerta de confirmación
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¿Deseas continuar con la compra?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, continuar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Si el usuario confirma, mostrar la alerta de carga
-                Swal.fire({
-                    title: 'Validando...',
-                    text: 'Por favor, espere un momento.',
-                    didOpen: () => {
-                        Swal.showLoading(); // Muestra el spinner de carga
-                    },
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    allowEnterKey: false
-                });
 
-                // Simular un tiempo de espera para la validación (1.5 segundos)
-                setTimeout(() => {
-                    // Cerrar la alerta de carga
-                    Swal.close();
+        if (paymentType === 'Tarjeta') {
+            // Mostrar la alerta de confirmación
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¿Deseas continuar con la compra?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, continuar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario confirma, mostrar la alerta de carga
+                    Swal.fire({
+                        title: 'Validando...',
+                        text: 'Por favor, espere un momento.',
+                        didOpen: () => {
+                            Swal.showLoading(); // Muestra el spinner de carga
+                        },
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        allowEnterKey: false
+                    });
 
-                    // Mostrar el modal del comprobante
-                    const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
-                    receiptModal.show();
-                }, 1500); // Espera de 1.5 segundos
-            }
-        });
+                    // Simular un tiempo de espera para la validación (1.5 segundos)
+                    setTimeout(() => {
+                        // Cerrar la alerta de carga
+                        Swal.close();
+
+                        // Mostrar el modal del comprobante
+                        const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                        receiptModal.show();
+                    }, 1500); // Espera de 1.5 segundos
+                }
+            });
+        } else if (paymentType === 'Yape') {
+            Swal.fire({
+                title: 'Validando...',
+                text: 'Por favor, espere un momento.',
+                didOpen: () => {
+                    Swal.showLoading(); // Muestra el spinner de carga
+                },
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            });
+
+            // Simular un tiempo de espera para la validación (1.5 segundos)
+            setTimeout(() => {
+                // Cerrar la alerta de carga
+                Swal.close();
+
+                // Mostrar el modal del comprobante
+                const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                receiptModal.show();
+            }, 1500); // Espera de 1.5 segundos
+        } else if (paymentType === 'Plin') {
+            Swal.fire({
+                title: 'Validando...',
+                text: 'Por favor, espere un momento.',
+                didOpen: () => {
+                    Swal.showLoading(); // Muestra el spinner de carga
+                },
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            });
+
+            // Simular un tiempo de espera para la validación (1.5 segundos)
+            setTimeout(() => {
+                // Cerrar la alerta de carga
+                Swal.close();
+
+                // Mostrar el modal del comprobante
+                const receiptModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+                receiptModal.show();
+            }, 1500); // Espera de 1.5 segundos
+        }
     }
 
     // Asignar la función a todos los botones de "Continuar con la compra"
