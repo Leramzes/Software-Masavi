@@ -160,4 +160,31 @@ public class CatalogoProducts {
 
         return productsFeatured;
     }
+
+    public void actualizarStock(int id, int stock) {
+        String sql = "UPDATE Productos SET cantidad_disponible = ? WHERE producto_id = ?";
+
+        try (Connection con = dataSource.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, stock);
+            ps.setInt(2, id);
+            int filasActualizadas = ps.executeUpdate();
+
+            if (filasActualizadas > 0) {
+                // Actualizar el caché si el producto ya está almacenado
+                String productId = String.valueOf(id);
+                if (productCache.containsKey(productId)) {
+                    Product product = productCache.get(productId);
+                    product.setQuantityInStock(stock);
+                }
+                System.out.println("Stock actualizado correctamente para el producto con ID: " + id);
+            } else {
+                System.err.println("No se encontró el producto con ID: " + id);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al actualizar el stock del producto con ID " + id + ": " + e.getMessage(), e);
+        }
+    }
 }
