@@ -375,7 +375,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title fw-bold" id="confirmModalLabel">Comprobante N° <span id="receiptNumber">001-000001</span></h5>
                                 </div>
-                                <form action="salesController" method="post">
+                                <form id="salesForm" action="salesController" method="post">
                                     <div class="modal-body">
                                         <div class="container">
                                             <!-- Logo y Título -->
@@ -686,6 +686,37 @@
 
             // Mostrar el comprobante de pago
             confirmPayment(paymentType);
+        });
+    });
+
+    // Alerta para confirmar la compra
+    document.getElementById('printReceipt').addEventListener('click', function(event) {
+        event.preventDefault(); // Evita el envío automático del formulario
+
+        Swal.fire({
+            title: 'Gracias por su Compra',
+            text: 'Su compra se ha procesado correctamente.',
+            icon: 'success',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Mostrar indicador de carga mientras se redirige
+                Swal.fire({
+                    title: 'Redirigiendo...',
+                    text: 'Espere un momento.',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                setTimeout(function() {
+                    let form = document.getElementById('salesForm');
+                    if (form) {
+                        form.submit(); // Enviar formulario al servlet "salesController"
+                    }
+                }, 2000);
+            }
         });
     });
 </script>
