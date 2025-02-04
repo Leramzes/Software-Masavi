@@ -54,6 +54,11 @@
 %>
 
 <main class="bg-main align-content-center align-items-center">
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="spinner"></div>
+    </div>
+
     <div class="container-fluid my-2">
         <div class="row">
             <!-- Carrito de Compra -->
@@ -461,6 +466,9 @@
 
 <!--Enlace de JavaScript - SweetAlert2-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!--Enlace de Preloader-->
+<script src="js/preloader.js"></script>
 
 <script>
     // Configurar SweetAlert2 con un z-index más alto

@@ -34,6 +34,11 @@
 
 %>
 <main class="bg-main">
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="spinner"></div>
+    </div>
+
     <!-- Contenido de la sección de productos destacados -->
     <div class="container py-4">
         <!-- Encabezado -->
@@ -165,9 +170,16 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+
 <!--Enlace de JavaScript - Validación-->
 <script src="js/product.js"></script>
+
+<!--Enlace de jQuery-->
 <script src="js/jquery-3.7.1.js"></script>
+
+<!--Enlace de Preloader-->
+<script src="js/preloader.js"></script>
+
 <!--Enlace de JavaScript - SweetAlert2-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
