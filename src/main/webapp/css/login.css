@@ -1,3 +1,8 @@
+/* Estilos base */
+html {
+    font-size: 16px; /* Tamaño base para rem */
+}
+
 /* Elimina el espaciado lateral del contenedor principal */
 .container-fluid {
     margin: 0;
@@ -5,21 +10,21 @@
 
 /* Centra vertical y horizontalmente el formulario */
 .login-container {
-    width: 75%;
-    max-width: 400px;
+    width: 90%;
+    max-width: 28rem;
     background-color: #ffffff;
     padding: 2rem;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Espaciado entre h1 y h5 */
 .col-6.text-center h1 {
-    margin-bottom: 0.5rem; /* Ajusta el espacio según sea necesario */
+    margin-bottom: 0.5rem;
 }
 
 .col-6.text-center h5 {
-    margin-top: 0; /* Ajusta el espacio según sea necesario */
+    margin-top: 0;
 }
 
 /* Icono de la contraseña */
@@ -31,26 +36,45 @@
 .fa-eye-slash {
     position: absolute;
     top: 60%;
-    right: 10px;
-    cursor: pointer;
-}
-
-/* Tamaño del icono */
-.fa-eye,
-.fa-eye-slash {
+    right: 0.625rem;
     font-size: 1.2rem;
 }
 
 /* Estilo para el formulario */
 #login-form {
     margin: auto;
-    padding: 20px;
+    padding: 1.25rem;
     background-color: #f8f9fa;
-    border-radius: 10px;
+    border-radius: 0.625rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilo de los iconos de error */
 .text-danger {
     font-size: 0.9rem;
+}
+
+/* Estilos responsivos para pantallas de 915px o menos */
+@media (max-width: 915px) {
+    .login-container {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: none; /* Elimina el límite máximo */
+    }
+
+    .col-lg-6.text-center h1 {
+        font-size: 1.75rem;
+    }
+
+    .col-lg-6.text-center h5 {
+        font-size: 1rem;
+    }
+
+    #login-form {
+        padding: 1rem;
+    }
+
+    .fa-eye,
+    .fa-eye-slash {
+        font-size: 1rem;
+    }
 }

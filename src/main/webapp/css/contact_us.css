@@ -1,10 +1,31 @@
+/* Estilos base */
+html {
+    font-size: 16px; /* Tamaño base para rem */
+}
+
+/* Contenedor principal */
+.container-fluid {
+    margin: 0;
+}
+
+/* Contenedor del formulario */
+.contact-container {
+    width: 90%; /* Más flexible en móviles */
+    max-width: 28rem; /* 448px en rem */
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.625rem; /* 10px en rem */
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 4px 6px en rem */
+    margin: 1rem auto; /* Centrado */
+}
+
 /* Estilo general del formulario */
 #contact-form {
-    margin: 0 auto;
-    padding: 20px;
+    margin: auto;
+    padding: 1.25rem; /* 20px en rem */
     background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.625rem; /* 10px en rem */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px en rem */
 }
 
 /* Espaciado entre etiquetas y campos */
@@ -17,12 +38,12 @@
     font-size: 0.9rem;
 }
 
-/* Aumentar el tamaño de los bordes de los inputs */
+/* Estilo de los campos de entrada */
 #contact-form input,
 #contact-form textarea {
     border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+    border-radius: 0.3125rem; /* 5px en rem */
+    padding: 0.625rem; /* 10px en rem */
     width: 100%;
 }
 
@@ -30,7 +51,7 @@
 #contact-form input:focus,
 #contact-form textarea:focus {
     border-color: #4caf50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    box-shadow: 0 0 0.3125rem rgba(76, 175, 80, 0.5); /* 5px en rem */
 }
 
 /* Estilo de los campos de error (para que se muestren cuando sea necesario) */
@@ -45,4 +66,29 @@
 #email-error.show,
 #phone-error.show {
     display: block;
+}
+
+/* Estilos responsivos para pantallas de 915px o menos */
+@media (max-width: 915px) {
+    .contact-container {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: none; /* Elimina el límite máximo */
+    }
+
+    .col-lg-6.text-center h1 {
+        font-size: 1.75rem;
+    }
+
+    .col-lg-6.text-center h5 {
+        font-size: 1rem;
+    }
+
+    #contact-form {
+        padding: 1rem; /* Menos padding en móviles */
+    }
+
+    #contact-form input,
+    #contact-form textarea {
+        padding: 0.5rem;
+    }
 }

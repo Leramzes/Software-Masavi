@@ -6,10 +6,15 @@ body {
     scroll-behavior: smooth;
 }
 
+html {
+    font-size: 16px; /* Establece el tamaño base para rem */
+}
+
 body {
     display: flex;
     flex-direction: column;
-    padding-top: 105px;
+    font-size: 1rem;
+    padding-top: 6.5625rem;
 }
 
 main {
@@ -26,7 +31,7 @@ main {
 
 /* Botones */
 .btn {
-    padding: 8px 20px;
+    padding: 0.5rem 1.25rem;
     font-size: 1rem;
     border: solid #008000;
 }
@@ -42,13 +47,13 @@ main {
 .nav-link:hover {
     color: #008000;
     background-color: #04ff0033;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
     transition: background-color 0.3s ease;
 }
 
 .nav-link.active {
     color: #008000 !important;
-    border-radius: 5px;
+    border-radius: 0.3125rem;
 }
 
 /* Estilo del navbar */
@@ -78,6 +83,7 @@ main {
 
 /* Estilo para el footer */
 footer .fab {
+    font-size: 1.5rem;
     color: #ffffff;
     transition: color 0.3s ease;
 }

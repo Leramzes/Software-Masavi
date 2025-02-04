@@ -1,3 +1,24 @@
+/* Estilos base */
+html {
+    font-size: 16px;
+}
+
+/* Contenedor principal */
+.container-fluid {
+    margin: 0;
+}
+
+/* Contenedor del formulario */
+.register-container {
+    width: 90%;
+    max-width: 28rem;
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+    margin: 1rem auto; /* Centrado */
+}
+
 /* Icono de la contraseña */
 .mb-3 {
     position: relative;
@@ -7,27 +28,47 @@
 .fa-eye-slash {
     position: absolute;
     top: 60%;
-    right: 10px;
+    right: 0.625rem;
     cursor: pointer;
-}
-
-/* Opcional: ajustamos un poco el tamaño del icono */
-.fa-eye,
-.fa-eye-slash {
     font-size: 1.2rem;
 }
 
-/* Para asegurar que todo el formulario se vea bien */
+/* Estilo para el formulario */
 #register-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: auto;
+    padding: 1.25rem;
     background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.625rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 /* Estilo de los iconos de error */
 .text-danger {
     font-size: 0.9rem;
+}
+
+/* Estilos responsivos para pantallas de 915px o menos */
+@media (max-width: 915px) {
+    .register-container {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: none; /* Elimina el límite máximo */
+        padding: 1rem; /* Menos padding en móviles */
+    }
+
+    .col-12.text-center h1 {
+        font-size: 1.75rem;
+    }
+
+    .col-12.text-center h5 {
+        font-size: 1rem;
+    }
+
+    #register-form {
+        padding: 1rem;
+    }
+
+    .fa-eye,
+    .fa-eye-slash {
+        font-size: 1rem;
+    }
 }

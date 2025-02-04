@@ -78,7 +78,7 @@
                 <div class="col-12 col-md-4 text-center animate-on-scroll" data-animation="animate__zoomIn" data-delay="1s">
                     <div class="bg-secondary rounded-circle d-flex justify-content-center align-items-center"
                          style="width: 180px; height: 180px; margin: auto; overflow: hidden;">
-                        <img src="img/producto.jpg" alt="Historia" class="img-fluid"
+                        <img src="img/historia.png" alt="Historia" class="img-fluid"
                              style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
@@ -91,7 +91,7 @@
         <div class="row text-center gy-4 mb-4">
             <!-- Misión -->
             <div class="col-12 col-md-4">
-                <div class="transparente rounded-4 border-0 shadow p-4 h-100 animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="1s">
+                <div class="transparente rounded-4 border-0 shadow p-3 p-md-4 h-100 animate-on-scroll" data-animation="animate__fadeInLeft" data-delay="1s">
                     <div class="text-center mb-3">
                         <i class="fa-regular fa-handshake fa-3x text-primary"></i>
                     </div>
@@ -106,7 +106,7 @@
             </div>
             <!-- Visión -->
             <div class="col-12 col-md-4">
-                <div class="transparente rounded-4 border-0 shadow p-4 h-100 animate-on-scroll" data-animation="animate__fadeInDown" data-delay="2s">
+                <div class="transparente rounded-4 border-0 shadow p-3 p-md-4 h-100 animate-on-scroll" data-animation="animate__fadeInDown" data-delay="2s">
                     <div class="text-center mb-3">
                         <i class="fa-regular fa-eye fa-3x text-success"></i>
                     </div>
@@ -122,7 +122,7 @@
             </div>
             <!-- Valores -->
             <div class="col-12 col-md-4">
-                <div class="transparente rounded-4 border-0 shadow p-4 h-100 animate-on-scroll" data-animation="animate__fadeInRight" data-delay="3s">
+                <div class="transparente rounded-4 border-0 shadow p-3 p-md-4 h-100 animate-on-scroll" data-animation="animate__fadeInRight" data-delay="3s">
                     <div class="text-center mb-3">
                         <i class="fa-regular fa-star fa-3x text-warning"></i>
                     </div>

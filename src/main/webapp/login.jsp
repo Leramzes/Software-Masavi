@@ -23,23 +23,23 @@
 
 <%@ include file="header.jsp" %>
 
-<main class="row w-100 container-fluid bg-main d-flex align-items-center justify-content-center">
+<main class="row container-fluid bg-main d-flex align-items-center justify-content-center">
     <!-- Texto -->
-    <div class="col-lg-6 col-md-6 col-sm-12 d-flex flex-column text-center text-light text-primary-emphasis">
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex flex-column text-center text-light text-primary-emphasis my-2">
         <h1 class="mt-3">Inicia sesión en el sistema <strong>MASAVI</strong></h1>
         <h5 class="mt-3">Tu puerta a productos agroquímicos de calidad y asesoría especializada</h5>
     </div>
 
     <!-- Formulario de inicio de sesión -->
-    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
-        <div class="w-75 p-4 bg-light rounded shadow">
+    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center my-2">
+        <div class="login-container">
             <!-- Encabezado -->
             <h2 class="text-center mb-4">Iniciar Sesión</h2>
 
             <!-- Formulario -->
             <form id="login-form" action="validar" method="post">
                 <input type="hidden" name="accion" value="Ingresar">
-                <!-- Campo de correo electrónica -->
+                <!-- Campo de correo electrónico -->
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo Electrónico</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Ingrese su correo electrónico"
@@ -67,7 +67,6 @@
         </div>
     </div>
 </main>
-
 <%@ include file="footer.jsp" %>
 
 <!--Enlace de Bootstrap JavaScript-->

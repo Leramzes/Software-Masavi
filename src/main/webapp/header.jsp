@@ -29,8 +29,42 @@
     String contactActive = currentPage.endsWith("contact_us.jsp") ? "active" : "";
     String cartActive = currentPage.contains("cart") ? "active" : "";
 %>
+<head>
+    <title>Masavi</title>
+    <style>
+        /* Estilos para el navbar */
+        .navbar {
+            padding: 1rem 0; /* Ajusta el padding vertical */
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px #76ac0076;
+        }
+
+        .navbar-brand img {
+            max-width: 5rem; /* Tamaño del logo */
+            height: auto;
+        }
+
+        .nav-link {
+            font-size: 1rem; /* Tamaño de fuente */
+            padding: 0.5rem 1rem; /* Padding interno */
+            transition: all 0.3s ease; /* Transición suave */
+        }
+
+        /* Estilos para el botón de carrito */
+        .nav-link .fa-bag-shopping {
+            font-size: 1.2rem; /* Tamaño del ícono */
+        }
+
+        /* Estilos para el botón de usuario */
+        .dropdown-toggle {
+            padding: 0.5rem 1rem; /* Padding interno */
+            font-size: 1rem; /* Tamaño de fuente */
+        }
+    </style>
+</head>
+
 <header>
-    <nav class="navbar navbar-expand-lg fixed-top px-lg-5 px-md-5 px-sm-5" style="background-color: #ffffff; box-shadow: 0 4px 8px #76ac0076;">
+    <nav class="navbar navbar-expand-lg fixed-top px-lg-5 px-md-5 px-sm-5">
         <div class="container-fluid">
             <!-- Logo alineado a la izquierda -->
             <a class="navbar-brand" href="index.jsp">
@@ -48,21 +82,21 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <!-- Menú de navegación -->
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-end">
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link <%= homeActive %>" id="navInicio" aria-current="page" href="index.jsp">Inicio</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link <%= aboutActive %>" id="navNosotros" href="<%= linkToAboutUs %>">Nosotros</a>
                     </li>
                     <form action="product" method="post">
-                        <li class="nav-item">
+                        <li class="nav-item px-1">
                             <button class="nav-link <%= productsActive %>" type="submit">Productos</button>
                         </li>
                     </form>
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link <%= contactActive %>" href="contact_us.jsp">Contáctanos</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <form action="cart" method="get" class="position-relative">
                             <button class="nav-link <%= cartActive %>" type="submit">
                                 <i class="fa-solid fa-bag-shopping me-1"></i>

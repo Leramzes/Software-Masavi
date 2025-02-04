@@ -32,19 +32,6 @@ main video {
     object-fit: contain;
 }
 
-/* Estilos generales para dispositivos pequeños */
-@media (max-width: 767px) {
-    .responsive-img {
-        width: 100%;
-        height: auto;
-    }
-
-    .container {
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-}
-
 /* Estilos para evitar desbordamiento horizontal */
 body,
 html {
@@ -65,4 +52,24 @@ html {
     background: #76ac00;
     border-radius: 5px;
     margin: 30px 0;
+}
+
+/* Estilos generales para dispositivos pequeños */
+@media (max-width: 915px) {
+    html {
+        font-size: 14px;
+    }
+
+    .responsive-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .transparente {
+        padding: 0.9375rem;
+    }
+
+    .divider {
+        margin: 1.25rem 0;
+    }
 }

@@ -46,55 +46,54 @@
     });
     <%}}%>
 </script>
-<main class="container-fluid bg-main">
-    <div class="row w-100 d-flex justify-content-center align-items-center">
-        <!-- Texto -->
-        <div class="col-lg-6 col-md-6 col-sm-12 d-flex flex-column text-center text-primary-emphasis">
-            <h1 class="mt-3">Contáctanos y haz crecer tu cultivo</h1>
-            <h5 class="mt-3">Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto contigo lo antes posible</h5>
-        </div>
 
-        <!-- Formulario de Contactanos-->
-        <div class="col-lg-6 col-md-6 col-sm-12 d-flex p-4 justify-content-center align-items-center">
-            <div class="w-75 p-4 bg-light rounded shadow">
-                <h2 class="text-center mb-4">Contáctanos</h2>
+<main class="row container-fluid bg-main d-flex justify-content-center align-items-center">
+    <!-- Texto -->
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex flex-column text-center text-primary-emphasis my-2">
+        <h1 class="mt-3">Contáctanos y haz crecer tu cultivo</h1>
+        <h5 class="mt-3">Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto contigo lo antes posible</h5>
+    </div>
 
-                <!-- Formulario -->
-                <form id="contact-form" action="correo" method="post" >
-                    <!-- Campo de Nombre Completo -->
-                    <div class="mb-3">
-                        <label for="full-name" class="form-label">Nombre Completo</label>
-                        <input type="text" class="form-control" id="full-name" placeholder="Ingrese su nombre completo" name="name" required>
+    <!-- Formulario de Contacto -->
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex p-4 justify-content-center align-items-center my-2">
+        <div class="contact-container">
+            <h2 class="text-center mb-4">Contáctanos</h2>
+
+            <!-- Formulario -->
+            <form id="contact-form" action="correo" method="post">
+                <!-- Campo de Nombre Completo -->
+                <div class="mb-3">
+                    <label for="full-name" class="form-label">Nombre Completo</label>
+                    <input type="text" class="form-control" id="full-name" placeholder="Ingrese su nombre completo" name="name" required>
+                </div>
+
+                <!-- Campo de Correo Electrónico -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" name="correo" required>
+                    <div id="email-error" class="text-danger mt-1" style="display: none;">
+                        El correo debe ser de Gmail o Hotmail y tener un formato válido.
                     </div>
+                </div>
 
-                    <!-- Campo de Correo Electrónico -->
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Correo Electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico" name="correo" required>
-                        <%--<div id="email-error" class="text-danger mt-1" style="display: none;">
-                            El correo debe ser de Gmail o Hotmail y tener un formato válido.
-                        </div>--%>
+                <!-- Campo de Celular -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Celular</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="Ingrese su número de celular" name="celphone" required>
+                    <div id="phone-error" class="text-danger mt-1" style="display: none;">
+                        El número de celular debe tener el formato válido (ejemplo: 123-456-789).
                     </div>
+                </div>
 
-                    <!-- Campo de Celular -->
-                    <div class="mb-3">
-                        <label for="phone" class="form-label">Celular</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Ingrese su número de celular" name="celphone" required>
-                        <%--<div id="phone-error" class="text-danger mt-1" style="display: none;">
-                            El número de celular debe tener el formato válido (ejemplo: 123-456-789).
-                        </div>--%>
-                    </div>
+                <!-- Campo de Mensaje -->
+                <div class="mb-3">
+                    <label for="message" class="form-label">Mensaje</label>
+                    <textarea class="form-control" id="message" rows="4" placeholder="Escriba su mensaje" name="message" required></textarea>
+                </div>
 
-                    <!-- Campo de Mensaje -->
-                    <div class="mb-3">
-                        <label for="message" class="form-label">Mensaje</label>
-                        <textarea class="form-control" id="message" rows="4" placeholder="Escriba su mensaje" name="message" required></textarea>
-                    </div>
-
-                    <!-- Botón de Enviar -->
-                    <button type="submit" class="btn btn-success w-100">Enviar</button>
-                </form>
-            </div>
+                <!-- Botón de Enviar -->
+                <button type="submit" class="btn btn-success w-100">Enviar</button>
+            </form>
         </div>
     </div>
 </main>
