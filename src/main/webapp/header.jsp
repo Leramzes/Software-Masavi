@@ -120,7 +120,7 @@
                         String nameUser = user.getEmail().split("@")[0];
                 %>
                     <!-- Información del usuario -->
-                    <div class="dropdown-center mx-2">
+                    <div class="dropdown-center mx-2 d-flex justify-content-end">
                         <button class="btn dropdown-toggle rounded-pill border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-user me-1"></i>
                             <span><%=nameUser%></span>
