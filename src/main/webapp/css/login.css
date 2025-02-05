@@ -3,6 +3,20 @@ html {
     font-size: 16px; /* Tamaño base para rem */
 }
 
+body {
+    overflow-x: hidden;
+}
+
+.bg-main {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    padding-bottom: 100px;
+}
+
 /* Elimina el espaciado lateral del contenedor principal */
 .container-fluid {
     margin: 0;

@@ -86,7 +86,7 @@
                 </div>
 
                 <!-- Botón de registro -->
-                <button type="submit" class="btn btn-success w-100">Registrar</button>
+                <button type="submit" class="btn btn-success w-100" id="btnRegistrar">Registrar</button>
 
                 <!-- Enlace para iniciar sesión -->
                 <p class="text-center mt-3 mb-0">
@@ -106,6 +106,9 @@
 
 <!--Enlace de JavaScript-->
 <script src="js/register.js"></script>
+
+<!--Enlace de JavaScript - SweetAlert2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 

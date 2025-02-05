@@ -77,6 +77,9 @@
 <!--Enlace de JavaScript-->
 <script src="js/login.js"></script>
 
+<!--Enlace de JavaScript - SweetAlert2-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 
 </html>

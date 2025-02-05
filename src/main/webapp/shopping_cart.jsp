@@ -707,7 +707,7 @@
             icon: 'success',
             confirmButtonText: 'Aceptar'
         }).then((result) => {
-            if (result.isConfirmed) {
+            if (result) {
                 // Mostrar indicador de carga mientras se redirige
                 Swal.fire({
                     title: 'Redirigiendo...',

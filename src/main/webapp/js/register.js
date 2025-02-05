@@ -98,17 +98,35 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleConfirmPassword.classList.replace('fa-eye-slash', 'fa-eye');
         }
     });
-
-    // Enviar formulario
-    document.getElementById('register-form').addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        // Validaciones finales antes de enviar
-        if (emailError.style.display === 'none' && usernameError.style.display === 'none' && confirmPasswordError.style.display === 'none' && passwordStrengthBar.style.width === '100%') {
-            alert("Registro exitoso.");
-            // Aquí va la lógica para registrar al usuario (enviar a servidor, etc.)
-        } else {
-            alert("Por favor, corrija los errores antes de registrar.");
-        }
-    });
 });
+
+document.getElementById('register-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    Swal.fire({
+        title: 'Registrando...',
+        text: 'Por favor, espere.',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        },
+        showConfirmButton: false
+    });
+
+    // Simula un pequeño retraso antes de la alerta de éxito
+    setTimeout(() => {
+        Swal.fire({
+            title: "¡Registro exitoso!",
+            text: "Serás redirigido a la página de Iniciar Sesión.",
+            icon: "success",
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+        // Enviar el formulario después de la alerta de éxito
+        setTimeout(() => {
+            document.getElementById("register-form").submit();
+        }, 2000);
+    }, 2000);
+});
+
+    // Validaciones finales antes de enviar
