@@ -1,132 +1,110 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const emailInput = document.getElementById('email');
-    const usernameInput = document.getElementById('username');
-    const passwordInput = document.getElementById('password');
-    const confirmPasswordInput = document.getElementById('confirm-password');
-    const passwordStrengthBar = document.getElementById('password-bar');
-    const passwordFeedback = document.getElementById('password-feedback');
-    const emailError = document.getElementById('email-error');
-    const usernameError = document.getElementById('username-error');
-    const confirmPasswordError = document.getElementById('confirm-password-error');
+document.addEventListener("DOMContentLoaded", () => {
+    const emailInput = document.getElementById("email");
+    const emailError = document.getElementById("email-error");
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirm-password");
+    const telefonoInput = document.getElementById("telefono");
 
-    const existingUsernames = ["user1", "admin", "testuser"]; // Simulación de usuarios preexistentes
-
-    // Validación de correo
-    emailInput.addEventListener('input', () => {
-        const emailValue = emailInput.value;
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com)$/;
-        if (!emailRegex.test(emailValue)) {
-            emailError.style.display = 'block';
+    // Validación de correo electrónico (Gmail y Hotmail)
+    emailInput.addEventListener("input", () => {
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail|hotmail)\.com$/;
+        if (!emailPattern.test(emailInput.value)) {
+            emailError.style.display = "block";
         } else {
-            emailError.style.display = 'none';
+            emailError.style.display = "none";
         }
     });
 
-    // Validación de nombre de usuario
-    usernameInput.addEventListener('input', () => {
-        const usernameValue = usernameInput.value;
-        if (existingUsernames.includes(usernameValue)) {
-            usernameError.style.display = 'block';
+    // Validación de número de celular
+    telefonoInput.addEventListener("input", () => {
+        let telefono = telefonoInput.value.replace(/\D/g, ""); // Eliminar caracteres no numéricos
+        const telefonoError = document.getElementById("telefono-error");
+
+        if (!telefonoError) {
+            const errorDiv = document.createElement("div");
+            errorDiv.id = "telefono-error";
+            errorDiv.classList.add("text-danger", "mt-1");
+            telefonoInput.parentNode.appendChild(errorDiv);
+        }
+
+        // Aplicar formato +51 (XXX-XXX-XXX)
+        if (telefono.startsWith("51")) {
+            telefono = "+51 " + telefono.substring(2).replace(/(\d{3})(\d{3})(\d{3})/, "($1-$2-$3)");
         } else {
-            usernameError.style.display = 'none';
+            telefono = "+51 ";
+        }
+        telefonoInput.value = telefono;
+
+        // Validar formato correcto
+        const telefonoPattern = /^\+51\s\(\d{3}-\d{3}-\d{3}\)$/;
+        if (!telefonoPattern.test(telefonoInput.value)) {
+            document.getElementById("telefono-error").textContent = "Formato inválido. Use: +51 (123-456-789)";
+        } else {
+            document.getElementById("telefono-error").textContent = "";
         }
     });
 
-    // Validación de la seguridad de la contraseña
-    passwordInput.addEventListener('input', () => {
-        const passwordValue = passwordInput.value;
-        const strength = calculatePasswordStrength(passwordValue);
-        updatePasswordStrengthBar(strength);
-    });
+    // Evento para mostrar el Sweetalert al enviar el formulario
+    document.getElementById("register-form").addEventListener("submit", (e) => {
+        e.preventDefault();
 
-    // Contraseñas coincidentes
-    confirmPasswordInput.addEventListener('input', () => {
-        const passwordValue = passwordInput.value;
-        const confirmPasswordValue = confirmPasswordInput.value;
-        if (passwordValue !== confirmPasswordValue) {
-            confirmPasswordError.style.display = 'block';
-        } else {
-            confirmPasswordError.style.display = 'none';
+        // Validar que las contraseñas coincidan antes de enviar
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            Swal.fire({
+                title: "Error",
+                text: "Las contraseñas no coinciden.",
+                icon: "error",
+                confirmButtonText: "Aceptar",
+            });
+            return;
         }
-    });
 
-    // Función para calcular la fuerza de la contraseña
-    function calculatePasswordStrength(password) {
-        let strength = 0;
-        if (password.length >= 8) strength += 25;
-        if (/[A-Z]/.test(password)) strength += 25;
-        if (/[0-9]/.test(password)) strength += 25;
-        if (/[^A-Za-z0-9]/.test(password)) strength += 25;
-        return strength;
-    }
-
-    // Función para actualizar la barra de seguridad de la contraseña
-    function updatePasswordStrengthBar(strength) {
-        passwordStrengthBar.style.width = strength + '%';
-        if (strength < 50) {
-            passwordFeedback.textContent = 'Contraseña débil';
-            passwordFeedback.style.color = 'red';
-        } else if (strength < 75) {
-            passwordFeedback.textContent = 'Contraseña media';
-            passwordFeedback.style.color = 'orange';
-        } else {
-            passwordFeedback.textContent = 'Contraseña fuerte';
-            passwordFeedback.style.color = 'green';
-        }
-    }
-
-    // Mostrar u ocultar contraseñas
-    const togglePassword = document.getElementById('toggle-password');
-    const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
-
-    togglePassword.addEventListener('click', () => {
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            togglePassword.classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            togglePassword.classList.replace('fa-eye-slash', 'fa-eye');
-        }
-    });
-
-    toggleConfirmPassword.addEventListener('click', () => {
-        if (confirmPasswordInput.type === 'password') {
-            confirmPasswordInput.type = 'text';
-            toggleConfirmPassword.classList.replace('fa-eye', 'fa-eye-slash');
-        } else {
-            confirmPasswordInput.type = 'password';
-            toggleConfirmPassword.classList.replace('fa-eye-slash', 'fa-eye');
-        }
-    });
-});
-
-document.getElementById('register-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    Swal.fire({
-        title: 'Registrando...',
-        text: 'Por favor, espere.',
-        allowOutsideClick: false,
-        didOpen: () => {
-            Swal.showLoading();
-        },
-        showConfirmButton: false
-    });
-
-    // Simula un pequeño retraso antes de la alerta de éxito
-    setTimeout(() => {
         Swal.fire({
-            title: "¡Registro exitoso!",
-            text: "Serás redirigido a la página de Iniciar Sesión.",
-            icon: "success",
-            timer: 2000,
-            showConfirmButton: false
+            title: "Registrando...",
+            text: "Por favor, espere.",
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            },
+            showConfirmButton: false,
         });
 
-        // Enviar el formulario después de la alerta de éxito
         setTimeout(() => {
-            document.getElementById("register-form").submit();
-        }, 2000);
-    }, 2000);
-});
+            Swal.fire({
+                title: "¡Registro exitoso!",
+                text: "Serás redirigido a la página de Iniciar Sesión.",
+                icon: "success",
+                timer: 2000,
+                showConfirmButton: false,
+            });
 
-    // Validaciones finales antes de enviar
+            setTimeout(() => {
+                document.getElementById("register-form").submit();
+            }, 2000);
+        }, 2000);
+    });
+
+    // Mostrar u ocultar Contraseña
+    document.getElementById("toggle-password").addEventListener("click", () => {
+        togglePasswordVisibility("password", "toggle-password");
+    });
+
+    document.getElementById("toggle-confirm-password").addEventListener("click", () => {
+        togglePasswordVisibility("confirm-password", "toggle-confirm-password");
+    });
+
+    function togglePasswordVisibility(inputId, iconId) {
+        const passwordField = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+});
